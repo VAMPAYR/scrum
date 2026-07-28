@@ -1,5 +1,7 @@
 # Impediments
 
+*Illustrative output from the fictional project in `examples/first-sprint/walkthrough.md`, not a real project's state.*
+
 ### IMP-001: No test images with known EXIF timestamps
 - Status: closed
 - Blocker: The repo had no sample photos with known DateTimeOriginal values, so the rename output could not be asserted against a known-correct name.

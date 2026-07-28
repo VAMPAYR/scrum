@@ -23,6 +23,10 @@ real outcomes, not paperwork: real stakeholder feedback, a real releasable
 Increment each Sprint, real improvements that change later behavior, and real
 self-organization visible in the file traces.
 
+The four symptom areas and the dysfunction diagnostic restated here derive from
+published work on Scrum dysfunction (Verwijs, Schartau, and Overeem, 2021). See
+`ATTRIBUTION.md`.
+
 The four symptom areas are connected. When Sprints stop producing a working
 Increment, the feedback loop closes, validation is lost, Sprints feel like empty
 timeboxes, the urge to improve fades, and self-organization erodes. Recovery in
@@ -193,7 +197,7 @@ Applied after scoring.
 | S3.1 or S3.5 fails | Retrospectives produce nothing or nothing that sticks | Make each improvement specific and measured; inspect metrics in Retros; verify prior items were acted on |
 | Multiple areas flag at once | The areas are connected; symptoms reinforce each other | Start small on one improvement the team controls; do not attempt all at once |
 | A recommended improvement is too large for one Sprint | It will stall and demotivate | Break it down to a first step that fits one Sprint |
-| The stakeholder asks to share the health report upward | Trust risk in the source model | Report to the stakeholder plainly; never use area scores to compare or rank teams |
+| The stakeholder asks to share the health report upward | The scores are a self-inspection aid for the team, not a performance measure | Report to the stakeholder plainly; never use area scores to compare or rank teams |
 
 ## 7. Reporting findings and feeding recovery
 

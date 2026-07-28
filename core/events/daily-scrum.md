@@ -94,7 +94,8 @@ Decision rules for the checkpoint:
 
 ## Timebox
 
-Official Scrum bounds the Daily Scrum at fifteen minutes for a Sprint of standard length.
+The Scrum Guide (2020) bounds the Daily Scrum at fifteen minutes for a Sprint of standard
+length.
 
 **Adaptation.** The checkpoint sync is proportional to the compressed Sprint and runs
 once per task batch rather than once per calendar day. It stays brief, a few exchanges,

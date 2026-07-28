@@ -1,5 +1,7 @@
 # Sprint 001 Review
 
+*Illustrative output from the fictional project in `examples/first-sprint/walkthrough.md`, not a real project's state.*
+
 - Date: 2026-07-14
 - Sprint Goal (recap): A photographer can rename single photos to their capture date from the terminal and preview the change first, safely, without ever losing a file.
 - Sprint Goal met: yes

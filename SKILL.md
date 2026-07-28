@@ -176,8 +176,8 @@ gate.
 ```
 
 A "Sprint" here is one work cycle bound to a single Sprint Goal, typically a
-session of hours rather than weeks. This stays inside the official Scrum timebox
-of one month or less. See the adaptation notes in `core/events/`.
+session of hours rather than weeks. This stays inside the Scrum Guide (2020)
+timebox of one month or less. See the adaptation notes in `core/events/`.
 
 ## The Definition of Done gate
 
@@ -248,8 +248,8 @@ project.
 
 ## Fidelity
 
-The official Scrum definition (2020) is canonical for accountabilities, events,
-artifacts, commitments, the three pillars, and the values. Never contradict it
-silently. Every deliberate adaptation for AI teams carries an "Adaptation:" note.
-The extended practices strengthen the framework and never override it. Define any
+The Scrum Guide (2020) is canonical for accountabilities, events, artifacts,
+commitments, the three pillars, and the values. Never contradict it silently.
+Every deliberate adaptation for AI teams carries an "Adaptation:" note. The
+extended practices strengthen the framework and never override it. Define any
 Scrum term on first use.

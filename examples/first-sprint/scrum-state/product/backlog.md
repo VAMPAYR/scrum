@@ -1,5 +1,7 @@
 # Product Backlog
 
+*Illustrative output from the fictional project in `examples/first-sprint/walkthrough.md`, not a real project's state.*
+
 ## Ordered items
 
 ### PBI-002: Rename every photo in a folder

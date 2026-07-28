@@ -1,16 +1,16 @@
 # Definition of Done
 
 The Definition of Done (DoD) is the quality bar an Increment must clear before it
-counts as real. It is a commitment attached to the Increment: a formal
-description of the state the Increment reaches when it meets the quality measures
-required for the product. The moment a Product Backlog Item (PBI) meets the DoD,
-an Increment exists. A PBI that does not meet the DoD is not released and is not
-presented at Sprint Review; it returns to the Product Backlog for future
-consideration.
+counts as real. It is the commitment attached to the Increment: one written,
+shared standard that spells out what has to be true of a piece of work before the
+product can carry it. An Increment comes into existence the moment a Product
+Backlog Item (PBI) satisfies that standard. A PBI that falls short of it stays
+out of the release and out of the Sprint Review, and goes back onto the Product
+Backlog for a later decision.
 
 This skill enforces the DoD as a verification gate with recorded evidence, not a
 self-reported checkbox. This file defines the two universal tiers (Tier 0 and
-Tier 1), the gate protocol, the official rules that govern any DoD, and how
+Tier 1), the gate protocol, the Scrum Guide rules that govern any DoD, and how
 project-specific criteria (Tier 3) merge in. Stack-specific criteria (Tier 2)
 live in `core/dod/profiles.md`. The fuller engineering reference the Developers
 draw from is `core/engineering-standards.md`.
@@ -266,16 +266,16 @@ PBI as complete without recorded evidence (see `core/orchestrator.md`, section 5
 evidence never trust). The PBI record format and its `DoD evidence` field are
 fixed in `SKILL.md`.
 
-## Official rules that govern a DoD
+## Scrum Guide rules that govern a DoD
 
-The DoD is not the team's private preference. Three rules from the official Scrum
-definition (2020) constrain it, stated here as the skill's own rules.
+The DoD is not the team's private preference. Three rules from the Scrum Guide
+(2020) constrain it, stated here as the skill's own rules.
 
-- **Organizational floor.** If the Definition of Done is part of the standards of
-  the organization, all Scrum Teams follow it as a minimum. If no organizational
-  standard exists, the Scrum Team creates one appropriate for the product. In
-  this skill, the Tier 3 merge treats any detected organizational standard as that
-  floor (see below).
+- **Organizational floor.** Where the wider organization already publishes a
+  quality standard, that standard binds every team as a minimum. Where none
+  exists, the Scrum Team writes one that fits the product. In this skill, the
+  Tier 3 merge treats any detected organizational standard as that floor (see
+  below).
 - **Strengthen, never weaken.** A team may add criteria above the floor; it may
   not drop below it. Expanding the DoD is part of continuous improvement: as the
   team closes a capability gap (for example a reliable deployment pipeline), it
@@ -284,9 +284,9 @@ definition (2020) constrain it, stated here as the skill's own rules.
   floor.
 - **Who owns it.** The Scrum Team creates and owns its DoD. The Developers are
   accountable for conforming to it and for judging whether an Increment is
-  releasable against it; nobody outside the Developers can force delivery of work
-  that is not Done. The Product Owner is accountable for not reducing the quality
-  goals the DoD encodes. In this skill the Orchestrator holds the gate; the
+  releasable against it. Nobody outside the team can compel delivery of work that
+  has not met the standard. The Product Owner is accountable for not reducing the
+  quality goals the DoD encodes. In this skill the Orchestrator holds the gate; the
   Product Owner protects the quality goals during ordering and acceptance; the
   Developer agents deliver against the DoD. Roles stay labeled and separated (see
   `core/orchestrator.md`, section 6, role labeling).
@@ -318,7 +318,7 @@ walks; this file is the source the instantiation is built from.
 
 ## Adaptation note
 
-**Adaptation:** Official Scrum leaves the content of a DoD to the team. This skill
+**Adaptation:** The Scrum Guide leaves the content of a DoD to the team. This skill
 ships a concrete, tiered, evidence-gated default (Tier 0 and Tier 1) so a new
 project has a working quality bar on day one, and treats detected organizational
 standards as a floor on top of it. The intent, an Increment that is genuinely

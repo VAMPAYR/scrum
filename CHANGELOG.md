@@ -4,6 +4,36 @@ Notable changes to this package are recorded here, newest first. Versions follow
 semantic versioning (MAJOR.MINOR.PATCH). Each release names what changed; a change
 to the `.scrum/` state layout bumps the `Format` field and ships a migration note.
 
+## 1.2.0 - 2026-07-28
+
+Attribution and licensing pass.
+
+- `ATTRIBUTION.md` at the package root credits the Scrum Guide (2020) by Ken
+  Schwaber and Jeff Sutherland, published under the Creative Commons
+  Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0), as the
+  definition of Scrum this package follows, alongside the other frameworks,
+  models, and practice literature the package builds on. Where a distinctive
+  taxonomy is reused (a named set of levels, areas, or measures), the file that
+  uses it credits the originator at the point of use as well.
+- Passages that previously tracked the Guide's wording too closely are restated,
+  so the package's own text is original throughout and the MIT license in
+  `LICENSE` applies cleanly to it.
+- Corrected a refinement effort figure that came from a pre-2020 edition of the
+  Guide and does not appear in the 2020 Guide. Refinement is now described as an
+  ongoing activity sized to keep enough ready items ahead of the next Planning.
+- Replaced the contribution rule that forbade citations with one that requires
+  attribution: the prose stays free of name-dropping, and every reused framework,
+  model, or standard is credited in `ATTRIBUTION.md` and at its point of use.
+- Removed product-specific detail from the examples in
+  `core/engineering-standards.md`. The regression-test example states the shape
+  of the record rather than one project's pull request and roles, and the scope
+  note states the general principle it keeps instead of a single project's file
+  policy.
+
+`Format` stays 1: no state-file shape changed. This release edits prose and adds
+a file at the package root, so an existing `.scrum/` directory is untouched and a
+project written under 1.1.0 or 1.0.0 resumes without migration.
+
 ## 1.1.0 - 2026-07-28
 
 - Staffing tiers in `.scrum/team.md`: a model tier per seat, with the strongest

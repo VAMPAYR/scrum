@@ -64,9 +64,9 @@ Subagents can each run a different model, so the Staffing section of
   available model, briefed on the hardest or highest-blast-radius task of the
   Sprint and on any task a rung of the escalation ladder has already failed.
   **Adaptation:** this is a skill distribution inside the single Developers
-  accountability, not a new role or title. Official Scrum defines no sub-roles or
-  titles inside Developers, and the senior Developer holds no authority the other
-  Developers lack.
+  accountability, not a new role or title. The Scrum Guide (2020) defines no
+  sub-roles or titles inside Developers, and the senior Developer holds no
+  authority the other Developers lack.
 - Verifier: at least the implementer's tier, and the strongest available for
   security-sensitive or irreversible work. A weaker verifier cannot gate a
   stronger implementer.

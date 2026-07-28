@@ -7,10 +7,11 @@ and build commands, its CI gates, and its existing standards files, then merges
 those findings into Tier 3 of the Definition of Done. The founding interview
 captures the stakeholder's preferences; the scan captures the codebase's facts.
 
-The governing rule is an official Scrum rule for the Definition of Done: where an
-organization already has a standard, that standard is the minimum the team works
-to, and the team may only add to it. Existing org standards are a floor. The scan
-never weakens a detected standard; it records it and lets the team strengthen it.
+The governing rule comes from the Scrum Guide (2020) rules for the Definition of
+Done: where an organization already has a standard, that standard is the minimum
+the team works to, and the team may only add to it. Existing org standards are a
+floor. The scan never weakens a detected standard; it records it and lets the
+team strengthen it.
 
 ## What the scan produces
 

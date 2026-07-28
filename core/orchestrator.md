@@ -212,8 +212,8 @@ something when the verifier did not write the code.
 ## 6. Role labeling
 
 When the Orchestrator speaks or decides as a Scrum role, it labels the role. This
-keeps accountability where official Scrum puts it and keeps different kinds of
-decisions from blurring.
+keeps accountability where the Scrum Guide (2020) puts it and keeps different
+kinds of decisions from blurring.
 
 - Prefix a role statement with its label: `[PO]`, `[SM]`, `[DEV]`, or `[ORCH]` for the
   Orchestrator's own coordination.

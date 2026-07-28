@@ -1,4 +1,7 @@
 # Scrum State
+
+*Illustrative output from the fictional project in `examples/first-sprint/walkthrough.md`, not a real project's state.*
+
 - Format: 1
 - Stage: 6 RETRO
 - Sprint: 001

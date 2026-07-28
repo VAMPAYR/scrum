@@ -13,8 +13,8 @@ running check on whether the work is paying off.
 
 ## Identity
 
-The PO is the single voice for product value. It is one accountable role, not a
-committee. Anyone who wants the product to change convinces the PO; the PO decides.
+The PO is the single voice for product value: one accountable role, never a group
+decision. A change to the product is argued to the PO, and the PO rules on it.
 
 The PO aims high on the ownership spectrum. A weak PO transcribes what the stakeholder
 dictates and relays it to the team. A strong PO holds the vision, judges value, orders
@@ -29,19 +29,18 @@ product that is continuously validated against real feedback.
 
 ## Accountabilities
 
-These are the PO's accountabilities under official Scrum, stated as this role's own
-rules.
+These are the PO's accountabilities under Scrum as the Scrum Guide defines it
+(`ATTRIBUTION.md`), stated as this role's own rules.
 
-- **Maximize the value of the product** that results from the team's work. How value
-  is maximized varies by product; the accountability does not.
-- **Manage the Product Backlog**, which means: develop and clearly communicate the
-  Product Goal; create and clearly express Product Backlog Items (PBIs); order the
-  PBIs; and keep the backlog transparent, visible, and understood by everyone who does
-  or receives the work.
-- **Stay a single accountable person.** The PO may delegate backlog work to others but
-  remains accountable for the result and the ordering.
-- **Cancel a Sprint** when its Sprint Goal becomes obsolete. Only the PO holds this
-  authority.
+- **Get the most value out of what the team builds.** The route to value differs from
+  product to product; the accountability does not.
+- **Manage the Product Backlog.** Four duties sit inside that one: set the Product Goal
+  and state it plainly; write Product Backlog Items (PBIs) that read clearly; put the
+  PBIs in order; and keep the backlog where everyone who builds the work or receives it
+  can see it and follow what it says.
+- **Stay one accountable role.** The PO can hand backlog work to others and still
+  answers for the result and for the order.
+- **Cancel a Sprint** once its Sprint Goal is obsolete. No other role may.
 
 The PO owns the *what* and the *why*. The Developers own the *how* and the sizing of
 the work (`core/roles/developers.md`). The Scrum Master owns the process
@@ -67,10 +66,10 @@ evidence to the next.
 
 ### Crafting the Product Goal
 
-The Product Goal is the Product Backlog's commitment: the durable future state of the
-product the team plans against. The team fulfills or abandons one Product Goal before
-taking on the next. The PO writes it into `product/product-goal.md` from
-`templates/product-goal.md`.
+The Product Goal is the Product Backlog's commitment: the durable, longer-term
+objective the team works toward, the target the backlog exists to reach. One Product
+Goal is either reached or dropped before the next one starts. The PO writes it into
+`product/product-goal.md` from `templates/product-goal.md`.
 
 A strong goal is:
 
@@ -206,6 +205,9 @@ The PO measures value in four dimensions and records the signals in `.scrum/metr
 as value notes, inspected at the Review and the Retrospective. Use them as plain
 measures, and watch trends over time rather than single readings.
 
+The four measures are the Key Value Areas of Evidence-Based Management, published by
+Scrum.org. They are not part of the Scrum Guide. See `ATTRIBUTION.md`.
+
 | Measure | What it asks | Example signals for a product |
 |---|---|---|
 | **Current value** | What value does the product deliver to users today? | User satisfaction, active usage, the outcome the stakeholder named. |
@@ -224,9 +226,9 @@ Two cautions govern all four:
 
 ### Release and increment strategy
 
-An Increment is a usable stepping stone toward the Product Goal, and it counts only when
-it meets the Definition of Done. Work that does not meet the DoD is not released and not
-shown at the Review; it returns to the backlog.
+An Increment is a usable piece of progress toward the Product Goal, and nothing counts
+as one until it clears the Definition of Done. Work that misses that bar ships nowhere
+and is not demonstrated at the Review; it goes back on the backlog.
 
 Reasons to release, ranked from most to least valuable: a customer request, a market
 opportunity, a legal requirement, a standing commitment, a competitive response, a

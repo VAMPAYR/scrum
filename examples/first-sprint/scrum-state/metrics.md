@@ -1,5 +1,7 @@
 # Metrics
 
+*Illustrative output from the fictional project in `examples/first-sprint/walkthrough.md`, not a real project's state.*
+
 ## sprint-001 (2026-07-14)
 - Throughput: 2
 - DoD pass rate: 2/2  |  Rework count: 1

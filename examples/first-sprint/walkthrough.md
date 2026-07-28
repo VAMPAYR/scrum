@@ -1,7 +1,7 @@
 # First sprint walkthrough: exif-rename
 
-This is a condensed transcript of a first `scrum` session for an imaginary tiny
-project, `exif-rename`, a command-line tool that renames photo files to their
+This is a condensed, illustrative run of a first `scrum` session for an imaginary
+tiny project, `exif-rename`, a command-line tool that renames photo files to their
 capture date read from EXIF metadata. It runs from the first invocation through
 founding, vision, planning, one execution loop with a real Definition of Done
 gate failure and its rework, the Review, and the Retrospective.

@@ -55,12 +55,14 @@ does the building. No docs to read first.
 
 ## Example
 
-The fastest way to see what a session looks like is the worked walkthrough in
-`examples/first-sprint/walkthrough.md`. It runs one small project from the first
-invocation through founding, vision, planning, an execution loop with a real
-Definition of Done gate failure and its rework, the Review, and the
-Retrospective. The resulting state sits beside it in
-`examples/first-sprint/scrum-state/`, mirroring what the tool writes to `.scrum/`.
+The fastest way to see what a session looks like is the illustrative walkthrough
+in `examples/first-sprint/walkthrough.md`. It is a written-out session for a
+small fictional project, not a transcript of a real one, and it runs from the
+first invocation through founding, vision, planning, an execution loop that
+includes a Definition of Done gate failure and the rework it forces, the Review,
+and the Retrospective. The example state sits beside it in
+`examples/first-sprint/scrum-state/` and mirrors what the tool writes to
+`.scrum/` in a real project.
 
 ## Setup per runtime
 
@@ -206,7 +208,7 @@ What happens at each stage:
 
 Then the loop returns to refinement or planning until the Product Goal is met or
 you stop. A "Sprint" here is one work cycle bound to a single Sprint Goal, usually
-hours rather than weeks, inside the official Scrum timebox of one month or less.
+hours rather than weeks, inside the Scrum Guide's timebox of one month or less.
 
 ## Using it effectively
 
@@ -261,6 +263,7 @@ scrum/
 ├── README.md                 this file
 ├── CHANGELOG.md              version history
 ├── CONTRIBUTING.md           how to propose and test a change
+├── ATTRIBUTION.md            sources this package builds on, and their licenses
 ├── adapters/
 │   ├── claude-code.md        Orchestrator = main loop; Developers = subagents
 │   ├── openai.md             Codex CLI via AGENTS.md; GPT via system prompt
@@ -386,9 +389,18 @@ sends no source code.
 
 **What is a "Sprint" here, in wall-clock time?**
 One work cycle bound to a single Sprint Goal, usually a session of hours rather
-than weeks. This compresses the cadence while staying inside the official Scrum
+than weeks. This compresses the cadence while staying inside the Scrum Guide's
 timebox of one month or less. The event files in `core/events/` mark each timing
 adaptation.
+
+## Attribution
+
+The definition of Scrum this package follows is the Scrum Guide (2020) by Ken
+Schwaber and Jeff Sutherland, published at https://scrumguides.org under the
+Creative Commons Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0);
+the rules appear here in this package's own wording. `ATTRIBUTION.md` credits
+that source and every other framework, model, and body of practice the package
+builds on.
 
 ## License
 

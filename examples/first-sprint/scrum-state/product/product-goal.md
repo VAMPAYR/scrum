@@ -1,5 +1,7 @@
 # Product Goal
 
+*Illustrative output from the fictional project in `examples/first-sprint/walkthrough.md`, not a real project's state.*
+
 ## Purpose
 - This product exists in order to give a photographer chronologically sortable filenames drawn from each photo's capture date, without renaming by hand.
 - This product does not exist in order to edit, tag, upload, or organize photos into albums.

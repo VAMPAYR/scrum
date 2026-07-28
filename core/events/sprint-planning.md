@@ -3,9 +3,9 @@
 ## Purpose
 
 Sprint Planning starts the Sprint by laying out the work the team will take on. The
-whole Scrum Team collaborates to produce the plan. Planning covers three topics: why
-the Sprint is valuable, what can be brought to Done this Sprint, and how the chosen work
-will get built.
+whole Scrum Team collaborates to produce the plan. Planning settles three questions: the
+value this Sprint should create, the amount of work the team can finish to the agreed
+standard, and the approach it will take to build that work.
 
 ## Participants
 
@@ -104,8 +104,8 @@ The Sprint Goal, the forecast, and the plan together form the Sprint Backlog.
 
 ## Timebox
 
-Official Scrum bounds Sprint Planning at a maximum of eight hours for a one-month Sprint,
-and proportionally shorter for a shorter Sprint.
+The Scrum Guide (2020) bounds Sprint Planning at a maximum of eight hours for a one-month
+Sprint, and proportionally shorter for a shorter Sprint.
 
 **Adaptation.** A Sprint here is one work cycle of hours, not weeks, so Sprint Planning
 is a short session measured in minutes, proportional to the Sprint length. The three

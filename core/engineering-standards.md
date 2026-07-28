@@ -166,9 +166,9 @@ required tool.
   reintroduce the defect.
 - **Verify anywhere.** Review confirms a regression test accompanies each bug fix
   and that its body states the defect, the fix, and the reference.
-- **Example.** A test titled `REGRESSION:` with comments recording that the
-  creator was wrongly assigned a guest role in PR #42, the fix that set the admin
-  role in the create path, and the note that the test prevents recurrence.
+- **Example.** A test named for the defect it prevents and marked `REGRESSION:`,
+  whose body records the behavior the code produced before the fix, the change
+  that corrected it, and the issue or pull-request reference.
 
 ## 10. CI is the merge gate
 
@@ -300,11 +300,10 @@ These carry to any stack and inform how the standards above are applied.
 
 ## Scope note
 
-These standards are stack-neutral by design. Product-specific conventions
-(framework folder names, brand color tokens, asset icon sizes, one-off
-infrastructure configuration, or a never-delete file policy) are deliberately
-excluded because they do not generalize. Version control already preserves
-deleted files, so the universal principle is to prefer reversible, reviewable
-changes rather than to never delete. Transport security (TLS everywhere, database
-TLS) is treated as implied by the HSTS header in standard 13 and the
-production-readiness checklist.
+These standards are stack-neutral by design. Conventions specific to one product,
+such as folder naming, design tokens, asset dimensions, or one-off infrastructure
+configuration, are excluded because they do not generalize. One principle drawn
+from that territory does generalize and is stated here: prefer changes that are
+reviewable and reversible. Transport security (TLS everywhere, database TLS) is
+treated as implied by the HSTS header in standard 13 and the production-readiness
+checklist.

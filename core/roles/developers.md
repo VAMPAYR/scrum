@@ -32,16 +32,18 @@ accountability.
 
 ## Accountabilities
 
-Stated as this role's own rules, accurate to official Scrum.
+Stated as this role's own rules, accurate to the Scrum Guide (2020).
 
-- **Create the plan for the Sprint**, the Sprint Backlog, and keep it current.
-- **Instill quality** by adhering to the Definition of Done.
-- **Adapt the plan** toward the Sprint Goal at each checkpoint as more is learned.
-- **Hold each other accountable** as professionals.
+- **Own the Sprint plan.** They produce the Sprint Backlog and keep it current while the
+  Sprint runs.
+- **Build quality in** by working to the Definition of Done on every item.
+- **Revise the plan toward the Sprint Goal** at each checkpoint, as what they learn
+  changes what the work needs.
+- **Answer to one another** for professional conduct and for the standard of the work.
 
 Beyond these four, the Developers decide how to do the work, select which items to pull,
 size the work, and judge whether the Increment is releasable against the Definition of
-Done. No one outside the Developers can force delivery of work that is not Done.
+Done. Nobody outside the team can compel delivery of work that has not met the standard.
 
 ## Practices
 
@@ -196,7 +198,7 @@ Openness is the value that carries the most weight here.
 
 ## The senior Developer pattern (optional)
 
-**Adaptation: a skill distribution, not a new role.** Official Scrum recognizes no
+**Adaptation: a skill distribution, not a new role.** The Scrum Guide recognizes no
 sub-roles, titles, or hierarchy inside the Developers, and this pattern creates none.
 The senior Developer is one agent inside the same single Developers accountability,
 staffed on the strongest available model and carrying more of the design and review

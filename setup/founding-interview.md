@@ -157,9 +157,9 @@ day, or longer? And how often do you want to come back for a Review?"
 
 **Why it matters:** A Sprint is short so feedback is fast and risk stays low.
 **Adaptation:** here a Sprint is one work cycle bound to a single Sprint Goal,
-typically a session of hours rather than weeks, which stays inside the official
-"one month or less" timebox (see `core/events/`). The stakeholder's availability
-sets the real cadence.
+typically a session of hours rather than weeks, which stays inside the Scrum
+Guide (2020) timebox of one month or less (see `core/events/`). The
+stakeholder's availability sets the real cadence.
 
 **How it changes team behavior:** Sets how much scope a Sprint Goal can hold and
 how often the team returns for feedback. A short session means a tight,
@@ -262,8 +262,8 @@ they pay for the strongest available model. Implementation under a precise brief
 carries most of the token volume and runs well on a mid-tier worker model.
 Naming the tiers up front puts the money where the judgment is instead of
 spreading it evenly. **Adaptation:** a senior Developer is a skill distribution
-inside the single Developers accountability, not a new role or title; official
-Scrum defines no sub-roles inside Developers.
+inside the single Developers accountability, not a new role or title; the Scrum
+Guide (2020) defines no sub-roles inside Developers.
 
 **How it changes team behavior:** Sets the tier each seat runs on when the
 adapter for this runtime dispatches work (`adapters/`). A senior Developer takes

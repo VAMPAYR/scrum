@@ -1,5 +1,7 @@
 # Definition of Done
 
+*Illustrative output from the fictional project in `examples/first-sprint/walkthrough.md`, not a real project's state.*
+
 - Project: exif-rename
 - Instantiated: 2026-07-14  |  Last refreshed: 2026-07-14
 - Selected stack profiles: CLI

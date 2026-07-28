@@ -2,11 +2,12 @@
 
 ## Purpose
 
-The Sprint Retrospective is the team's session for raising its own quality and
-effectiveness. The Scrum Team examines how the last Sprint went across its people,
-interactions, processes, tools, and Definition of Done, then commits to the changes that
-will help most and acts on them as soon as possible, adding them to the next Sprint where
-useful.
+The Sprint Retrospective exists so the team can find ways to work better and to
+produce better work. The Scrum Team looks back over the Sprint just finished and asks
+how its members, their interactions, its processes, its tools, and its Definition of
+Done served the work. It then selects the changes that will make the largest difference,
+acts on them without waiting, and writes them into the next Sprint's plan where that is
+the right place for them.
 
 ## Participants
 
@@ -32,8 +33,8 @@ useful.
 
 ## AI-adapted procedure
 
-**Adaptation: the Retrospective inspects the AI team itself.** The subjects official
-Scrum names, individuals, interactions, processes, tools, and the Definition of Done, map
+**Adaptation: the Retrospective inspects the AI team itself.** The subjects the Scrum
+Guide names, individuals, interactions, processes, tools, and the Definition of Done, map
 onto the machinery of an AI Scrum organization. The team inspects the quality of its
 delegation briefs, the gate failures, the rework, and the escalations, and it improves
 that machinery. The intent is preserved: a blame-free inspection of the whole Sprint that
@@ -133,8 +134,9 @@ Decision rules for the Retrospective:
 
 ## Timebox
 
-Official Scrum bounds the Sprint Retrospective at a maximum of three hours for a one-month
-Sprint, and proportionally shorter for a shorter Sprint. It concludes the Sprint.
+The Scrum Guide (2020) bounds the Sprint Retrospective at a maximum of three hours for
+a one-month Sprint, and proportionally shorter for a shorter Sprint. It concludes the
+Sprint.
 
 **Adaptation.** For a Sprint of hours the Retrospective is a short session proportional to
 the Sprint, long enough to inspect the five areas and commit at least one improvement. The

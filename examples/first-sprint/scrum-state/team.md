@@ -1,5 +1,7 @@
 # Team charter
 
+*Illustrative output from the fictional project in `examples/first-sprint/walkthrough.md`, not a real project's state.*
+
 - Project: exif-rename
 - Stakeholder: the photographer (the human user), who offloads memory cards to a laptop
 - Adapter: claude-code

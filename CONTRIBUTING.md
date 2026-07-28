@@ -16,16 +16,18 @@ the constraints every change must hold, and how to test one before you open it.
 
 - `core/` stays vendor-neutral. Use "Orchestrator", "worker agent", and "the
   runtime"; keep runtime-specific names in `adapters/`, never in `core/`.
-- No citations of external books, brands, or people anywhere in the package. State
-  each rule directly on its own authority. Where the official Scrum definition
-  (2020) is the source, name it in that form and no other.
+- Keep the prose free of name-dropping and marketing. Credit is a separate matter
+  from prose style: every external framework, model, or standard the package reuses
+  is credited in `ATTRIBUTION.md`, and where a distinctive taxonomy is reproduced
+  (a named set of levels, areas, or measures), credit its originator at the point
+  of use as well. Reproduce no third-party text; state every rule in fresh wording.
 - Content states rules directly. Prefer the imperative rule over description of who
   said it.
 - No em dashes. Write concise, formal prose in active voice.
-- Stay accurate to the official Scrum definition (2020) for accountabilities,
-  events, artifacts, commitments, pillars, and values. Never contradict it
-  silently. Mark every deliberate change for AI teams with an explicit
-  "Adaptation:" note.
+- Stay accurate to the Scrum Guide (2020) for accountabilities, events, artifacts,
+  commitments, pillars, and values. Never contradict it silently. State its rules
+  in this package's own wording rather than reproducing its text. Mark every
+  deliberate change for AI teams with an explicit "Adaptation:" note.
 - Every change to a `.scrum/` state format bumps the `Format` field in
   `state.md` and documents a migration so existing projects can move forward.
 - Templates and core files stay consistent. If you change a record shape in

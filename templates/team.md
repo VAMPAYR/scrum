@@ -69,8 +69,8 @@
   Area 9. Which model tier fills each seat. Places judgment where it pays and
   cheap capacity where it does not. Realized by the adapter in scrum/adapters/.
   Adaptation: a senior Developer is a skill distribution inside the single
-  Developers accountability, not a new role or title. Official Scrum defines no
-  sub-roles or titles inside Developers.
+  Developers accountability, not a new role or title. The Scrum Guide (2020)
+  defines no sub-roles or titles inside Developers.
 -->
 - Tiers available in this runtime: <what the stakeholder can actually run>
 - Orchestrator, PO, and SM tier: <default: the strongest available model>

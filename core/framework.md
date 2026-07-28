@@ -4,7 +4,7 @@ This file defines the framework the whole skill runs on. Read it once per projec
 It states what Scrum is, how empiricism and the three pillars govern the work, how the
 five values apply to AI agents, who is accountable for what, which artifacts carry
 which commitments, how one full cycle runs end to end, and the rules that keep every
-adaptation faithful to official Scrum.
+adaptation faithful to Scrum as the Scrum Guide defines it.
 
 Scrum is a lightweight framework for delivering value in complex work through an
 empirical process. Here the Scrum Team is a set of AI agents. The human user is the
@@ -12,20 +12,23 @@ stakeholder and customer, outside the team. Above the accountabilities sits the
 Orchestrator, the frontier-class model running the main conversation, which
 instantiates the roles, delegates work, and keeps the roles honest.
 
-The official Scrum definition (2020) is canonical. This file adapts Scrum for AI
-agents without changing its meaning. Every deliberate change carries an "Adaptation:"
-note that says what changed and why the intent survives.
+The Scrum Guide (2020) is canonical. This file adapts Scrum for AI agents without
+changing its meaning, and states every rule it takes from the Guide in its own
+wording. Every deliberate change carries an "Adaptation:" note that says what changed
+and why the intent survives. The Guide's authors and license, and the other sources
+this package builds on, are credited in `ATTRIBUTION.md`.
 
 ## 1. Empiricism
 
-Scrum rests on empiricism: knowledge comes from experience, and decisions rest on what
-has already happened. Complex product work is unpredictable, so the team sets a
-hypothesis up front, runs a short experiment, and inspects the result.
+Scrum rests on empiricism. The team treats experience as its source of knowledge and
+rests each decision on evidence it has actually seen rather than on prediction.
+Complex product work is unpredictable, so the team sets a hypothesis up front, runs a
+short experiment, and inspects the result.
 
 Each Sprint is one such experiment against a Sprint Goal. A Sprint cannot end in
 failure in the strict sense, because the team always produces either a Done Increment
-or a lesson that changes the next Sprint. Scrum also draws on lean thinking: use only
-the resources the work needs and remove waste. That is the source of focus.
+or a lesson that changes the next Sprint. Scrum also draws on lean thinking: strip the
+work to what matters and spend nothing on the rest. That is the source of focus.
 
 For AI teams empiricism has a sharp consequence. No agent's claim is trusted on its
 word. "Done" is a hypothesis until a verifier walks the Definition of Done and records
@@ -37,28 +40,29 @@ confidence or token spend. See the gate in `core/dod/definition-of-done.md`.
 Empiricism stands on three pillars: transparency, inspection, and adaptation. Each
 depends on the one before it.
 
-- **Transparency.** The work and its state are visible to those doing the work and to
-  those receiving it. An artifact is transparent only when it is both visible and
-  understood. For AI teams, transparency means plain-file state in `.scrum/`: the
-  backlog, the Sprint plan, the task log, the evidence, and the metrics are all
-  committed markdown any tool can read. A private plan the Orchestrator holds in
-  context is not transparent.
-- **Inspection.** Scrum artifacts and progress toward agreed goals are inspected often
-  to detect variance. Inspection needs something to inspect against, which is why every
-  artifact carries a commitment (section 5). The events are the formal inspection
-  points; the team may inspect at any time a need appears.
+- **Transparency.** The process and the work stay visible to the agents doing them and
+  to the stakeholder receiving them. Visibility alone is not enough: an artifact is
+  transparent only when a reader can also understand what it says. For AI teams,
+  transparency means plain-file state in `.scrum/`: the backlog, the Sprint plan, the
+  task log, the evidence, and the metrics are all committed markdown any tool can read.
+  A private plan the Orchestrator holds in context is not transparent.
+- **Inspection.** The team checks the artifacts and its progress toward agreed goals
+  often enough to catch an unwanted variance while it is still small. Inspection needs
+  something to inspect against, which is why every artifact carries a commitment
+  (section 5). The events are the formal inspection points; the team may inspect at any
+  time a need appears.
 - **Adaptation.** When inspection shows the work is drifting, the team adjusts as soon
-  as possible. Transparency without inspection is empty; inspection without adaptation
-  is wasted.
+  as possible, so the drift goes no further. Transparency nobody inspects is wasted
+  writing, and inspection that changes nothing is wasted effort.
 
 The pillars set the order of every event: make the work transparent, inspect it
 against its commitment, adapt the plan or the product.
 
 ## 3. The five values applied to AI agents
 
-Scrum defines five values: commitment, focus, openness, respect, and courage. When the
-team lives them, the pillars come to life and trust grows. Each value has a concrete
-meaning for agents.
+Scrum names five values: commitment, focus, openness, respect, and courage. A team that
+actually works this way turns the three pillars from words into practice, and trust
+grows out of that. Each value has a concrete meaning for agents.
 
 | Value | Meaning for an AI Scrum Team |
 |---|---|
@@ -83,16 +87,16 @@ stakeholder the team serves.
 | Participant | On the Scrum Team | Accountable for |
 |---|---|---|
 | **Orchestrator** | No (runtime layer) | Running the roles, delegating tasks, arbitrating, unblocking, and keeping role boundaries clean. Never writes production code while worker agents are available. |
-| **Product Owner (PO)** | Yes | Maximizing the value of the product. Owns the Product Goal, the Product Backlog and its order, stakeholder engagement, and acceptance. May cancel a Sprint. See `core/roles/product-owner.md`. |
+| **Product Owner (PO)** | Yes | Maximizing the value the product delivers. Owns the Product Goal, the Product Backlog and its order, stakeholder engagement, and acceptance. May cancel a Sprint. See `core/roles/product-owner.md`. |
 | **Scrum Master (SM)** | Yes | The team's understanding and use of Scrum and its effectiveness. Facilitates events, removes impediments, guards the process, runs health checks. See `core/roles/scrum-master.md`. |
 | **Developers** | Yes | All work needed to build a usable Increment each Sprint: the how, item selection, sizing, and the Definition of Done. Self-manage the Sprint Backlog. See `core/roles/developers.md`. |
 | **Human stakeholder** | No (customer) | Setting direction, answering scope questions, and judging value at the Sprint Review. The user is the customer the product serves. |
 
-**Adaptation: the Orchestrator layer.** Official Scrum has no fourth accountability
-above the team. The Orchestrator is an implementation layer, not a Scrum role. It
-exists because a runtime needs a coordinating loop to spawn and route agents. It never
-takes a Scrum decision on a role's behalf without labeling the role it speaks as
-(`[PO]`, `[SM]`, `[DEV]`), so accountability stays where Scrum puts it. In single-model
+**Adaptation: the Orchestrator layer.** The Scrum Guide defines no fourth
+accountability above the team. The Orchestrator is an implementation layer, not a Scrum
+role. It exists because a runtime needs a coordinating loop to spawn and route agents.
+It never takes a Scrum decision on a role's behalf without labeling the role it speaks
+as (`[PO]`, `[SM]`, `[DEV]`), so accountability stays where Scrum puts it. In single-model
 mode the Orchestrator and the three roles are the same model switching labeled hats;
 the honesty then rests on self-verification, which is weaker, and `adapters/generic.md`
 says so plainly. The intent Scrum protects, clear and non-transferable accountability,
@@ -112,22 +116,24 @@ the artifact is measured against, which is what makes inspection possible.
 | **Sprint Backlog** | **Sprint Goal** | `sprints/sprint-NNN/sprint.md` |
 | **Increment** | **Definition of Done** | the repo, gated per `DEFINITION_OF_DONE.md` |
 
-- The **Product Backlog** is the ordered, emergent list of everything the product
-  needs. The Product Owner owns it. Its commitment, the **Product Goal**, is the future
-  state of the product the team plans against. Every backlog item carries the Goal's
-  direction. See the PBI record format in `SKILL.md`.
-- The **Sprint Backlog** is the Sprint Goal plus the items the Developers forecast plus
-  their plan to build them. The Developers own it. Its commitment, the **Sprint Goal**,
-  is the single objective that gives the Sprint focus and binds the Developers.
-  Functionality may flex during the Sprint to meet the Goal; the Goal itself does not.
-  The Sprint Goal is a commitment, not a forecast.
-- The **Increment** is the usable output that adds to prior Increments. Its commitment,
-  the **Definition of Done**, is the shared quality standard that makes the Increment
-  releasable. Work that does not meet the Definition of Done is not part of the
-  Increment, is not demonstrated at the Review, and returns to the Product Backlog.
+- The **Product Backlog** is the single ordered list of everything the product still
+  needs, and it keeps changing as the team learns. The Product Owner owns it. Its
+  commitment, the **Product Goal**, is the longer-term objective the team works
+  toward, the target the backlog exists to reach. Every backlog item carries the
+  Goal's direction. See the PBI record format in `SKILL.md`.
+- The **Sprint Backlog** holds three things: the Sprint Goal, the items the Developers
+  selected for this Sprint, and the plan they will build them by. The Developers own
+  it. Its commitment, the **Sprint Goal**, is the one objective the Sprint serves; it
+  gives the work coherence and binds the Developers. Functionality may flex during the
+  Sprint to meet the Goal; the Goal itself does not. The Sprint Goal is a commitment,
+  not a forecast.
+- The **Increment** is usable output that adds to everything delivered before it. Its
+  commitment, the **Definition of Done**, is the shared quality standard that makes the
+  Increment releasable. Work that does not meet the Definition of Done is not part of
+  the Increment, is not demonstrated at the Review, and returns to the Product Backlog.
 
-An Increment must be **usable** and meet the Definition of Done. A Sprint may produce
-more than one Increment.
+Every Increment is **usable** and meets the Definition of Done. One Sprint may produce
+several.
 
 ## 6. The full cycle, stage by stage
 
@@ -149,13 +155,14 @@ inspects against.
 **Stage 2 REFINEMENT.** The Product Owner and Developers add detail, acceptance
 criteria, and size to backlog items, and order them by value, risk, dependency, and
 size. Large items are split before they can be forecast. Refinement is an ongoing
-activity, kept near or under ten percent of Developer effort, not a formal event.
-Output: an updated `product/backlog.md` with ready items on top.
+activity rather than a formal event, sized to keep enough ready items ahead of the
+next Planning. Output: an updated `product/backlog.md` with ready items on top.
 
-**Stage 3 PLANNING.** Sprint Planning answers three topics: Why is this Sprint valuable
-(the Sprint Goal), What can be Done (the forecast), and How the work gets built (the
-plan). The whole team collaborates. Output: `sprints/sprint-NNN/sprint.md` and an
-updated `state.md`. See `core/events/sprint-planning.md`.
+**Stage 3 PLANNING.** Sprint Planning settles three questions: what makes this Sprint
+worth running (the Sprint Goal), which items the Developers can finish (the forecast),
+and how they will build them (the plan). The whole team collaborates. Output:
+`sprints/sprint-NNN/sprint.md` and an updated `state.md`. See
+`core/events/sprint-planning.md`.
 
 **Stage 4 EXECUTION.** Developer agents build against the Sprint Goal. The Orchestrator
 delegates each item with a brief and verifies each "done" against the Definition of
@@ -194,19 +201,19 @@ stakeholder stops the work.
 
 These rules govern every file in the skill.
 
-1. **Official Scrum (2020) is canonical** for the accountabilities, the events, the
+1. **The Scrum Guide (2020) is canonical** for the accountabilities, the events, the
    artifacts, the commitments (Product Goal, Sprint Goal, Definition of Done), the three
    pillars (transparency, inspection, adaptation), and the five values (commitment,
    focus, openness, respect, courage). No file contradicts it silently.
 2. **Every deliberate adaptation is marked** with an "Adaptation:" note that states what
    changed and why the original intent survives.
-3. **Added practices extend official Scrum; they never override it.** Where a practice
-   predates the 2020 definition, official Scrum wins on any conflict. Examples: the team
-   is typically ten or fewer people, not the older "3-9 Developers" rule; "Developers"
-   is an accountability, not a separate "Development Team"; the Daily Scrum has no
+3. **Added practices extend the Scrum Guide; they never override it.** Where a practice
+   predates the 2020 Guide, the Guide wins on any conflict. Examples: the team is
+   typically ten or fewer people, not the older "3-9 Developers" rule; "Developers" is
+   an accountability, not a separate "Development Team"; the Daily Scrum has no
    mandatory three-question format.
 4. **Decision rules reflect correct current Scrum**, not folklore. Where an older
-   practice drifts from the current definition, the current definition governs.
+   practice drifts from the current Guide, the current Guide governs.
 
 The named adaptations this skill makes, each carried in its own file:
 
@@ -219,5 +226,5 @@ The named adaptations this skill makes, each carried in its own file:
   implementer, or the Orchestrator, or in single-model mode a labeled self-verification
   pass. See `core/dod/definition-of-done.md`.
 
-Anything not marked as an adaptation is standard Scrum and should read the same as the
-official definition.
+Anything not marked as an adaptation is standard Scrum and holds exactly what the Scrum
+Guide holds, in this package's wording.

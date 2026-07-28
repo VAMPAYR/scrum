@@ -102,8 +102,8 @@ Decision rules for the Review:
 
 ## Timebox
 
-Official Scrum bounds the Sprint Review at a maximum of four hours for a one-month Sprint,
-and proportionally shorter for a shorter Sprint.
+The Scrum Guide (2020) bounds the Sprint Review at a maximum of four hours for a one-month
+Sprint, and proportionally shorter for a shorter Sprint.
 
 **Adaptation.** For a Sprint of hours the Review is a short session proportional to the
 Sprint, long enough to demonstrate the Increment with evidence and to capture feedback into
