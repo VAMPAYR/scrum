@@ -1,0 +1,40 @@
+# Contributing
+
+Changes to this package are welcome. This file states how to propose a change,
+the constraints every change must hold, and how to test one before you open it.
+
+## Proposing a change
+
+- Open an issue first for anything that changes behavior, state layout, or the
+  Definition of Done. Describe the problem and the outcome you want, not only the
+  patch.
+- Send a pull request for the change. Keep it scoped to one concern, and update
+  every file the change touches in the same PR so the package stays consistent.
+- Small fixes (wording, a broken path, a typo) can go straight to a pull request.
+
+## Constraints every change must hold
+
+- `core/` stays vendor-neutral. Use "Orchestrator", "worker agent", and "the
+  runtime"; keep runtime-specific names in `adapters/`, never in `core/`.
+- No citations of external books, brands, or people anywhere in the package. State
+  each rule directly on its own authority. Where the official Scrum definition
+  (2020) is the source, name it in that form and no other.
+- Content states rules directly. Prefer the imperative rule over description of who
+  said it.
+- No em dashes. Write concise, formal prose in active voice.
+- Stay accurate to the official Scrum definition (2020) for accountabilities,
+  events, artifacts, commitments, pillars, and values. Never contradict it
+  silently. Mark every deliberate change for AI teams with an explicit
+  "Adaptation:" note.
+- Every change to a `.scrum/` state format bumps the `Format` field in
+  `state.md` and documents a migration so existing projects can move forward.
+- Templates and core files stay consistent. If you change a record shape in
+  `core/`, update the matching file in `templates/`, and the reverse, in the same
+  change.
+
+## Testing a change
+
+- Run the lifecycle on a toy project in at least one runtime, from `start` through
+  `retro`, and confirm the state files it writes match the templates.
+- Run the health check (`/scrum health`) and confirm it reports cleanly.
+- Confirm the paths named in `README.md` and `SKILL.md` resolve to real files.
