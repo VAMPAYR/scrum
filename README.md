@@ -399,8 +399,8 @@ The definition of Scrum this package follows is the Scrum Guide (2020) by Ken
 Schwaber and Jeff Sutherland, published at https://scrumguides.org under the
 Creative Commons Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0);
 the rules appear here in this package's own wording. `ATTRIBUTION.md` credits
-that source and every other framework, model, and body of practice the package
-builds on.
+that source and every other framework, standard, and body of practice the
+package builds on.
 
 ## License
 

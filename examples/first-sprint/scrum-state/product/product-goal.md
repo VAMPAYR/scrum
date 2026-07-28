@@ -15,7 +15,7 @@ A small command-line tool that renames one photo or a whole folder to its EXIF c
 
 ## Value measures
 - Manual renaming time removed: a full card is renamed in one command instead of file by file.
-- How we will know the Goal is being approached: the stakeholder stops renaming photos by hand.
+- How the team will know the Goal is being approached: the stakeholder stops renaming photos by hand.
 
 ## Boundaries and constraints
 - In scope: rename by EXIF date, single file and whole folder, dry-run preview, collision safety.

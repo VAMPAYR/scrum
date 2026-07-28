@@ -103,10 +103,10 @@ forecast is the Developers' to make.
 [PO] The most valuable, most ready slice is a single-file rename that is safe, and
 a preview so a mistake costs nothing. Ordering PBI-001 first, then PBI-003.
 
-[DEV] We forecast PBI-001 and PBI-003 for this session. PBI-003 reuses PBI-001's
-name-planning function, so we build and verify PBI-001, then add the report-only
-dry-run. PBI-002 (batch) waits; a folder run is just the single rename in a loop
-once the single case is safe.
+[DEV] Forecasting PBI-001 and PBI-003 for this session. PBI-003 reuses PBI-001's
+name-planning function, so PBI-001 gets built and verified first, then the
+report-only dry-run follows. PBI-002 (batch) waits; a folder run is just the
+single rename in a loop once the single case is safe.
 
 [SM] Sprint Goal, agreed by the team: "A photographer can rename single photos to
 their capture date from the terminal and preview the change first, safely, without
@@ -115,7 +115,7 @@ ever losing a file." Writing `.scrum/sprints/sprint-001/sprint.md`. Stage moves 
 
 ## 4 EXECUTION
 
-[DEV] Before the rename path we hit a blocker: no sample photos with known EXIF
+[DEV] Before the rename path a blocker appeared: no sample photos with known EXIF
 dates to test against. Logging IMP-001 and self-resolving it, generating three
 JPEG fixtures with Pillow under `tests/fixtures/`, each stamped with a known
 DateTimeOriginal. Closed, no stakeholder action needed.

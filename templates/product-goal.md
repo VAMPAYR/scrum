@@ -28,7 +28,7 @@ tell whether the product has reached it.>
 ## Value measures
 <!-- From team.md > Definition of value. Outcome measures, not output. Tracked in metrics.md. -->
 - <user-facing outcome, satisfaction signal, time-to-market, or capability unlocked>
-- How we will know the Goal is being approached: <the signal>
+- How the team will know the Goal is being approached: <the signal>
 
 ## Boundaries and constraints
 <!-- Guardrails on the Goal. Technical constraints come from team.md. -->

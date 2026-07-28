@@ -4,6 +4,36 @@ Notable changes to this package are recorded here, newest first. Versions follow
 semantic versioning (MAJOR.MINOR.PATCH). Each release names what changed; a change
 to the `.scrum/` state layout bumps the `Format` field and ships a migration note.
 
+## 1.3.0 - 2026-07-28
+
+Depth pass over the role playbooks, and the package's own taxonomies.
+
+- Product Owner: added the ownership-stance ladder, a validation procedure that
+  names the confirming and refuting signal before any work starts, goal-mapping
+  and impact-mapping techniques for deriving an ordered backlog, specification by
+  example for risky acceptance criteria, feature-type effects on order, release
+  batching cost, and a forecasting section that reports a range with its breaking
+  assumption and treats spend as a first-class concern.
+- Scrum Master: added the team-maturity progression and the style that suits each
+  stage, per-event facilitation moves, team startup and working agreements, the
+  coach failure modes to refuse, and further situation-to-action rules.
+- Developers: added bounded autonomy and what self-management does and does not
+  license, cross-functionality as a team property, pairing and mobbing economics,
+  slicing by value rather than by architectural layer, relative sizing against
+  reference items, and explicit handling of undone work and technical debt.
+- AI and machine-learning profile: added evaluation-set construction and
+  contamination checks, retrieval quality criteria, structured-output validation,
+  guardrail placement on both paths, caching, model pinning with a rollback path,
+  and drift detection.
+- Health checks and role vocabulary now use this package's own taxonomies, named
+  for what each one observes: the conflict levels, the serving stances, the four
+  health-check areas, and the ownership-stance ladder. The matching entries in
+  `ATTRIBUTION.md` are retired, since nothing external is reused in them.
+- Corrected a refinement effort figure that had returned in a decision-table row.
+  Refinement carries no fixed effort budget.
+
+`Format` stays 1. No state-file shape changed.
+
 ## 1.2.0 - 2026-07-28
 
 Attribution and licensing pass.
@@ -11,10 +41,9 @@ Attribution and licensing pass.
 - `ATTRIBUTION.md` at the package root credits the Scrum Guide (2020) by Ken
   Schwaber and Jeff Sutherland, published under the Creative Commons
   Attribution-ShareAlike 4.0 International license (CC BY-SA 4.0), as the
-  definition of Scrum this package follows, alongside the other frameworks,
-  models, and practice literature the package builds on. Where a distinctive
-  taxonomy is reused (a named set of levels, areas, or measures), the file that
-  uses it credits the originator at the point of use as well.
+  definition of Scrum this package follows, alongside the other frameworks and
+  standards the package builds on. Where a distinctive taxonomy is reused, the
+  file that uses it credits the originator at the point of use as well.
 - Passages that previously tracked the Guide's wording too closely are restated,
   so the package's own text is original throughout and the MIT license in
   `LICENSE` applies cleanly to it.

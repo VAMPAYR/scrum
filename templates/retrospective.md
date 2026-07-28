@@ -57,7 +57,7 @@
 - Action: <the specific change>
 - Owner: <PO | SM | Developers>
 - First step: <what happens first>
-- Success measure: <how we will know it worked>
+- Success measure: <how the team will know it worked>
 - Lands in: <next sprint plan | team.md amendment | DEFINITION_OF_DONE.md>
 
 <!-- Repeat if more than one improvement is committed; keep the set small. -->

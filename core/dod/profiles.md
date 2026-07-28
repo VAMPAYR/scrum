@@ -143,17 +143,108 @@ review gives deterministic code.
   sliced by input subgroup, not only averaged, and the sample size is justified.
   Verify: the eval set exists, ran, and passes its thresholds; confirm subgroup
   slices and a stated sample-size basis.
+- [ ] **Evaluation method matched to the task, with its limit stated.** Each
+  criterion uses the most exact method its task allows: functional correctness
+  where the output can be executed or checked against a specification, comparison
+  against a known correct answer where one exists, embedding similarity where
+  meaning-level closeness is enough, and a model judge or a human reviewer only
+  where the task is open-ended. Methods are combined rather than resting on one,
+  and the limit of each chosen method is recorded: reference comparison marks a
+  correct answer worded differently as wrong, similarity scoring inherits the
+  weaknesses of its embedding model, and a model judge is inconsistent and adds
+  cost and latency. Verify: the eval plan names a method and a limit per
+  criterion.
+- [ ] **Model judges fixed, inspectable, and bias-checked.** A judge is a system
+  of model, prompt, and sampling settings; all three are pinned, readable, and
+  recorded, with sampling temperature at zero. The judge prompt states the task,
+  the criteria, and the scoring scale, prefers a classification or a short
+  discrete scale over a continuous score, and gives an example for each level.
+  Known judge biases are mitigated: preference for its own output, preference for
+  whichever answer comes first in a pairwise comparison (repeat with the order
+  reversed), and preference for longer answers. Judging cost is bounded, for
+  example a cheap classifier over all traffic and an expensive judge over a
+  sample. Scores produced under different judge configurations are never compared
+  as if they were the same measure. Verify: read the judge model, prompt, and
+  settings; confirm the bias handling and the cost bound.
+- [ ] **Eval set built from real inputs and verified for reliability.** The set is
+  drawn from production or realistic traffic, covers the input distribution
+  including the regions where failure is expected, and includes out-of-scope
+  inputs paired with the response they should receive. A written guideline defines
+  what a good response and a bad response look like, with a scoring rubric that
+  carries a concrete example per score and was checked with human raters until it
+  stopped being ambiguous. Reliability is confirmed by resampling the set with
+  replacement: a score that swings across resamples means the set is too small.
+  Verify: the guideline, the rubric, the resampling result, and the threshold that
+  ties the score to the product outcome all exist.
+- [ ] **Evaluation contamination guarded.** A private held-out set that has never
+  been published or sent out for training decides whether the feature ships.
+  Public benchmarks filter candidates rather than pick the winner. Contamination
+  is checked before any benchmark result is trusted, by looking for overlap
+  between eval items and material the model was trained or prompted on, and for
+  implausibly low model uncertainty on public eval items, which indicates the
+  benchmark leaked into training. Verify: confirm the private set, how it is
+  stored, and the contamination check.
+- [ ] **Every component evaluated alongside the end result.** Each stage of the
+  chain (retrieval, each prompt, each tool, post-processing) carries its own eval
+  as well as the end-to-end eval, so a failure localizes to one step. Where the
+  feature holds a conversation, both the single turn and the whole task are
+  scored. Verify: per-component results exist, and a deliberately seeded failure
+  is localized to its step.
+- [ ] **The evaluation pipeline itself is reproducible and tracked.** Rerunning an
+  eval on the same inputs and configuration returns the same result. Every
+  variable that can move a run is logged with it: eval-set version, rubric, prompt
+  version, sampling settings, and model version. Metrics that move together
+  perfectly are pruned, and a metric that never tracks outcomes is investigated.
+  The eval's own cost and added latency are measured, and any decision to skip
+  evaluation to save either is recorded as an accepted risk. Verify: rerun one
+  eval and compare results; read the run log.
+- [ ] **Factual consistency checked by a named method.** The feature states which
+  form of consistency it requires: support by the context supplied to the model,
+  agreement with open knowledge, or both. The check uses a named method, such as a
+  judge with a rubric, agreement across repeated samples of the same input,
+  decomposition of the response into standalone statements verified one by one, or
+  an entailment classifier. Verify: the method is named and its current results
+  are recorded against the shipping version.
 - [ ] **Prompts versioned and externalized.** Prompts live outside application
   code, each with metadata (identifier, version, target model, date, author,
   intended use), are version-controlled, and have their own test cases evaluated
   independently of surrounding code. A prompt change is evaluated against a fixed
   eval set in whole-system context before merge. Verify: locate the prompt store;
   confirm a result can be traced to the exact prompt version that produced it.
+- [ ] **Prompt and context construction is deliberate.** Each prompt states the
+  task, the output format, and the constraints explicitly, supplies the context
+  the task needs rather than relying on what the model happens to remember, and
+  marks the boundary between instructions and supplied content. A task too large
+  for one call is split into chained steps whose intermediate outputs can be
+  inspected, and the added latency and cost of the extra calls are accounted for.
+  Context and output length are controlled where they drive cost and latency. Any
+  library that assembles prompts has its produced prompt read at least once and
+  its call count per request tracked, since a helper that issues several hidden
+  calls per request inflates both the bill and the latency. Verify: read the
+  assembled prompt for one real request; confirm the format instruction, the
+  content boundary, and the call count.
+- [ ] **Structured output validated against a declared schema.** Where the feature
+  promises a machine-readable shape, the response is parsed and validated against
+  a schema before anything downstream consumes it. The invalid-format rate is
+  tracked along with the share that automatic repair recovers, and a parse failure
+  triggers a defined action: repair, a bounded retry, or a typed error that fails
+  closed. Constraints beyond format (length limits, required fields, forbidden
+  content) are stated so a check can run automatically. Verify: send an input that
+  breaks the schema; confirm validation catches it and the defined action runs.
 - [ ] **Model and version pinned.** The specific model version is pinned in config
   by a date-stamped or hashed identifier, not a floating alias. A regression check
   runs when the provider updates the model or the version changes, and a rollback
   path to the prior pinned version exists. Verify: read the pinned identifier;
   confirm the regression check and the rollback path.
+- [ ] **Model selection recorded, with a swap path.** The chosen model passed a
+  filter on the attributes that cannot be changed later (licensing, where data may
+  travel, deployment location, availability of output probabilities, size), then a
+  shortlist stage using published results, and finally the project's own eval set
+  as the deciding step. Calls target a stable request shape so a different model
+  can be substituted without rewriting the callers, and the record states why the
+  hosted or self-hosted choice met the project's privacy, data-provenance, and
+  control constraints. Verify: the selection record exists; run one alternative
+  model through the same interface.
 - [ ] **Input guardrails and injection defenses.** Inputs are scanned for
   sensitive data before any prompt leaves the organization; detected spans are
   blocked or masked with a reversible map so responses can be restored without
@@ -178,17 +269,27 @@ review gives deterministic code.
   (a sandbox), and any impactful, write, or irreversible action requires explicit
   human approval. Verify: confirm the sandbox and the approval gate on write
   actions.
+- [ ] **Out-of-scope and ambiguous input handled explicitly.** The feature states
+  what it does not answer and returns a defined response for those inputs instead
+  of spending a model call on them, and it asks for clarification on ambiguous
+  input rather than guessing an interpretation. Verify: send an out-of-scope input
+  and an ambiguous input; confirm the decline and the clarification path.
 - [ ] **Cost and latency budgets.** A latency service-level objective is defined
   as time-to-first-token and time-per-output-token (or total latency), tracked at
   percentiles (p50, p90, p95, p99) rather than averages, and a per-request cost
   budget (input plus output tokens, cache hit rate) is tracked. Goodput (requests
-  meeting the objective), not raw throughput, is the health target. Verify: the
+  meeting the objective), not raw throughput, is the health target. Each budget is
+  stated as a hard requirement plus an ideal, so the trade-off between cost and
+  latency is decided in advance rather than discovered in production. Verify: the
   budgets exist and the metrics report at percentiles.
 - [ ] **Caching scoped safely.** Any cache is chosen deliberately and cannot serve
   a user-specific or time-sensitive answer to a different user; it has an eviction
   policy and a lifetime rule. A semantic cache, if used, has a validated
-  similarity threshold and a measured hit rate. Verify: confirm cache keys and
-  scoping; test that a user-scoped response is not returned to another user.
+  similarity threshold and a measured hit rate. Where many requests share a long
+  fixed prefix such as a system prompt or a reused document, prefix caching at the
+  inference layer is considered and its measured effect on cost and latency is
+  recorded. Verify: confirm cache keys and scoping; test that a user-scoped
+  response is not returned to another user.
 - [ ] **Fallback on model failure.** A retry policy handles empty and malformed
   responses with an explicit cap and awareness of its latency and cost impact. A
   gateway falls back on rate limits and provider outages (alternate model, retry,
@@ -200,6 +301,15 @@ review gives deterministic code.
   checked, and any user feedback captured is governed as user data with disclosure
   of how it is used. Verify: confirm the input and output PII checks and the
   feedback-data governance.
+- [ ] **Feedback capture designed, not incidental.** The interface captures at
+  least one deliberate feedback control and the implicit signals its surface
+  already produces: abandonment partway through, correction and rephrasing, edits
+  the user makes to the output, regeneration requests, and conversation length
+  that grows without resolving. Captured feedback routes to evaluation as new eval
+  cases and monitoring metrics, and to development where the project trains or
+  tunes. Edits and regeneration comparisons are retained as preference data.
+  Verify: the signals are recorded, and one recent feedback item is traceable into
+  an eval case.
 - [ ] **Monitoring hooks.** Mean time to detection, mean time to response, and
   change failure rate are computable for the feature. Quality, safety, cost,
   latency, and behavior metrics are instrumented and broken down by user, release,
@@ -223,6 +333,17 @@ Add these only when the feature uses the pattern named.
   factual consistency with the retrieved context; a wrong answer is attributed to
   retrieval versus generation. Verify: the retrieval metrics exist and a failed
   answer is traceable to its cause.
+- [ ] Retrieval is the right mechanism for this corpus: a knowledge base small
+  enough to sit inside the model's context window is a reason to reconsider the
+  retrieval layer. Where retrieval is semantic, the embedding model is evaluated
+  on its own, and the index trade-offs are recorded: recall against query rate,
+  build time, and storage size. Ranking measures apply where the order of the
+  retrieved passages changes the answer. Chunk size and overlap stay inside the
+  embedding and generator context limits. Retrieval latency and storage cost sit
+  inside the feature's latency and cost budgets, and a reranker is considered when
+  precision is the weaker of the two retrieval measures. Verify: the embedding and
+  index measurements exist, and the retrieval share of latency and cost is
+  reported.
 
 **If the feature is an agent (tools, planning, or a loop):**
 - [ ] Planning failures are tested (invalid tool, bad parameters, wrong values,
@@ -231,6 +352,12 @@ Add these only when the feature uses the pattern named.
   bounds the loop; efficiency (steps, tokens, wall-clock per task) is measured
   against a baseline, not only success rate. Verify: the budget enforces, tool
   errors are caught, and efficiency is reported.
+- [ ] Where the agent keeps memory across turns or sessions, the store has defined
+  add and remove operations, a policy for what happens when it overflows
+  (discarding oldest, dropping redundancy, or summarizing), and a rule for
+  resolving entries that contradict each other. Verify: fill the store past its
+  limit and confirm the overflow policy runs; confirm a contradicting entry
+  resolves by the stated rule.
 
 **If the feature was fine-tuned:**
 - [ ] The failure was diagnosed as behavior-based (form and style), not
@@ -249,6 +376,12 @@ Add these only when the feature uses the pattern named.
   deduplicate, clean and filter (including PII and toxicity removal), and format
   to the model's template; synthetic data is verified before use. Verify: the six
   quality checks and the pipeline steps ran.
+- [ ] A written annotation guideline governs labeling, reused from the evaluation
+  guideline where the two overlap, and disagreement between annotators is measured
+  and resolved rather than averaged away. Processing runs on copies with the
+  original data left intact, and each script is trialed on a sample before it
+  touches the full set. Verify: the guideline exists, the disagreement figure is
+  recorded, and the original data is still readable.
 
 ## Note on numeric thresholds
 
