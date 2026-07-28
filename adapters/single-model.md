@@ -1,9 +1,12 @@
-# Adapter: generic single-model
+# Adapter: single model, one conversation
 
-Use this adapter when the runtime has no worker-agent or subagent primitive: a
-plain chat model, or any tool that runs one model in one conversation. One model
-plays every role by switching labeled hats. Set `Adapter: generic` in
-`.scrum/state.md`. Read this alongside `SKILL.md` and `core/orchestrator.md`.
+Use this adapter when the runtime exposes no worker primitive, meaning no way to
+start a separate agent that takes a brief, works, and reports back. Any tool that
+runs one model in one conversation qualifies, including a plain chat model with no
+file access. One model plays every role by switching labeled hats: the roles
+become labels on turns, and verification becomes a distinct labeled pass rather
+than a distinct agent. Set `Adapter: single-model` in `.scrum/state.md`. Read this
+alongside `SKILL.md` and `core/orchestrator.md`.
 
 ## The labeled-hat protocol
 
@@ -92,9 +95,9 @@ Mitigations, in order of strength:
   criteria first, so the check anchors on the spec rather than the code.
 - For high-stakes increments (security-sensitive, destructive, or hard to
   reverse), ask the human stakeholder to review the evidence, or run the same
-  `.scrum/` project through `adapters/claude-code.md` or `adapters/openai.md`
-  where an independent verifier agent is available. The plain-file state makes
-  that handoff clean.
+  `.scrum/` project through `adapters/parallel-agents.md` or
+  `adapters/terminal-agent.md`, where an independent verifier agent is available.
+  The plain-file state makes that handoff clean.
 
 Record in `metrics.md` that the sprint used self-verification so the
 Retrospective can weigh escaped defects against the weaker gate.

@@ -18,7 +18,7 @@ Pick by capability:
 Both prompts assume the `scrum/` package is available: on disk for Prompt A, or as
 pasted text for Prompt B. Neither needs any other setup. Prompt A's fuller role
 mapping lives in the matching file under `adapters/`; Prompt B follows the
-single-model protocol in `adapters/generic.md`.
+single-model protocol in `adapters/single-model.md`.
 
 ## Prompt A: agent with file access
 
@@ -39,9 +39,11 @@ Boot in this order:
    new: bootstrap .scrum/state.md with the exact shape SKILL.md specifies and route
    to stage 0 FOUNDING.
 3. Set the Adapter field in .scrum/state.md to the entry that fits this runtime:
-   claude-code if you can spawn subagents, openai for a terminal or Assistants
-   runtime, generic for a single model with no worker primitive. Read the matching
-   file in <path>/adapters/ and map the roles onto this runtime's primitives.
+   parallel-agents if you can spawn worker agents that run concurrently,
+   terminal-agent if you read a project instruction file such as AGENTS.md or a
+   rules file and can start separate runs as workers, single-model if one
+   conversation runs one model with no worker primitive. Read the matching file in
+   <path>/adapters/ and map the roles onto this runtime's primitives.
 4. Follow progressive disclosure. At each stage read only the files the stage table
    in SKILL.md names: a role file in <path>/core/roles/ before you speak as that
    role, an event file in <path>/core/events/ before you facilitate that event, and
@@ -53,7 +55,7 @@ Rules that hold from the first turn:
   write Scrum artifacts, delegation briefs, and arbitration decisions. Developer
   agents write code, and a verifier distinct from the implementer checks it. With no
   worker primitive, switch labeled hats and self-verify, per
-  <path>/adapters/generic.md.
+  <path>/adapters/single-model.md.
 - Label every role turn: [ORCH], [PO], [SM], [DEV], or [VERIFY]. Keep Product Owner,
   Scrum Master, and Developer decisions separated.
 - "Done" is never self-reported. A Product Backlog Item reaches done only when the
@@ -83,7 +85,7 @@ How this works:
 2. You have no separate worker agents, so you play every role by switching labeled
    hats in one conversation: [ORCH], [PO], [SM], [DEV], and [VERIFY]. Prefix every
    turn with its label and never blend two roles in one turn. I will paste
-   adapters/generic.md so you have the single-model protocol and its
+   adapters/single-model.md so you have the single-model protocol and its
    self-verification steps.
 3. Before you act in a role or run an event, tell me which file to paste next. Read
    in this order as the work needs it: the role file (core/roles) before you speak
@@ -95,7 +97,7 @@ How this works:
    on resume, so you can read the Stage and continue.
 
 Start by bootstrapping state: emit a .scrum/state.md block with Stage 0 FOUNDING,
-Sprint 000, Adapter generic, and today's date, using the shape SKILL.md defines.
+Sprint 000, Adapter single-model, and today's date, using the shape SKILL.md defines.
 Then begin the founding interview. If instead I paste an existing state.md, read its
 Stage and resume there.
 

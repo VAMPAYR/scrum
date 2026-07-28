@@ -8,42 +8,57 @@ Definition of Done. All state is plain markdown in your repo under `.scrum/`, so
 any AI tool can resume any project. "Done" is a verification gate with recorded
 evidence, never a self-reported checkbox.
 
-## Works with any agent
+## Works with any runtime
 
 The core is plain markdown with no vendor assumptions. Thin adapters map it onto
-each runtime. Pick your row, follow the linked doc, and you are set. No runtime is
-preferred; the table is alphabetical.
+each runtime. Adapters are named for runtime capability, never for a vendor, so
+find the row that describes what your runtime can do, follow the linked files, and
+you are set. No runtime is preferred and none is a reference implementation.
 
-| Runtime | How the skill runs there | Follow |
-|---|---|---|
-| Chat model, no file access (any vendor) | Paste the bootstrap prompt or the core files. One model plays every role by switching labeled hats and keeps `.scrum/` state as chat blocks you save and paste back. | `adapters/bootstrap-prompt.md` or `adapters/generic.md` |
-| Claude Code | Skill folder auto-discovered from `SKILL.md`. Orchestrator is the main loop; Developers are subagents with parallel fan-out where supported. | `SKILL.md` + `adapters/claude-code.md` |
-| Cursor and other IDE agents | Add a rules-file include that loads `SKILL.md`. Background or parallel agents act as Developers where the IDE exposes them. | `adapters/generic.md`, or `adapters/openai.md` when a worker primitive exists |
-| OpenAI Codex CLI | Add an `AGENTS.md` include that points at `SKILL.md`. Separate runs act as Developers; otherwise roles switch sequentially. | `adapters/openai.md` |
-| Other terminal coding agents | Add an `AGENTS.md`-style include per the Codex pattern. | `adapters/openai.md` |
+| Runtime capability | Example runtimes | How the skill runs there | Follow |
+|---|---|---|---|
+| Spawns parallel worker agents and auto-discovers a skill folder from `SKILL.md` | Claude Code, Goose, or another harness that scans a skills directory and dispatches concurrent worker agents | Install into the skills directory the runtime scans; no include line. The Orchestrator is the main loop, Developers are worker agents with parallel fan-out, and a distinct agent runs the verification gate. | `SKILL.md` + `adapters/parallel-agents.md` |
+| Reads an `AGENTS.md` or a rules file and can start separate runs or background agents | Cline, Codex CLI, Cursor, or a Kimi or Llama-based terminal agent | Point the file your agent reads at the package with one include line. Separate runs or background agents act as Developers; where none can start, the roles switch sequentially in one session. | `AGENTS.md` + `adapters/terminal-agent.md` |
+| Runs as a single conversation with file access and no worker primitive | Aider, Continue, or a desktop assistant with file tools | One model plays every role by switching labeled hats, and verification is a distinct labeled pass. `.scrum/` is written to disk as usual. | `adapters/single-model.md` |
+| Has no file access at all | ChatGPT, Claude, Gemini, or another chat model in a browser | Paste a bootstrap prompt, then paste the core files the protocol asks for. `.scrum/` state lives in chat blocks you save and paste back. | `adapters/bootstrap-prompt.md` + `adapters/single-model.md` |
+
+Rows describe primitives, so many products fit each row, and the row order runs
+from the most runtime primitives to the fewest without ranking them. Products
+inside a row are listed alphabetically, each as one example among others that show
+the shape of a capability; naming one implies no endorsement, no preference, and
+no claim that the package was built against it. Runtime capabilities change, so
+confirm yours in the runtime's own documentation. The Setup subsections below
+follow the same order.
 
 Because every project's state is plain markdown under `.scrum/`, a project
 started under one runtime can be resumed by another.
 
 ## Quick start
 
-1. Get the package. Clone or download this repository; its root is the `scrum`
-   package (the folder that holds `SKILL.md`). Keep the folder name `scrum`, since
-   every include path below (`scrum/SKILL.md`, `scrum/adapters/openai.md`) assumes
-   it.
+1. Get the package. Clone or download this repository into the project you want to
+   build; its root is the `scrum` package, the folder that holds `AGENTS.md` and
+   `SKILL.md`. Keep the folder name `scrum`, since every include path below
+   (`scrum/SKILL.md`, `scrum/adapters/terminal-agent.md`) assumes it.
 
    ```bash
-   # skill-folder runtime (auto-discovered): clone into the skill location
-   git clone <repo-url> ~/.claude/skills/scrum
-   # every other runtime: clone into the project root
    git clone <repo-url> <project>/scrum
    ```
 
-2. Wire it into your runtime. The mechanism differs by runtime: a skill folder is
-   auto-discovered from `SKILL.md` with no include line; a terminal or IDE agent
-   gets one include line in `AGENTS.md` or a rules file; a chat-only model gets a
-   pasted bootstrap prompt. Find your row in the support matrix above and follow
-   the matching Setup subsection.
+   A runtime that auto-discovers a skill folder can instead take the package from
+   a directory it scans, for example a user-level skills directory that serves
+   every project or a project-level one that serves a single repository. Clone into
+   that path when your runtime works that way, again keeping the folder name:
+
+   ```bash
+   git clone <repo-url> <skills-dir>/scrum
+   ```
+
+2. Wire it into your runtime. The mechanism differs by capability: a skill folder
+   is auto-discovered from `SKILL.md` with no include line; a terminal or IDE agent
+   reads `AGENTS.md` or takes one include line in the rules file it loads; a single
+   conversation with file access is pointed at the package directly; a chat-only
+   model gets a pasted bootstrap prompt. Find your row in the capability matrix
+   above and follow the matching Setup subsection.
 3. Start the work. Invocation also differs by runtime: type `/scrum start "your
    product idea"` where slash commands exist, ask in natural language to build,
    plan, or run a product as a software team, or paste the chat-only prompt to
@@ -52,6 +67,26 @@ started under one runtime can be resumed by another.
 The agent runs the founding interview once, then walks you from idea to a
 reviewed increment. You answer questions about outcomes and priorities; the team
 does the building. No docs to read first.
+
+## The two entry files
+
+The package root holds two entry files that describe the same system. Neither is
+primary, and a runtime needs only the one it can read.
+
+- `AGENTS.md` is the file terminal and IDE agents read automatically. An agent that
+  opens it learns what the package is, when to route to `SKILL.md`, how to pick a
+  capability adapter, the load-on-demand rule, and the two rules that hold before
+  any code is written.
+- `SKILL.md` is the file skill-folder runtimes discover from its `name` and
+  `description` frontmatter. It carries the full router: state detection, the
+  subcommand table, the per-stage reading list, the Definition of Done gate, and
+  the fixed backlog-item format.
+
+Both point at the same `core/` files and the same `.scrum/` state, so the system
+behaves the same whichever one a runtime reads first. Where an agent reads only the
+`AGENTS.md` at the repository root and the package sits in a subdirectory, add the
+include line from the setup subsection below so the root file points at
+`scrum/SKILL.md`.
 
 ## Example
 
@@ -64,72 +99,85 @@ and the Retrospective. The example state sits beside it in
 `examples/first-sprint/scrum-state/` and mirrors what the tool writes to
 `.scrum/` in a real project.
 
-## Setup per runtime
+## Setup per runtime capability
 
-Follow exactly one subsection. Each is self-contained.
+Follow exactly one subsection. Each is self-contained, each matches one row of the
+matrix above in the same order, and the products named in the headings are
+examples of the capability rather than requirements.
 
-### Claude Code
+### Runtimes that auto-discover a skill folder (for example Claude Code or Goose)
 
-Install as a skill so Claude Code auto-discovers it from the `name` and
-`description` frontmatter in `SKILL.md`:
+Install the package as a skill so the runtime discovers it from the `name` and
+`description` frontmatter in `SKILL.md`. No include line is needed. Copy the
+package, keeping the folder name `scrum`, into a directory the runtime scans:
 
-- User-wide: copy the package to `~/.claude/skills/scrum/`.
-- Single project: copy it to `<project>/.claude/skills/scrum/`.
+- a user-level skills directory, which makes it available in every project;
+- a project-level skills directory, which scopes it to one repository.
 
-Invoke it by asking to start, plan, run, review, or retro a product, or by typing
-`/scrum <idea>`. Claude Code maps the Orchestrator to the main loop and Developers
-to subagents with parallel fan-out. Details in `adapters/claude-code.md`.
+Directory names differ per runtime; take the exact path from the runtime's own
+documentation. Invoke the skill by asking to start, plan, run, review, or retro a
+product, or by typing `/scrum <idea>` where slash commands exist. The Orchestrator
+maps to the main loop and Developers to worker agents with parallel fan-out.
+Details in `adapters/parallel-agents.md`.
 
-### OpenAI Codex CLI
+### Terminal and IDE agents that read an instruction file (for example Cline, Codex CLI, or Cursor)
 
-Codex reads `AGENTS.md` from the project root. Copy the package to
-`<project>/scrum/`, then add this include:
+Some agents read an `AGENTS.md` at the repository root; an editor-integrated agent
+reads a rules file instead. Copy the package to `<project>/scrum/`. An agent that
+reads nested instruction files finds `scrum/AGENTS.md` on its own and needs no
+further setup. Where the agent reads only the repository-root file, add this
+include to whichever file it reads:
 
 ```markdown
 # AGENTS.md
 ## Scrum organization
 When asked to build, plan, run, review, or retro a product as a software team,
-follow scrum/SKILL.md. Read scrum/adapters/openai.md for the role mapping.
+follow scrum/SKILL.md. Read scrum/adapters/terminal-agent.md for the role mapping.
 Load scrum/core files by progressive disclosure per the stage table in
 scrum/SKILL.md. Keep all project state in .scrum/ as plain markdown and commit
 it with each increment.
 ```
 
-This is the same block `adapters/openai.md` carries; that file is the canonical
-copy. Codex runs the roles as separate runs where the setup allows spawning them,
-and by sequential role-switching otherwise. Details in `adapters/openai.md`.
+This is the same block `adapters/terminal-agent.md` carries; that file is the
+canonical copy. Where the setup can start separate runs or background agents,
+those act as Developers; where it cannot, the roles switch sequentially in one
+session. Details in `adapters/terminal-agent.md`.
 
-### Cursor and other IDE agents
-
-IDE agents read a rules file, for example `.cursor/rules/` or a project rules
-file. Copy the package to `<project>/scrum/` and add this rule:
+For an editor that loads a rules file rather than an `AGENTS.md`, put the same
+instruction there as a rule:
 
 ```markdown
 When the user asks to build, plan, or run a product as a software team, load
-scrum/SKILL.md and follow scrum/adapters/generic.md, unless the IDE exposes a
-worker-agent primitive, in which case follow scrum/adapters/openai.md. All state
-lives in .scrum/.
+scrum/SKILL.md and follow scrum/adapters/terminal-agent.md when this runtime can
+start separate runs or background agents as workers, and
+scrum/adapters/single-model.md when it cannot. All state lives in .scrum/.
 ```
 
-If the IDE can run background or parallel agents, treat them as Developers.
-Otherwise use the single-model labeled-hat protocol.
+### One conversation with file access (for example Aider or Continue)
 
-### Any plain chat model
+Copy the package to `<project>/scrum/`, then point the conversation at it: paste
+Prompt A from `adapters/bootstrap-prompt.md`, or ask the model to read
+`scrum/SKILL.md` and `scrum/adapters/single-model.md` and follow them. With no
+worker primitive the model plays every role by switching labeled hats (`[ORCH]`,
+`[PO]`, `[SM]`, `[DEV]`, `[VERIFY]`), and a distinct `[VERIFY]` pass walks the
+Definition of Done. State is written to `.scrum/` on disk and committed with the
+increment. Self-verification is weaker than an independent verifier;
+`adapters/single-model.md` states the limits and the mitigations.
+
+### A chat model with no file access (for example ChatGPT, Claude, or Gemini)
 
 No filesystem or tool access is required. Open `adapters/bootstrap-prompt.md` and
-paste the chat-only prompt, or open `adapters/generic.md` and follow the
-single-model protocol directly: the model switches labeled hats (`[ORCH]`,
-`[PO]`, `[SM]`, `[DEV]`, `[VERIFY]`) in one conversation and self-verifies the
-Definition of Done. When the protocol asks for a file, paste it into the chat:
+paste Prompt B, then paste each package file the protocol asks for:
 
 1. `core/framework.md` and `core/orchestrator.md` at the start.
-2. The role file for the active hat (`core/roles/*.md`).
-3. `core/dod/definition-of-done.md` before any DoD gate.
-4. The event file before each event (`core/events/*.md`).
+2. `adapters/single-model.md` before the first role turn.
+3. The role file for the active hat (`core/roles/*.md`).
+4. `core/dod/definition-of-done.md` before any Definition of Done gate.
+5. The event file before each event (`core/events/*.md`).
 
-Keep the `.scrum/` state as fenced markdown blocks in the conversation and paste
-them back on resume. Self-verification is weaker than an independent verifier;
-`adapters/generic.md` states the limits and the mitigations.
+Keep the `.scrum/` state as fenced markdown blocks in the conversation, save each
+block the model emits, and paste the latest ones back on resume. The same
+self-verification limits and mitigations apply here.
 
 ## How it works
 
@@ -259,15 +307,16 @@ Arguments follow `/scrum`. A bare `/scrum <free text idea>` behaves as `start`.
 
 ```
 scrum/
-├── SKILL.md                  entry point and router (skill-folder runtimes)
+├── AGENTS.md                 entry point for agents that read it automatically
+├── SKILL.md                  entry point and full router for skill-folder runtimes
 ├── README.md                 this file
 ├── CHANGELOG.md              version history
 ├── CONTRIBUTING.md           how to propose and test a change
 ├── ATTRIBUTION.md            sources this package builds on, and their licenses
-├── adapters/
-│   ├── claude-code.md        Orchestrator = main loop; Developers = subagents
-│   ├── openai.md             Codex CLI via AGENTS.md; GPT via system prompt
-│   ├── generic.md            single-model labeled-hat protocol
+├── adapters/                 named for runtime capability, never for a vendor
+│   ├── parallel-agents.md    Orchestrator = main loop; Developers = worker agents
+│   ├── terminal-agent.md     AGENTS.md or rules-file include; workers = separate runs
+│   ├── single-model.md       single-model labeled-hat protocol
 │   └── bootstrap-prompt.md   copy-paste prompts to boot any agent
 ├── core/
 │   ├── framework.md          Scrum for AI teams: pillars, values, flow
@@ -323,9 +372,9 @@ on a branch as a pull request the team never merges without you.
 
 ## FAQ
 
-**Does this work without subagent support?**
-Yes. `adapters/generic.md` defines a single-model protocol where one model plays
-every role by switching labeled hats and self-verifies the Definition of Done.
+**Does this work without worker agents?**
+Yes. `adapters/single-model.md` defines a single-model protocol where one model
+plays every role by switching labeled hats and self-verifies the Definition of Done.
 Self-verification is weaker than an independent verifier, and the adapter says so
 and lists mitigations.
 
@@ -363,7 +412,8 @@ verifier checks. All state persists as plain files, so work survives across
 sessions and tools. The result is criteria-driven and low-noise, not vibes.
 
 **What if my runtime has no file access?**
-Use the chat-only path in `adapters/bootstrap-prompt.md` or `adapters/generic.md`.
+Use the chat-only path in `adapters/bootstrap-prompt.md` or
+`adapters/single-model.md`.
 The model keeps each `.scrum/` file as a fenced markdown block in the conversation
 and re-emits it on every change. You save the blocks and paste them back to resume.
 
@@ -373,9 +423,10 @@ another can execute it, and a third can run the review, as long as each reads
 `state.md` first. This is the reason to commit `.scrum/`.
 
 **How do I uninstall or stop using it?**
-Stop invoking `/scrum`. To remove the skill, delete the `scrum/` folder from your
-skill or rules location. Your project's `.scrum/` directory is just markdown; keep
-it as a record or delete it. Neither affects your source code.
+Stop invoking `/scrum`. To remove the package, delete the `scrum/` folder from
+wherever you cloned it, your project or a skills directory, and delete the include
+line if you added one. Your project's `.scrum/` directory is just markdown; keep it
+as a record or delete it. Neither affects your source code.
 
 **Is my source code sent anywhere?**
 The skill itself makes no network calls and sends no source code. It runs inside

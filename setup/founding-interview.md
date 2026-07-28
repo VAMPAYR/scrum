@@ -271,7 +271,7 @@ the hardest or highest-blast-radius task, and any task a rung of the escalation
 ladder has already failed (`core/orchestrator.md`). The
 verifier never runs below the implementer's tier, since a weaker checker cannot
 gate a stronger builder. In a single-tier runtime this answer is a no-op and the
-labeled-hat discipline substitutes (`adapters/generic.md`).
+labeled-hat discipline substitutes (`adapters/single-model.md`).
 
 **Default:** The strongest available model on the Orchestrator, PO, SM, and
 verifier; mid-tier worker models on Developer briefs; the senior Developer on

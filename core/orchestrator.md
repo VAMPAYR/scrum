@@ -28,7 +28,7 @@ work verified by a separate pass, never by itself.
 every role by switching labeled hats. The no-coding rule then relaxes, because there
 is one actor. Role labels and self-verification hold the discipline instead, and the
 loss of independent verification is stated plainly to the stakeholder. See
-`adapters/generic.md`.
+`adapters/single-model.md`.
 
 ## Staffing the team
 
@@ -55,7 +55,7 @@ and honor it on every delegation.
 
 **Where the runtime cannot vary models per agent,** staffing is a no-op. The `Staffing`
 section says so in one line, and the discipline rests on role labels and independent
-verification passes instead. See `adapters/generic.md`.
+verification passes instead. See `adapters/single-model.md`.
 
 ## 2. Delegation briefs
 
@@ -225,7 +225,7 @@ kinds of decisions from blurring.
   Orchestrator does not quietly reorder the backlog; the `[PO]` does, with an order
   rationale.
 - In single-model mode the labels are the only thing separating the accountabilities,
-  so they are mandatory on every role action. See `adapters/generic.md`.
+  so they are mandatory on every role action. See `adapters/single-model.md`.
 
 ## 7. Orchestrator loop during EXECUTION
 

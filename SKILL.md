@@ -31,9 +31,9 @@ decisions. Code is produced by Developer agents and verified by an agent
 distinct from the implementer. The single exception is escalation rung (d) in
 `core/orchestrator.md`, logged in the sprint file when used.
 
-If the runtime has no worker-agent or subagent primitive, the model still keeps
-the roles separate by switching labeled hats. See `adapters/generic.md`. In that
-mode the no-coding rule relaxes because there is one model; role labels and
+If the runtime exposes no worker-agent primitive, the model still keeps the roles
+separate by switching labeled hats. See `adapters/single-model.md`. In that mode
+the no-coding rule relaxes because there is one model; role labels and
 self-verification hold the discipline instead.
 
 ## First action every invocation: detect state
@@ -75,15 +75,22 @@ of `core/roles/scrum-master.md`; metrics in the fenced blocks of
 - Sprint: 000
 - Product Goal: not set
 - Active PBIs: none
-- Adapter: <claude-code | openai | generic>
+- Adapter: <parallel-agents | terminal-agent | single-model>
 - Updated: <YYYY-MM-DD>
 ```
 
 `Format` marks the `.scrum/` layout version. It stays constant across a project's
 life and changes only when a migration rewrites the layout.
 
-Set `Adapter` by detecting the runtime (subagent primitive available →
-`claude-code`; Codex CLI or GPT → `openai`; single chat model → `generic`).
+Set `Adapter` by detecting the runtime's capability, never its vendor: a runtime
+that can spawn worker agents → `parallel-agents`; a runtime that reads an
+`AGENTS.md` or a rules file and can start separate runs as workers →
+`terminal-agent`; a single conversation with no worker primitive → `single-model`.
+A state file written under an older version of this package may carry the previous
+token: read `claude-code` as `parallel-agents`, `openai` as `terminal-agent`, and
+`generic` as `single-model`, then write the current token on the next state
+update. That mapping is read-compatible, so `Format` stays `1`.
+
 Update `Stage`, `Sprint`, `Product Goal`, `Active PBIs`, and `Updated` at every
 stage transition. How `.scrum/` and the code increment land is set by the
 Delivery mode in `.scrum/team.md`: `commit` (default) commits them together;
@@ -207,16 +214,22 @@ Every Product Backlog Item in `product/backlog.md` uses this shape:
 
 ## Choose the adapter
 
-Read the adapter that matches the runtime, then map the roles onto its
-primitives:
+Adapters are named for runtime capability, not for any vendor, and no adapter is
+the default. Read the one that matches the runtime's capability, then map the
+roles onto its primitives:
 
-- `adapters/claude-code.md`: Orchestrator is the main loop; Developers are
-  subagents with parallel fan-out where supported. Install path
-  `~/.claude/skills/scrum/` or project `.claude/skills/scrum/`.
-- `adapters/openai.md`: Codex CLI via `AGENTS.md`; GPT and Assistants via
-  system-prompt composition.
-- `adapters/generic.md`: single model switching labeled hats
-  (`[ORCH]`, `[PO]`, `[SM]`, `[DEV]`, `[VERIFY]`) with self-verification.
+- `adapters/parallel-agents.md`: the runtime spawns worker agents that run
+  concurrently and auto-discovers the skill folder from `SKILL.md`. Orchestrator
+  is the main loop, Developers are worker agents with parallel fan-out, and the
+  verifier is a distinct agent.
+- `adapters/terminal-agent.md`: a terminal or IDE agent reads a project
+  instruction file (an `AGENTS.md` or a rules file) and can start separate runs or
+  background agents as Developers.
+- `adapters/single-model.md`: one model in one conversation with no worker
+  primitive. Roles are labeled hats (`[ORCH]`, `[PO]`, `[SM]`, `[DEV]`,
+  `[VERIFY]`) and verification is a distinct labeled pass.
+- `adapters/bootstrap-prompt.md`: copy-paste prompts that boot any agent,
+  including a chat-only model with no file access.
 
 Installation for every environment is in `README.md`.
 

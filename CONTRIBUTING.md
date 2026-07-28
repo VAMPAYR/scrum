@@ -15,7 +15,12 @@ the constraints every change must hold, and how to test one before you open it.
 ## Constraints every change must hold
 
 - `core/` stays vendor-neutral. Use "Orchestrator", "worker agent", and "the
-  runtime"; keep runtime-specific names in `adapters/`, never in `core/`.
+  runtime"; keep runtime-specific detail in `adapters/`, never in `core/`.
+- Adapter files are named for runtime capability, never for a vendor, and the
+  `Adapter` token in `.scrum/state.md` uses those capability names. Name a
+  specific product only as one example among at least two, only inside an adapter
+  file or a `README.md` matrix cell, and never as the default, the primary, or the
+  reference implementation.
 - Keep the prose free of name-dropping and marketing. Credit is a separate matter
   from prose style: every external framework, model, or standard the package reuses
   is credited in `ATTRIBUTION.md`, and where a distinctive taxonomy is reproduced

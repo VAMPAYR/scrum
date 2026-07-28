@@ -4,6 +4,33 @@ Notable changes to this package are recorded here, newest first. Versions follow
 semantic versioning (MAJOR.MINOR.PATCH). Each release names what changed; a change
 to the `.scrum/` state layout bumps the `Format` field and ships a migration note.
 
+## 1.4.0 - 2026-07-28
+
+Vendor-neutral packaging. The core was already free of runtime assumptions; this
+release removes the same assumptions from how the package presents itself, so no
+runtime reads as the default.
+
+- Adapters are named for runtime capability rather than for a product:
+  `adapters/parallel-agents.md`, `adapters/terminal-agent.md`, and
+  `adapters/single-model.md` replace the three vendor-named files.
+  `adapters/bootstrap-prompt.md` is unchanged.
+- The `Adapter` field in `.scrum/state.md` uses the same capability names.
+  A state file written under an earlier version is read with the mapping
+  `claude-code` to `parallel-agents`, `openai` to `terminal-agent`, and `generic`
+  to `single-model`, then rewritten on the next state update.
+- `AGENTS.md` at the package root is a second entry point for agents that read
+  that file automatically. Previously only a runtime that discovers skill folders
+  could start without reading setup documentation.
+- The support matrix in `README.md` lists runtime capabilities rather than
+  products, with example runtimes shown per row, in a stated order that does not
+  rank them, and with an explicit disclaimer of endorsement.
+- The quick start no longer opens with an install path specific to one runtime.
+- `CONTRIBUTING.md` records the naming rule, so a later change cannot reintroduce
+  a vendor-named adapter.
+
+`Format` stays 1. The `Adapter` mapping above is read-compatible, so a project
+started under any earlier version resumes without migration.
+
 ## 1.3.0 - 2026-07-28
 
 Depth pass over the role playbooks, and the package's own taxonomies.
@@ -107,7 +134,7 @@ Initial release.
   `refine`, `plan`, `sprint`, `review`, `retro`, `health`, `dod`, and the Product
   Owner Sprint cancellation.
 - Adapters for skill-folder, terminal, IDE, and chat-only runtimes, so the same
-  core runs on a subagent-capable tool, a Codex-style terminal agent, an IDE
-  agent, or a single chat model switching labeled hats.
+  core runs on a worker-agent-capable tool, a terminal agent that reads a project
+  instruction file, an IDE agent, or a single chat model switching labeled hats.
 - Plain-markdown `.scrum/` state with `Format` versioning, plus a worked
   first-sprint example that ships the resulting state tree for browsing.

@@ -4,7 +4,7 @@
 
 - Project: exif-rename
 - Stakeholder: the photographer (the human user), who offloads memory cards to a laptop
-- Adapter: claude-code
+- Adapter: parallel-agents
 - Founded: 2026-07-14
 
 ## Communication

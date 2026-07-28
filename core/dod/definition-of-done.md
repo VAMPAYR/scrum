@@ -238,7 +238,7 @@ complete, the gate runs.
    implementer, or the Orchestrator acting as verifier. A Developer never passes
    its own work through the final gate. In single-model mode, where no separate
    agent exists, a labeled self-verification pass (`[DEV]` to `[ORCH]`) runs
-   instead; this is weaker and `adapters/generic.md` states the limits and
+   instead; this is weaker and `adapters/single-model.md` states the limits and
    mitigations.
 2. **Walk the instantiated DoD.** The verifier reads `.scrum/DEFINITION_OF_DONE.md`
    (the flattened Tier 0 + Tier 1 + selected Tier 2 profiles + Tier 3 rules) and

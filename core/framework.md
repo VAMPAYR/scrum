@@ -98,9 +98,9 @@ role. It exists because a runtime needs a coordinating loop to spawn and route a
 It never takes a Scrum decision on a role's behalf without labeling the role it speaks
 as (`[PO]`, `[SM]`, `[DEV]`), so accountability stays where Scrum puts it. In single-model
 mode the Orchestrator and the three roles are the same model switching labeled hats;
-the honesty then rests on self-verification, which is weaker, and `adapters/generic.md`
-says so plainly. The intent Scrum protects, clear and non-transferable accountability,
-is preserved by the labeling rule.
+the honesty then rests on self-verification, which is weaker, and
+`adapters/single-model.md` says so plainly. The intent Scrum protects, clear and
+non-transferable accountability, is preserved by the labeling rule.
 
 Accountability concentrates on purpose. One PO owns product value and ordering; one SM
 owns Scrum and impediment removal; the Developers own the how and the Increment.

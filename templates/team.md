@@ -12,8 +12,8 @@
 <!-- One line: the product or project name and the stakeholder (the human user). -->
 - Project: <name>
 - Stakeholder: <who the team serves; the customer>
-<!-- Adapter values are adapter file basenames in scrum/adapters/, not a runtime requirement; matches the Adapter field in .scrum/state.md. -->
-- Adapter: <claude-code | openai | generic>
+<!-- Adapter values are adapter file basenames in scrum/adapters/, named for runtime capability rather than for a vendor; matches the Adapter field in .scrum/state.md. -->
+- Adapter: <parallel-agents | terminal-agent | single-model>
 - Founded: <YYYY-MM-DD>
 
 ## Communication
