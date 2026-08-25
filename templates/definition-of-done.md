@@ -1,89 +1,80 @@
 <!--
   TEMPLATE: definition-of-done.md
   Instantiate to .scrum/DEFINITION_OF_DONE.md at stage 0 FOUNDING; refresh with
-  /scrum dod. Authoritative source and gate protocol: core/dod/definition-of-done.md.
-  Stack profile items: core/dod/profiles.md. Tier 3 is merged from the founding
-  interview (setup/founding-interview.md) and the project scan
-  (setup/project-scan.md); existing org standards are a floor, never weakened.
-  Keep it plain markdown, committed to the repo.
-
-  This is the instantiated quality commitment for the Increment. A PBI reaches
-  "done" only when a verifier distinct from the implementer walks these items and
-  records evidence per item into the PBI's DoD-evidence field. Mark an
-  unverifiable item n/a WITH A REASON; never skip it silently.
+  /scrum dod. The authoritative rules and gate protocol are in
+  core/dod/definition-of-done.md. Stack items come from core/dod/profiles.md.
+  Tier 3 merges the founding interview and project scan. Keep this file as plain
+  markdown committed with the project.
 -->
 
 # Definition of Done
 
 - Project: <name>
-- Instantiated: <YYYY-MM-DD>  |  Last refreshed: <YYYY-MM-DD>
+- Instantiated: <YYYY-MM-DD> | Last refreshed: <YYYY-MM-DD>
 - Selected stack profiles: <Web UI | API/service | Library | CLI | AI/LLM | ...>
-- How to verify (project commands, from the scan): build `<cmd>` | test `<cmd>` | lint `<cmd>` | typecheck `<cmd>` | format `<cmd>`
+- Project commands: build `<cmd>` | test `<cmd>` | lint `<cmd>` | typecheck `<cmd>` | format `<cmd>`
 
-## Tier 0: Universal (every increment, every project)
-<!-- Fixed floor. Do not weaken. Verify each with the project's real commands. -->
-- [ ] Read before edit: the implementer read the files it changed
-- [ ] Builds cleanly with the project build command
-- [ ] The full test suite passes, not only the new tests
-- [ ] New behavior has tests proportional to its risk and blast radius
-- [ ] Lint and typecheck pass clean
-- [ ] No debug output, commented-out code, or stray print statements left in
-- [ ] No hardcoded secrets or credentials
-- [ ] Errors are handled at trust boundaries, not swallowed
-- [ ] Docs updated where behavior changed
-- [ ] Commits are scoped with conventional messages; no unrelated changes
+## Tier 0: Universal
 
-## Tier 1: Security (any code touching external input or authentication)
-<!-- Applies whenever the PBI touches external input or authn. Otherwise mark n/a with reason. -->
-- [ ] Input validated at every trust boundary
-- [ ] Authorization checked on every protected path
-- [ ] No sensitive data written to logs
-- [ ] No stack traces or internal errors returned to clients
-- [ ] Dependency audit clean
-- [ ] Rate limiting on public endpoints
-- [ ] Secret scanning passed
+- [ ] Changed files and exact routed instruction modules were read before edit; the diff stays inside authorized scope
+- [ ] Acceptance maps to evidence; risk, test, security, UX, capability, attempt, baseline, stop, and diagnostic routes are recorded
+- [ ] The project builds reproducibly from its declared dependency graph
+- [ ] Fit-for-purpose checks and the full relevant test suite pass
+- [ ] Applicable lint, type, format, static-analysis, policy, and CI gates pass
+- [ ] A verifier inspected the actual diff, tests, generated files, configuration, dependencies, and deletions
+- [ ] No secrets, unnecessary personal data, proprietary source material, or private local paths ship
+- [ ] Changed boundaries validate their contracts and fail safely
+- [ ] Documentation and Scrum artifacts match the result and pass the artifact writing audit
+- [ ] Production consequences, rollback, recovery, and telemetry are handled where applicable
+- [ ] The increment is scoped, attributable, and recoverable
 
-## Tier 2: Stack profiles (selected at setup)
+## Tier 1: Security and assurance
+
 <!--
-  Include only the profiles selected in team.md. Copy the item list for each
-  from core/dod/profiles.md. Placeholders below; replace with the real items.
+  Evaluate the trigger for every PBI. Apply relevant items when work changes a
+  trust boundary, external input, identity, permission, secret, sensitive data,
+  privacy behavior, cryptography, parser, public endpoint, dependency trust,
+  build or deployment path, infrastructure, privileged tool, autonomous action,
+  model or retrieval path, or a material architecture assumption. Mark each
+  non-applicable item n/a with its individual reason.
 -->
 
+- [ ] A current risk or threat record covers the changed system and assumptions
+- [ ] Trust-boundary input and output are constrained and tested
+- [ ] Authentication, authorization, identity, and privilege follow least privilege
+- [ ] Sensitive data is minimized, protected, and absent from unnecessary logs
+- [ ] Timeout, partial failure, and internal error preserve security and data integrity
+- [ ] Dependency and supply-chain findings are triaged by exposure and impact
+- [ ] Abuse, rate, concurrency, cost, size, retry, and cancellation limits fit the threat model
+- [ ] Relevant secret, static, dynamic, dependency, infrastructure, and policy checks ran
+- [ ] Each mitigation maps to evidence; residual risk has an owner and review point
+
+## Tier 2: Stack profiles
+
+<!-- Copy only selected profiles from core/dod/profiles.md. Apply per PBI. -->
+
 ### Profile: <Web UI | API/service | Library | CLI | AI/LLM>
+
 - [ ] <profile item from core/dod/profiles.md>
 - [ ] <profile item>
 
-<!--
-  AI/LLM profile applies if the product calls models. It adds: evals defined and
-  passing before ship, prompt versioning, injection guardrails, cost and latency
-  budgets, fallback on model failure, PII/data-privacy handling, model/version
-  pinning, monitoring hooks. Copy the authoritative list from core/dod/profiles.md.
--->
-
-## Tier 3: Project-specific (merged from interview + scan)
-<!--
-  From setup/founding-interview.md (quality bar, constraints) and
-  setup/project-scan.md (CI gates, existing standards files). Every CI gate and
-  every testable rule from a standards file becomes an item here, attributed to
-  its source. Existing org standards are a floor; the team may add, never weaken.
--->
-- [ ] <CI gate becomes a DoD item> (source: <path>)
-- [ ] <rule from an existing standards file> (source: <path>)
-- [ ] <stakeholder quality rule from the founding interview>
-
-## Gate protocol (summary)
-<!-- Full protocol in core/dod/definition-of-done.md. -->
-- The verifier is an agent distinct from the implementer, or the Orchestrator, or
-  in single-model mode a labeled self-verification pass.
-- The verifier walks every applicable item, runs the real command, and records
-  evidence (command output, test summary, file paths) into the PBI's DoD-evidence
-  field in product/backlog.md.
-- Unverifiable items are marked n/a with a reason.
-- The Increment is the set of PBIs that passed the gate. Only those are
-  demonstrated at the Sprint Review.
+## Tier 3: Project-specific floor
 
 <!--
-  Evolving the DoD is healthy. When the Retrospective adds a rule that would make
-  the Increment more releasable (health check S2.8), add it to Tier 3 and record
-  the change in metrics.md and team.md.
+  Merge required CI gates, organizational and repository standards, stakeholder
+  constraints, compliance duties, architecture rules, and design-system rules.
+  Attribute each item to its public or project-local source. Keep the stricter
+  rule when sources conflict.
 -->
+
+- [ ] <project rule> (source: <project path or public standard>)
+- [ ] <CI gate> (source: <configuration path>)
+- [ ] <stakeholder quality commitment>
+
+## Gate protocol
+
+- The implementer self-checks and returns exact evidence.
+- A distinct verifier reads the PBI, brief, checklist, risk records, and diff from source.
+- The verifier tries to falsify the result and records evidence per applicable item.
+- An unavailable or failed check is a finding, not a pass. Mark only genuinely non-applicable items `n/a` with a reason.
+- A PBI joins the Increment only after a clean gate. Single-model self-verification records its weaker independence.

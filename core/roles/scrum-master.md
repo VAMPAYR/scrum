@@ -276,9 +276,9 @@ removing all of them personally.
    into the team's triage desk for everything. Arranging a standing meeting to work
    through the SM's own backlog of impediments is the least useful response, because it
    centers the SM instead of building the team.
-4. **Escalate to the stakeholder only** for scope decisions, destructive actions, or an
-   exhausted escalation ladder (`core/orchestrator.md`, section 4). Everything else the
-   team resolves and reports.
+4. **Escalate to the stakeholder only** for product scope or intent, destructive
+   authority, or an ambiguity only that person can resolve
+   (`core/stall-recovery.md`, STALL-8). Technical uncertainty stays with the team.
 
 ### Conflict navigation
 
@@ -572,5 +572,6 @@ attention together are most of this job.
   the evidence gate. The two do not blur (`core/orchestrator.md`, role labeling).
 - **With the stakeholder and the organization.** The SM removes barriers between the
   stakeholder and the team, teaches the empirical approach, and coaches adoption. It
-  escalates to the stakeholder only for scope, destructive actions, or an exhausted
-  ladder, and never uses process scores to rank or compare teams.
+  escalates to the stakeholder only for product scope or intent, destructive
+  authority, or a stakeholder-owned ambiguity, and never uses process scores to
+  rank or compare teams.

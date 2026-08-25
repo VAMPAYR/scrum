@@ -6,7 +6,12 @@ customer. AI agents fill the three Scrum accountabilities, Product Owner, Scrum
 Master, and Developers, and build your product under a tiered, evidence-gated
 Definition of Done. All state is plain markdown in your repo under `.scrum/`, so
 any AI tool can resume any project. "Done" is a verification gate with recorded
-evidence, never a self-reported checkbox.
+evidence, never a self-reported checkbox. Engineering is risk-driven and
+AI-aware: the team selects TDD or another verification route to fit the claim,
+threat-models consequential boundaries, treats generated work as untrusted, and
+writes every artifact under a concise, evidence-calibrated prose standard.
+The package keeps its full knowledge modules while a deterministic context router
+activates only the verbatim sections needed for the current stage and triggers.
 
 ## Works with any runtime
 
@@ -75,12 +80,13 @@ primary, and a runtime needs only the one it can read.
 
 - `AGENTS.md` is the file terminal and IDE agents read automatically. An agent that
   opens it learns what the package is, when to route to `SKILL.md`, how to pick a
-  capability adapter, the load-on-demand rule, and the two rules that hold before
+  capability adapter, the load-on-demand rule, and the rules that hold before
   any code is written.
 - `SKILL.md` is the file skill-folder runtimes discover from its `name` and
-  `description` frontmatter. It carries the full router: state detection, the
-  subcommand table, the per-stage reading list, the Definition of Done gate, and
-  the fixed backlog-item format.
+  `description` frontmatter. It carries the operating invariants, state and
+  subcommand routing, context-assembly contract, and execution gate. Exact
+  per-stage sections live in `core/context-routes.json` so one machine-readable
+  source controls every runtime.
 
 Both point at the same `core/` files and the same `.scrum/` state, so the system
 behaves the same whichever one a runtime reads first. Where an agent reads only the
@@ -133,9 +139,9 @@ include to whichever file it reads:
 ## Scrum organization
 When asked to build, plan, run, review, or retro a product as a software team,
 follow scrum/SKILL.md. Read scrum/adapters/terminal-agent.md for the role mapping.
-Load scrum/core files by progressive disclosure per the stage table in
-scrum/SKILL.md. Keep all project state in .scrum/ as plain markdown and commit
-it with each increment.
+Assemble exact stage and trigger context with scrum/scripts/context_router.py, or
+follow scrum/core/context-routes.json when Python is unavailable. Keep all project
+state in .scrum/ as plain markdown and commit it with each increment.
 ```
 
 This is the same block `adapters/terminal-agent.md` carries; that file is the
@@ -158,8 +164,8 @@ scrum/adapters/single-model.md when it cannot. All state lives in .scrum/.
 Copy the package to `<project>/scrum/`, then point the conversation at it: paste
 Prompt A from `adapters/bootstrap-prompt.md`, or ask the model to read
 `scrum/SKILL.md` and `scrum/adapters/single-model.md` and follow them. With no
-worker primitive the model plays every role by switching labeled hats (`[ORCH]`,
-`[PO]`, `[SM]`, `[DEV]`, `[VERIFY]`), and a distinct `[VERIFY]` pass walks the
+  worker primitive the model plays every role by switching labeled hats (`[ORCH]`,
+  `[PO]`, `[SM]`, `[DEV]`, `[DIAG]`, `[VERIFY]`), and a distinct `[VERIFY]` pass walks the
 Definition of Done. State is written to `.scrum/` on disk and committed with the
 increment. Self-verification is weaker than an independent verifier;
 `adapters/single-model.md` states the limits and the mitigations.
@@ -169,11 +175,15 @@ increment. Self-verification is weaker than an independent verifier;
 No filesystem or tool access is required. Open `adapters/bootstrap-prompt.md` and
 paste Prompt B, then paste each package file the protocol asks for:
 
-1. `core/framework.md` and `core/orchestrator.md` at the start.
-2. `adapters/single-model.md` before the first role turn.
-3. The role file for the active hat (`core/roles/*.md`).
-4. `core/dod/definition-of-done.md` before any Definition of Done gate.
-5. The event file before each event (`core/events/*.md`).
+1. `SKILL.md`, `core/artifact-writing-standard.md`,
+   `core/route-triggers.md`, and `core/context-routes.json` first.
+2. `core/framework.md` once for the project and `adapters/single-model.md` before
+   the first role turn.
+3. The exact stage sources selected by `core/context-routes.json`. Paste selected
+   sections verbatim, or full selected files when reliable section loading is not
+   available.
+4. Any state, stall, threat, UI/UX, or full-writing module activated by
+   `core/route-triggers.md`.
 
 Keep the `.scrum/` state as fenced markdown blocks in the conversation, save each
 block the model emits, and paste the latest ones back on resume. The same
@@ -219,6 +229,38 @@ self-verification limits and mitigations apply here.
 
 The three accountabilities and their playbooks live in `core/roles/`. The
 Orchestrator protocol is in `core/orchestrator.md`.
+
+### Engineering and specialist routing
+
+The package does not equate engineering discipline with one testing ritual.
+`core/test-strategy.md` uses TDD for deterministic behavior and regressions, then
+routes legacy behavior, parsers, service boundaries, user journeys, visual work,
+and probabilistic model behavior to methods that can test those claims.
+`core/threat-modeling.md` activates when a PBI changes a material trust, data,
+identity, dependency, deployment, or agent boundary.
+
+Writing is integrated into Scrum. `core/artifact-writing-standard.md` loads the
+standalone `research-clinical-writing` skill when available and supplies a
+portable fallback otherwise. Product-specific design remains modular:
+`core/ux-integration.md` calls the standalone `ux-fit` skill only for PBIs that
+need UI or UX judgment. Backend and implementation-only work do not pay that
+design cost.
+
+Instruction routing is also explicit. `scripts/context_router.py` reads
+`core/context-routes.json` and emits exact source sections for one stage, adapter,
+and set of triggers. It never summarizes or truncates content; it fails on an
+oversized bundle so the work can split at a safe boundary. Browser-only runtimes
+follow the same route file manually and load full selected files when needed.
+Every generated bundle ends with `core/execution-checklist.md`, keeping the final
+scope, authority, attempt, evidence, privacy, and state checks near the action.
+The optional scripts require Python 3.10 or later and use only the standard
+library; the Markdown and JSON fallback has no executable dependency.
+
+Stalled work follows `core/stall-recovery.md`: one hypothesis per mutating
+attempt, evidence-defined progress, a default two-attempt budget, preserved diffs,
+and read-only expert diagnosis selected by capability before model tier.
+`scripts/stall_router.py` enforces the deterministic stop and support-selection
+rules when code execution is available.
 
 ### The lifecycle
 
@@ -277,14 +319,24 @@ hours rather than weeks, inside the Scrum Guide's timebox of one month or less.
 - **Read DoD evidence at review.** Each accepted item carries recorded evidence
   (command output, test summary, file paths) in its "DoD evidence" field. Skim it.
   Evidence is the point; a "done" with no evidence is not done.
+- **Expect an adaptive test choice.** Every build brief names TDD or another
+  verification route and explains why it fits. A deterministic defect should show
+  a failing regression test before the fix; a legacy refactor may need
+  characterization evidence first; a parser may need fuzz or property evidence.
+- **Keep specialist skills modular.** Install `research-clinical-writing` and
+  `ux-fit` beside Scrum when the runtime supports skills. Scrum uses the writing
+  skill for all artifacts and calls the design skill only when a UI/UX trigger
+  applies. Its built-in fallbacks keep the package usable when either is absent.
 - **Run `status` to orient**, `health` when momentum feels off or output rises
   while value stalls, and `dod` to see or re-instantiate the current gate.
 - **Tune `.scrum/team.md` between sprints.** Retrospective items land there.
   Adjust cadence, norms, or the quality bar, and the next sprint follows the
   change.
-- **When agents stall**, the Orchestrator climbs an escalation ladder (rebrief,
-  fresh agent, split or pair, direct intervention, then ask you). If it reaches
-  you, it presents batched options with a recommendation. Pick one.
+- **When agents stall**, the worker stops mutating and returns a blocker packet.
+  The Orchestrator preserves the failed work, selects a capability-matched expert
+  for read-only diagnosis, then resumes, rebriefs, pairs, splits, or assigns a
+  fresh worker. You are asked only for product intent, scope, or authority that
+  the team cannot own.
 
 ## Command reference
 
@@ -307,6 +359,7 @@ Arguments follow `/scrum`. A bare `/scrum <free text idea>` behaves as `start`.
 
 ```
 scrum/
+├── .gitignore                blocks private research and generated scratch files
 ├── AGENTS.md                 entry point for agents that read it automatically
 ├── SKILL.md                  entry point and full router for skill-folder runtimes
 ├── README.md                 this file
@@ -320,12 +373,26 @@ scrum/
 │   └── bootstrap-prompt.md   copy-paste prompts to boot any agent
 ├── core/
 │   ├── framework.md          Scrum for AI teams: pillars, values, flow
-│   ├── orchestrator.md       Orchestrator protocol and escalation ladder
+│   ├── orchestrator.md       delegation, evidence gate, and bounded recovery routing
 │   ├── events/               sprint-planning, daily-scrum, sprint-review, retrospective
 │   ├── roles/                product-owner, scrum-master, developers
 │   ├── dod/                  definition-of-done, profiles
-│   ├── engineering-standards.md
+│   ├── engineering-standards.md  risk, secure design, AI and supply-chain controls
+│   ├── test-strategy.md      adaptive TDD and complementary verification routes
+│   ├── threat-modeling.md    triggers, threat records, mitigation evidence
+│   ├── artifact-writing-standard.md  compact writing and communication router
+│   ├── artifact-writing-full.md      complete portable writing fallback
+│   ├── context-routes.json   canonical stage, trigger, and adapter selections
+│   ├── route-triggers.md     always-active conditional-route index
+│   ├── stall-recovery.md     attempt limits and capability-aware diagnosis
+│   ├── state-protocol.md     conditional bootstrap and crash recovery
+│   ├── ux-integration.md     conditional bridge to the standalone ux-fit skill
 │   └── anti-patterns.md      process-decay symptoms as automated checks
+├── scripts/
+│   ├── context_router.py     emits bounded verbatim instruction bundles
+│   ├── stall_router.py       enforces stop and support-selection boundaries
+│   └── audit_skill.py        checks routes, references, privacy, and rule ownership
+├── tests/                    behavior tests for both deterministic routers
 ├── examples/
 │   └── first-sprint/         worked session: walkthrough.md + scrum-state/
 ├── setup/
@@ -349,6 +416,7 @@ except the source files a Developer edits under an explicit brief.
 │   └── backlog.md          ordered PBIs: id, value, size, acceptance, status
 ├── sprints/sprint-NNN/
 │   ├── sprint.md           goal, forecast, plan, task log
+│   ├── threat-model.md     optional, when the security trigger applies
 │   ├── review.md           evidence, stakeholder feedback
 │   └── retrospective.md    findings, improvement items
 ├── decisions.md            team shared memory: decisions, interfaces, gotchas
@@ -360,6 +428,8 @@ Commit `.scrum/` to your repo. It is safe and useful to keep under version
 control: it is plain markdown, it records why each decision was made, and it lets
 anyone (or any tool) resume the project at the exact stage it paused. Because the
 state is plain markdown with no vendor lock-in, you can switch runtimes mid-project.
+Keep private research files and extracts outside `.scrum/`; artifacts record only
+the public or project-local evidence needed to reproduce a decision.
 Start under one tool, continue under another, and the new tool reads `state.md`
 and picks up where the last left off.
 
@@ -387,6 +457,15 @@ a senior Developer that takes the hardest task of each cycle on the strongest ti
 (**Adaptation:** a skill distribution inside the one Developers accountability,
 not a new role or title). The founding interview asks which tiers your runtime
 actually offers; with a single tier, staffing is a no-op and nothing else changes.
+For stalled work, the capability registry takes precedence: required authority
+and domain capability, then diagnostic strength, model tier, and cost.
+
+**Does selective context remove knowledge from the skill?**
+No. Every Markdown module remains canonical and complete. The router emits
+verbatim sections for one operation and retains source paths. If a complete route
+is too large, it stops instead of trimming; the team splits the operation at a
+stage, event, PBI, or diagnostic boundary. A runtime without Python follows the
+same JSON route and may load each selected file in full.
 
 **Can I use my existing backlog?**
 Yes. Point the Product Owner at your existing items during vision or refinement.

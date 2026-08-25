@@ -51,6 +51,10 @@ Sprint as a whole, not about individual agents:
 4. **Impediments.** What is blocking or slowing the work that the Developers cannot
    self-resolve? Record each in `impediments.md` with an owner. Blockers reported verbatim
    by an agent are logged, not smoothed over.
+5. **Stall check.** Did any task consume the batch without reproducing, narrowing,
+   eliminating, or verifying anything under `core/stall-recovery.md`, STALL-1?
+   Mark it `blocked`, preserve its attempt count, pause further mutation, and run
+   the recovery route before assigning another attempt.
 
 The Daily Scrum has no mandatory format beyond serving its purpose. The steps above are a
 useful shape, not a required script.
@@ -70,6 +74,9 @@ Decision rules for the checkpoint:
 - **Mid-Sprint scope pressure** goes to the PO. If an outside request or an urgent
   non-goal item appears, the Developers decide whether to take it only if the Sprint Goal
   is not endangered, and inform the PO who owns backlog scope.
+- **A full batch without evidence is not hidden progress.** Code churn and repeated
+  commands do not justify another batch. Apply the stall check even when the worker
+  has not used the word `BLOCKED`.
 
 ## Outputs (`.scrum/` file changes)
 

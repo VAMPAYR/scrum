@@ -36,11 +36,49 @@ working copies. That tool is acknowledged here generically and is not named.
 
 ## Engineering standards
 
-`core/engineering-standards.md` was generalized from the author's own private
-production standards and rewritten to be stack-agnostic. The AI and LLM profile
-in `core/dod/profiles.md` draws on published industry practice in
-evaluation-driven development of foundation-model applications, stated here in
-general terms.
+The secure-development lifecycle, evidence, supply-chain, and AI-specific
+controls in `core/engineering-standards.md`, `core/threat-modeling.md`, and the
+Definition of Done draw on these public sources:
+
+- NIST Special Publication 800-218, *Secure Software Development Framework
+  (SSDF) Version 1.1*, at https://csrc.nist.gov/pubs/sp/800/218/final, and NIST
+  SP 800-218A, *Secure Software Development Practices for Generative AI and
+  Dual-Use Foundation Models*, at
+  https://csrc.nist.gov/pubs/sp/800/218/a/final. The package uses their
+  risk-based, outcome-oriented secure-development approach and lifecycle scope.
+- The NCSC, CISA, and international-partner *Guidelines for Secure AI System
+  Development*, at
+  https://www.ncsc.gov.uk/collection/guidelines-secure-ai-system-development.
+  The package carries security across design, development, deployment, and
+  operation.
+- The OWASP GenAI Security Project's *Top 10 for Agentic Applications 2026*, at
+  https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/.
+  The package addresses agent goal hijacking, tool misuse, privilege abuse,
+  agentic supply-chain risk, and related runtime failures in original wording.
+- The Supply-chain Levels for Software Artifacts (SLSA) specification 1.2, at
+  https://slsa.dev/spec/v1.2/. The package uses provenance and verifiable-build
+  concepts without claiming conformance to a SLSA level.
+
+The adaptive test strategy and compact assurance-case format are this package's
+own synthesis of established testing and systems-assurance practice. They select
+methods by claim and risk instead of prescribing one method for every task.
+
+## Accessibility
+
+The Web UI profile uses the W3C *Web Content Accessibility Guidelines (WCAG)
+2.2*, at https://www.w3.org/TR/WCAG22/. It distinguishes the Level AA target-size
+minimum in success criterion 2.5.8 from the larger Level AAA target in criterion
+2.5.5. The package does not claim that this checklist alone establishes WCAG
+conformance.
+
+## Writing and UI/UX integrations
+
+`core/artifact-writing-standard.md` defines a portable Scrum writing floor and,
+when available, delegates the fuller prose method to the separately installed
+`research-clinical-writing` skill. `core/ux-integration.md` keeps the separately
+installed `ux-fit` design method modular and routes only design-relevant work to
+it. Neither external skill's text or private supporting material is copied into
+this package.
 
 ## Licensing
 

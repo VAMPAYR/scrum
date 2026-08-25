@@ -33,6 +33,9 @@
 - Runnable result: <how to run it, or the link/path the stakeholder drove>
 - Test output: <summary or path>
 - Screenshots / artifacts: <paths>
+- Risk and assurance evidence: <threat closure, assumptions, residual-risk owner, assurance case, or n/a with reason>
+- UI/UX evidence: <Design Brief and implemented review result, or n/a with reason>
+- Artifact audit: <pass against core/artifact-writing-standard.md; unsupported claims or private paths found and resolved>
 
 <!-- Repeat one block per demonstrated PBI. -->
 
@@ -68,5 +71,8 @@
 - DoD pass rate: <passed / attempted>  |  Rework count: <n>
 - Cycle time: <arrival-to-release, if tracked>
 - Escaped defects: <found after "done">
+- Security and assurance note: <open threat age, residual risk, recovery result, or n/a>
+- Verification health: <flaky or skipped tests, change failures, or none>
+- Stall recovery: <no-progress batches, attempt-budget stops, support route, and outcome, or none>
 - Value note: <outcome/satisfaction signal, not just output>
 ```

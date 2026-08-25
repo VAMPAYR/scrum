@@ -1,327 +1,265 @@
 # Definition of Done
 
-The Definition of Done (DoD) is the quality bar an Increment must clear before it
-counts as real. It is the commitment attached to the Increment: one written,
-shared standard that spells out what has to be true of a piece of work before the
-product can carry it. An Increment comes into existence the moment a Product
-Backlog Item (PBI) satisfies that standard. A PBI that falls short of it stays
-out of the release and out of the Sprint Review, and goes back onto the Product
-Backlog for a later decision.
+The Definition of Done (DoD) is the shared quality commitment for an Increment.
+It describes the state a Product Backlog Item (PBI) must reach before the team can
+call it done. A claim, review comment, or model-generated summary cannot grant that
+state. A verifier records evidence against the instantiated checklist in
+`.scrum/DEFINITION_OF_DONE.md`.
 
-This skill enforces the DoD as a verification gate with recorded evidence, not a
-self-reported checkbox. This file defines the two universal tiers (Tier 0 and
-Tier 1), the gate protocol, the Scrum Guide rules that govern any DoD, and how
-project-specific criteria (Tier 3) merge in. Stack-specific criteria (Tier 2)
-live in `core/dod/profiles.md`. The fuller engineering reference the Developers
-draw from is `core/engineering-standards.md`.
+Read `core/engineering-standards.md` for the engineering system behind the gate,
+`core/test-strategy.md` for method selection, and `core/threat-modeling.md` when a
+security trigger applies. Apply `core/artifact-writing-standard.md` to the gate
+record itself.
 
 ## The four tiers
 
-The DoD is layered. Every project gets Tier 0 and Tier 1. Tier 2 profiles are
-selected at setup for the stacks the project uses. Tier 3 holds rules specific to
-this project. At setup the selected tiers are flattened into one checklist in the
-target repo at `.scrum/DEFINITION_OF_DONE.md`, instantiated from
-`templates/definition-of-done.md`.
-
 | Tier | Scope | Source |
 |---|---|---|
-| 0 Universal | Every increment, every project | This file |
-| 1 Security | Any code touching external input or authentication | This file |
-| 2 Stack profiles | Selected per stack at setup (Web UI, API/service, Library, CLI, AI/LLM) | `core/dod/profiles.md` |
-| 3 Project-specific | Merged from the founding interview and detected standards | `setup/founding-interview.md`, `setup/project-scan.md` |
+| 0 Universal | Every PBI | This file |
+| 1 Security and assurance | Every PBI considers the trigger; apply relevant items when triggered | This file |
+| 2 Stack profiles | Selected by product type and applied per PBI | `core/dod/profiles.md` |
+| 3 Project-specific | Organization, repository, stakeholder, and CI floor | Founding interview and project scan |
 
-Each criterion below states four things: the **rule** (what must hold), the
-**why** (the risk it removes), **verify** (generic command guidance, since the
-skill is stack-agnostic), and **evidence** (what the verifier records into the
-PBI so a reader can confirm the check ran).
+Each item includes a rule and the evidence a verifier needs. Mark an item `n/a`
+only with a concrete reason. A missing tool, failed command, or unavailable
+environment is not a pass; it is a finding or impediment.
 
 ## Tier 0: Universal
 
-Every PBI, in every project, clears all of Tier 0.
+Every PBI clears all of Tier 0.
 
-### 0.1 Read before edit
-- **Rule.** Every file a change touches was read in full before it was edited,
-  and the call sites of any changed function or interface were located.
-- **Why.** Context-blind edits break callers the author never saw and reintroduce
-  removed behavior. Reading first is the cheapest defect prevention available.
-- **Verify.** Review-level check: the delegation brief named the files in scope,
-  and the change stays inside them. A search for the changed symbol shows every
-  caller was considered.
-- **Evidence.** List of files read and the search used to find call sites.
+### 0.1 Scope and context were read before edit
 
-### 0.2 Builds cleanly
-- **Rule.** The project builds from a clean checkout with the committed lockfile,
-  no manual steps, no errors.
-- **Why.** A green local build that depends on undocumented state does not
-  reproduce in CI or on another machine. A clean build is the precondition for
-  every other check.
-- **Verify.** Run the project build with the deterministic install
-  (`npm ci`, `pip install --require-hashes`, `cargo build --locked`,
-  `go build ./...`, or the stack equivalent). Exit code 0.
-- **Evidence.** Build command and its exit status or final lines.
+- **Rule.** The implementer read each changed file and relevant caller, contract,
+  test, configuration, project instruction, and exact stage or triggered module
+  before editing. The change stays within the brief or records an authorized
+  scope change.
+- **Evidence.** Files and searches consulted, routed source list or manifest, and
+  a diff-scope statement.
 
-### 0.3 Full test suite passes
-- **Rule.** The entire test suite passes, not only the tests added for this PBI.
-- **Why.** A change that passes its own new tests can still break unrelated code.
-  Running the full suite is what catches that regression before Sprint Review.
-- **Verify.** Run the whole suite (`pytest`, `go test ./...`, `cargo test`,
-  `npm test`, or the stack runner). All pass; none skipped without a reason.
-- **Evidence.** Runner summary line (counts of passed, failed, skipped).
+### 0.2 Acceptance, risk, and verification routes are explicit
 
-### 0.4 New behavior has tests proportional to risk
-- **Rule.** New or changed behavior carries tests sized to its risk and blast
-  radius. Higher-risk paths (auth, money, data loss, external input) get more.
-- **Why.** Tests written with the change turn intended behavior into an executable
-  specification and a permanent guardrail. Skipping them defers the cost to a
-  future incident. Test-first or test-with-code is the team's practice: describe
-  the expected behavior in an executable form, then implement against it.
-- **Verify.** Confirm each acceptance criterion maps to at least one test.
-  Higher-risk criteria map to more than one, including a failure-path test.
-- **Evidence.** Mapping from acceptance criteria to test names.
+- **Rule.** Observable acceptance criteria map to verification. The brief records
+  the material risks, the selected test route and reason, and whether threat
+  modeling and the UI/UX specialist route apply. It also records required
+  capabilities, baseline, attempt budget, evidence-defined progress, stop
+  conditions, and diagnostic route.
+- **Evidence.** Criterion-to-check mapping, test route, security trigger decision,
+  UX route decision, and the task's attempt and recovery fields.
 
-### 0.5 Lint and type checks clean
-- **Rule.** The linter and, where the language has one, the type checker pass with
-  no new errors or suppressions added to force a pass.
-- **Why.** Lint and type gates catch a class of defects mechanically, so reviewers
-  spend attention on logic. A silenced warning is deferred debt.
-- **Verify.** Run the linter and type checker (`eslint`/`tsc`, `ruff`/`mypy`,
-  `golangci-lint`, `clippy`, or the stack equivalent). Zero new findings.
-- **Evidence.** Linter and type-checker exit status.
+### 0.3 The build is reproducible
 
-### 0.6 No debug output
-- **Rule.** No stray print, console, or debug logging remains in production code
-  paths. Diagnostics go through the structured logger.
-- **Why.** Ad-hoc prints are unqueryable, leak data, and clutter output. Routing
-  diagnostics through the logger keeps them redacted and greppable (see
-  `core/engineering-standards.md`, structured logging with redaction).
-- **Verify.** Grep changed files for banned raw-print calls outside test code.
-- **Evidence.** Grep pattern used and that it returned no production hits.
+- **Rule.** The project builds from the declared source and resolved dependency
+  graph without undocumented local state. Generated artifacts are attributable
+  and repeatable where the project promises reproducibility.
+- **Evidence.** Clean build or package command, environment, exit status, and
+  relevant lockfile or provenance path.
 
-### 0.7 No hardcoded secrets
-- **Rule.** No API keys, tokens, passwords, or credential-bearing URLs appear in
-  source, config, or fixtures.
-- **Why.** A committed secret is a leak the moment it enters history, and history
-  is hard to scrub. Detection at the point of change is the only cheap moment.
-- **Verify.** Run a secret scanner over the changed tree (`gitleaks`,
-  `trufflehog`, `detect-secrets`) with an allowlist for example files.
-- **Evidence.** Scanner output showing zero findings, or each finding justified.
+### 0.4 Fit-for-purpose checks and the full suite pass
 
-### 0.8 Errors handled at boundaries
-- **Rule.** Every entry point (request handler, command, external call) validates
-  its inputs and handles failure. Errors returned outward are generic; internal
-  detail stays server-side.
-- **Why.** Unhandled failures at a boundary crash the caller or leak internals.
-  A boundary that validates and degrades gracefully contains the failure (see
-  `core/engineering-standards.md`, handler template and error handling).
-- **Verify.** For each new boundary, a test drives the failure path and asserts a
-  handled, non-leaking response.
-- **Evidence.** Names of the failure-path tests.
+- **Rule.** New or changed behavior carries the tests, analysis, or hands-on
+  checks selected under `core/test-strategy.md`. The full relevant suite passes.
+  Higher-risk paths include misuse, failure, and recovery checks.
+- **Evidence.** Acceptance and risk mapping; focused and full-suite commands and
+  results; observed red-then-green evidence when the TDD route was selected.
 
-### 0.9 Docs updated when behavior changes
-- **Rule.** When behavior a user or caller relies on changes, the documentation
-  that describes it changes in the same PBI. Documentation lives near the code and
-  is versioned with it.
-- **Why.** Documentation that drifts from behavior misleads the next reader and
-  the next agent. The Scrum Team decides the type and amount of documentation its
-  DoD requires; the rule is that changed behavior does not ship with stale docs.
-- **Verify.** Confirm changed public behavior has a matching doc edit (README,
-  API reference, help text, or changelog).
-- **Evidence.** Paths of the updated docs.
+### 0.5 Static and policy gates pass
 
-### 0.10 Scoped commits with conventional messages
-- **Rule.** Commits are scoped to the PBI and use a conventional message
-  (`type(scope): subject`). No unrelated changes ride along.
-- **Why.** Machine-readable messages drive changelogs and versioning and force
-  intent into history. Scoped commits keep review and revert precise (see
-  `core/engineering-standards.md`, CI is the merge gate).
-- **Verify.** Read the diff: every hunk serves the PBI. The message matches the
-  conventional shape.
-- **Evidence.** Commit message and a one-line confirmation the diff is in scope.
+- **Rule.** Applicable lint, type, format, static-analysis, policy, and CI checks
+  pass without a new unexplained suppression or weaker threshold.
+- **Evidence.** Commands, exit status, and a disposition for each new finding or
+  suppression.
 
-### 0.11 No unrelated changes
-- **Rule.** The change set contains only what the PBI requires. Opportunistic
-  refactors, formatting sweeps, and unrelated fixes are separate PBIs.
-- **Why.** Mixed diffs hide the real change, enlarge the review surface, and
-  complicate revert. Small, single-purpose batches are the team's discipline:
-  refactoring needed for the PBI is allowed and named, drive-by edits are not.
-- **Verify.** Diff review confirms scope. Refactoring needed for the PBI is
-  allowed and named; drive-by edits are not.
-- **Evidence.** Confirmation in the DoD evidence that the diff is single-purpose.
+### 0.6 The actual diff passed adversarial review
 
-## Tier 1: Security
+- **Rule.** A reviewer inspects code, tests, generated files, migrations,
+  configuration, dependency changes, and deletions. AI-produced work is treated
+  as untrusted input. The review rejects invented APIs, placeholder behavior,
+  weakened tests, disabled controls, and unrelated changes.
+- **Evidence.** Reviewer identity or labeled pass, diff reviewed, issues found,
+  and resolution. The implementer's prose does not count as review evidence.
 
-Tier 1 applies to any PBI whose code touches external input, authentication, or
-authorization. If a PBI touches none of these, mark each Tier 1 item `n/a` with
-that reason. The fuller reference for each item is `core/engineering-standards.md`.
+### 0.7 Secrets and private material are absent
 
-### 1.1 Validation at trust boundaries
-- **Rule.** No raw external input reaches a database, a downstream service, or a
-  rendering sink. Every entry point validates against a schema, coerces and
-  escapes, and rejects known-malicious patterns.
-- **Why.** The network-to-application boundary is where injection enters (XSS,
-  SQL injection, template injection, null bytes). Validating once at the boundary
-  stops hostile data before it propagates to where it is harder to neutralize.
-- **Verify.** Unit-test the validator with hostile inputs (script tags,
-  `javascript:` URLs, null bytes, oversized strings). Confirm parameterized
-  queries or ORM binding, not string concatenation, for any query.
-- **Evidence.** Names of the input-validation tests and their result.
+- **Rule.** The change, history in scope, logs, prompts, fixtures, and artifacts
+  contain no hardcoded credentials, unnecessary personal data, proprietary source
+  material, or private local paths. Temporary source extracts stay in verified
+  ignored storage and do not ship.
+- **Evidence.** Secret and privacy scan result, ignore-rule check where scratch
+  material existed, and disposition of findings.
 
-### 1.2 Authorization on every protected path
-- **Rule.** Every protected route, action, and realtime connection checks
-  authentication and authorization before it does work. Realtime and streaming
-  channels authenticate at connect time.
-- **Why.** A protected path missing its check is a direct route to another user's
-  data or actions. Realtime channels bypass per-request HTTP auth, so an
-  unauthenticated socket is a broadcast leak.
-- **Verify.** Integration test: unauthenticated and wrong-user requests are
-  rejected before any effect. For realtime, a connection with no or invalid token
-  is refused before any message is delivered.
-- **Evidence.** Names of the auth-guard tests.
+### 0.8 Boundaries fail safely
 
-### 1.3 No sensitive data in logs
-- **Rule.** Logs never contain passwords, tokens, keys, or message contents. The
-  structured logger redacts a defined set of sensitive field names automatically.
-- **Why.** Automatic redaction keeps secrets out of logs even when an author
-  forgets, which is the realistic failure mode. Aggregated logs are a common
-  leak surface.
-- **Verify.** Unit-test that logging an object with sensitive keys emits the
-  redaction placeholder, not the value.
-- **Evidence.** Name of the log-redaction test.
+- **Rule.** Each changed entry point or external call validates its contract,
+  handles timeout and failure, preserves authorization, and returns no sensitive
+  internal detail. Retries and resource use are bounded where applicable.
+- **Evidence.** Boundary and failure-path tests, or `n/a` with a reason when the
+  PBI changes no boundary.
 
-### 1.4 No stack traces to clients
-- **Rule.** Error responses returned to clients are generic and carry a
-  correlation ID. Stack traces, file paths, and dependency detail stay in
-  server-side logs only.
-- **Why.** Stack traces leak internal structure to attackers and give legitimate
-  clients nothing actionable. A stable error contract plus a request ID gives
-  clients something to report while keeping internals private.
-- **Verify.** Security test asserting no stack trace or internal path appears in
-  any error response, and every error body carries a request ID.
-- **Evidence.** Name of the error-handling test.
+### 0.9 Documentation and artifacts match the result
 
-### 1.5 Dependency audit clean
-- **Rule.** No dependency carries a known vulnerability at the project's chosen
-  severity threshold or higher. Dependencies are pinned to exact versions.
-- **Why.** Ranges allow silent upgrades that can introduce breakage or a
-  supply-chain compromise between builds. Auditing catches known advisories at the
-  point of introduction rather than in production.
-- **Verify.** Run the stack audit tool (`npm audit --audit-level=moderate`,
-  `pip-audit`, `cargo audit`, `govulncheck`, `bundler-audit`, or the equivalent).
-  Confirm the lockfile is committed and in sync.
-- **Evidence.** Audit command and its summary (zero findings at threshold, or
-  each finding triaged).
+- **Rule.** User, caller, operator, architecture, and Scrum artifacts change with
+  the behavior they describe. Prose passes `core/artifact-writing-standard.md`:
+  outcome first, clear actors and actions, precise uncertainty, adjacent sources
+  when available, and no filler or smoothed failure.
+- **Evidence.** Paths changed and the completed artifact audit, or `n/a` with a
+  reason when no documented behavior changed.
 
-### 1.6 Rate limiting on public endpoints
-- **Rule.** Every public or authenticated endpoint enforces a request-rate cap,
-  tuned tighter for auth, writes, and expensive operations.
-- **Why.** Rate limits contain brute-force credential attacks, spam, scraping,
-  and resource-exhaustion denial of service.
-- **Verify.** Integration test that exceeding the limit returns HTTP 429, and the
-  response carries rate-limit headers.
-- **Evidence.** Name of the rate-limit test and the limits applied to new
-  endpoints.
+### 0.10 Operational consequences are handled
 
-### 1.7 Secret scanning
-- **Rule.** A secret scan runs over the whole source tree as a test and in CI,
-  with an allowlist for example and fixture files.
-- **Why.** Scanning as a test converts "do not commit secrets" from a hope into
-  an enforced gate that also guards future commits.
-- **Verify.** Run the secret-scan test and the CI scanner. Both pass.
-- **Evidence.** Scanner result over the source tree.
+- **Rule.** A production-facing change defines the telemetry, rollout, migration,
+  rollback, recovery, and support behavior proportionate to its impact. The team
+  tests a realistic failure or recovery path when one exists.
+- **Evidence.** Operational artifact and exercised result, or `n/a` with a reason
+  for non-operational work.
+
+### 0.11 The increment is scoped and recoverable
+
+- **Rule.** Every hunk serves the PBI. Required refactoring is named. Drive-by
+  changes are separate. Version-control history follows the project's delivery
+  mode and message convention, and the increment can be reverted or isolated.
+- **Evidence.** Final diff summary, delivery reference, and rollback or isolation
+  note for a consequential change.
+
+## Tier 1: Security and assurance
+
+Every PBI evaluates this trigger. Apply Tier 1 when the PBI changes a trust
+boundary, external input, identity, permission, secret, sensitive data, privacy
+behavior, cryptography, parser, public endpoint, dependency trust, build or
+deployment path, infrastructure, privileged tool, autonomous action, model or
+retrieval path, or architecture assumption with material impact. Apply relevant
+items and mark the rest `n/a` with individual reasons.
+
+### 1.1 Risk and threat records cover the change
+
+- **Rule.** The team models the changed system under `core/threat-modeling.md`, or
+  records why an existing model remains sufficient. Each material risk has an
+  asset, condition or event, consequence, treatment, owner, assumptions, and
+  verification.
+- **Evidence.** Threat-model or risk-record path, stable IDs, and trigger decision.
+
+### 1.2 Trust-boundary input is constrained
+
+- **Rule.** The system validates type, shape, size, encoding, range, and allowed
+  values before an input or action crosses a boundary. It uses safe query and
+  output construction for the destination context.
+- **Evidence.** Hostile, malformed, oversized, and boundary-value test results,
+  plus query or output review where relevant.
+
+### 1.3 Identity and privilege are minimized
+
+- **Rule.** The system authenticates identity and authorizes every protected
+  action before effects occur. Users, services, agents, and tools receive only the
+  minimum capability and lifetime required.
+- **Evidence.** Unauthenticated, wrong-user, expired-credential, and
+  over-privileged tests; permission or capability review.
+
+### 1.4 Sensitive data is minimized and protected
+
+- **Rule.** The change limits collection, transfer, retention, replication, and
+  logging of sensitive data. Storage and transport protections match the threat
+  model. Logs redact secrets and unnecessary content.
+- **Evidence.** Data-flow and retention decision, protection configuration, and
+  redaction or disclosure tests.
+
+### 1.5 Failure preserves security
+
+- **Rule.** Malformed input, dependency failure, timeout, partial deployment, and
+  internal error do not grant access, leak internals, corrupt protected state, or
+  continue a high-impact action without authorization.
+- **Evidence.** Failure, rollback, and non-disclosure test results.
+
+### 1.6 Supply-chain risk is triaged
+
+- **Rule.** New and changed components have an intentional source, supported
+  version policy, resolved build graph, license review where required, and
+  vulnerability disposition based on exposure and impact. High-risk products use
+  stronger provenance, signature, attestation, or bill-of-material controls.
+- **Evidence.** Dependency diff, audit result, finding dispositions, lock or
+  compatibility evidence, and provenance artifacts where required.
+
+### 1.7 Abuse and resource exhaustion are bounded
+
+- **Rule.** Public, expensive, automated, and high-impact operations enforce the
+  rate, concurrency, cost, size, timeout, retry, and cancellation limits that the
+  threat model requires. A universal HTTP rate limit is not required when another
+  control better fits the risk.
+- **Evidence.** Limit configuration and abuse or exhaustion test, or `n/a` with a
+  reason.
+
+### 1.8 Security checks and secret scanning ran
+
+- **Rule.** The project runs the relevant secret, static, dynamic, dependency,
+  container, infrastructure, or policy checks. Findings are fixed, mitigated,
+  accepted by the risk owner, or tracked with a due point.
+- **Evidence.** Commands and results, with one disposition per material finding.
+
+### 1.9 Mitigations and residual risk are closed explicitly
+
+- **Rule.** Every implemented mitigation maps to a test, analysis, review, alert,
+  or recovery exercise. The deployed design matches the model. A named owner
+  accepts material residual risk. Consequential changes carry the compact
+  assurance case from `core/engineering-standards.md`.
+- **Evidence.** Threat-to-mitigation-to-check mapping, assurance case when
+  triggered, residual-risk owner, and review point.
 
 ## The gate protocol
 
-`done` is a verified state, never a claim. When a Developer reports a PBI
-complete, the gate runs.
+`done` is a verified state.
 
-1. **Independent verifier.** The verifier is an agent distinct from the
-   implementer, or the Orchestrator acting as verifier. A Developer never passes
-   its own work through the final gate. In single-model mode, where no separate
-   agent exists, a labeled self-verification pass (`[DEV]` to `[ORCH]`) runs
-   instead; this is weaker and `adapters/single-model.md` states the limits and
-   mitigations.
-2. **Walk the instantiated DoD.** The verifier reads `.scrum/DEFINITION_OF_DONE.md`
-   (the flattened Tier 0 + Tier 1 + selected Tier 2 profiles + Tier 3 rules) and
-   checks every item against the actual change, running the verify command for
-   each rather than trusting a summary.
-3. **Record evidence per item.** For each DoD item the verifier writes concrete
-   evidence into the PBI's `DoD evidence` field: command output, a test-summary
-   line, or a file path. Evidence is specific enough that a reader can confirm the
-   check ran without re-running it.
-4. **`n/a` needs a reason.** An item that does not apply to this PBI is marked
-   `n/a` with the reason (for example "no external input, Tier 1 not triggered").
-   An item is never silently skipped. An unverifiable item is `n/a` with a reason,
-   not an implicit pass.
-5. **Honest failure reporting.** A failed check is reported verbatim. Failed test
-   output is pasted as-is, never paraphrased or smoothed over. A PBI that fails
-   any item is not `done`; it returns to the Developers or the backlog. The
-   Developers decide whether an Increment is releasable against the DoD, and that
-   judgment is not overridable from outside the team.
-6. **The increment is the passed set.** The Increment is exactly the set of PBIs
-   that passed the gate. Only those are demonstrated at Sprint Review; nothing
-   else is shown. See `core/events/sprint-review.md`.
+1. **The implementer self-checks.** The Developer runs the selected checks and
+   returns exact commands, results, paths, and known failures.
+2. **A verifier starts from source criteria.** A verifier distinct from the
+   implementer reads the PBI, brief, `.scrum/DEFINITION_OF_DONE.md`, applicable
+   profile, risk records, and changed diff. In single-model mode, a labeled
+   `[VERIFY]` pass re-reads these sources before judging the work.
+3. **The verifier tries to falsify the result.** It inspects the actual change,
+   checks test quality, reruns project gates, and probes material failure paths.
+4. **The verifier records evidence per item.** Evidence includes command output,
+   test summaries, analysis findings, paths, screenshots when necessary, and
+   `n/a` reasons. A generic `passes` statement is insufficient.
+5. **Failure stays visible.** The verifier reports failed output accurately. The
+   PBI returns for rework or to the Product Backlog; the team never demonstrates
+   it as part of the Increment.
+6. **Pass changes state.** Only a clean gate changes the PBI to `done`. The
+   Developers remain accountable for conformity to the DoD; the Product Owner
+   separately decides product acceptance. The Increment contains only PBIs that
+   passed.
 
-The Orchestrator triggers the gate on every "done" claim and does not accept a
-PBI as complete without recorded evidence (see `core/orchestrator.md`, section 5,
-evidence never trust). The PBI record format and its `DoD evidence` field are
-fixed in `SKILL.md`.
+The verifier must be at least as capable as the implementer. Use the strongest
+available independent reviewer for security-sensitive, destructive,
+privacy-critical, or difficult-to-reverse work. Self-verification is weaker and
+must say so in the evidence.
 
-## Scrum Guide rules that govern a DoD
+## Scrum rules that govern the DoD
 
-The DoD is not the team's private preference. Three rules from the Scrum Guide
-(2020) constrain it, stated here as the skill's own rules.
+- The Developers are accountable for creating and conforming to the DoD.
+- An organizational standard is the floor. Tier 3 imports it and may strengthen
+  it, but the team may not weaken it.
+- Multiple teams working on one product share one DoD for the combined Increment.
+- The Retrospective may strengthen the DoD. It may not lower Tier 0, Tier 1, or an
+  organizational floor to meet a deadline. The team cuts scope instead.
+- Work that does not meet the DoD returns to the Product Backlog. It is not part
+  of the Increment and is not represented as complete at the Sprint Review.
 
-- **Organizational floor.** Where the wider organization already publishes a
-  quality standard, that standard binds every team as a minimum. Where none
-  exists, the Scrum Team writes one that fits the product. In this skill, the
-  Tier 3 merge treats any detected organizational standard as that floor (see
-  below).
-- **Strengthen, never weaken.** A team may add criteria above the floor; it may
-  not drop below it. Expanding the DoD is part of continuous improvement: as the
-  team closes a capability gap (for example a reliable deployment pipeline), it
-  can put stronger quality goals into the DoD, step by step. A Retrospective may
-  strengthen the DoD; it may not relax Tier 0, Tier 1, or the organizational
-  floor.
-- **Who owns it.** The Scrum Team creates and owns its DoD. The Developers are
-  accountable for conforming to it and for judging whether an Increment is
-  releasable against it. Nobody outside the team can compel delivery of work that
-  has not met the standard. The Product Owner is accountable for not reducing the
-  quality goals the DoD encodes. In this skill the Orchestrator holds the gate; the
-  Product Owner protects the quality goals during ordering and acceptance; the
-  Developer agents deliver against the DoD. Roles stay labeled and separated (see
-  `core/orchestrator.md`, section 6, role labeling).
+## How Tier 3 merges
 
-## How Tier 3 project-specific criteria merge in
+Tier 3 combines two evidence sources:
 
-Tier 3 is where this project's own rules enter the DoD. Two sources feed it, both
-run at stage 0 FOUNDING.
+1. The founding interview supplies stakeholder constraints, quality commitments,
+   compliance duties, and required review evidence.
+2. The project scan supplies existing standards, CI gates, commands, architecture
+   rules, test requirements, security policy, and design-system constraints.
 
-1. **Project scan.** `setup/project-scan.md` detects existing standards and gates
-   already in the repo: an engineering-standards or contributing document, CI
-   config with required checks, a linter or formatter config, a commit-message
-   convention, pre-commit hooks. Each detected standard becomes a Tier 3 floor.
-   The DoD adopts these as minimums the team may strengthen and may not weaken,
-   per the organizational-floor rule above.
-2. **Founding interview.** `setup/founding-interview.md` asks the stakeholder for
-   quality rules the scan cannot detect: regulatory or audit requirements, a
-   required release sign-off, performance or accessibility targets, data-handling
-   rules. A required sign-off, if one exists, is written into the DoD and obtained
-   during the Sprint as part of the delivery pipeline, not deferred to a gate
-   after the fact.
-
-The merge produces `.scrum/DEFINITION_OF_DONE.md`: Tier 0 and Tier 1 verbatim,
-the Tier 2 profiles selected for this project's stacks (`core/dod/profiles.md`),
-and the Tier 3 rules from the two sources above. Where a Tier 3 rule generalizes
-a standard already stated in `core/engineering-standards.md`, cite that file so a
-maintainer can trace it. The instantiated file, not this one, is what the gate
-walks; this file is the source the instantiation is built from.
+Copy each testable rule into `.scrum/DEFINITION_OF_DONE.md` with its source path.
+Keep the stricter rule when sources conflict and ask the stakeholder only when
+the conflict changes product scope or authority. Re-scan when the stack, CI,
+security architecture, model use, or design system changes.
 
 ## Adaptation note
 
-**Adaptation:** The Scrum Guide leaves the content of a DoD to the team. This skill
-ships a concrete, tiered, evidence-gated default (Tier 0 and Tier 1) so a new
-project has a working quality bar on day one, and treats detected organizational
-standards as a floor on top of it. The intent, an Increment that is genuinely
-usable and transparent about its quality, is preserved: the tiers are a starting
-minimum the team strengthens over time, never a ceiling and never a substitute
-for the team's judgment.
+The Scrum Guide defines the purpose and governance of the Definition of Done but
+does not prescribe these engineering tiers or an AI-agent verification protocol.
+This package adds a tiered, evidence-gated default for AI-assisted delivery. The
+adaptation strengthens transparency and quality without changing Scrum's
+accountabilities, artifacts, commitments, or events.

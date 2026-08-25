@@ -51,6 +51,12 @@ how the answer changes team behavior, a default to offer, and the field it lands
 in inside `team.md`. Record the stakeholder's own words where they are specific;
 paraphrase to the field where they are not.
 
+Do not add a methods questionnaire. The project scan detects test, security, AI,
+privacy, and UI/UX signals. Developers then select TDD or another verification
+route per PBI under `core/test-strategy.md`. Ask the stakeholder only when a
+missing product constraint, risk owner, or design choice would materially change
+the result.
+
 ### 1. Communication style
 
 **Ask:** "How do you want the team to talk to you during the work: terse status
@@ -64,10 +70,14 @@ the register keeps communication effective.
 **How it changes team behavior:** Sets the default length and tone of checkpoint
 notes, Review summaries, and escalation messages. A terse preference tightens the
 Review to evidence and decisions; a detailed preference expands rationale in
-briefs and reviews.
+briefs and reviews. Length preference does not weaken
+`core/artifact-writing-standard.md`: every artifact still leads with the outcome,
+uses clear actors and actions, calibrates uncertainty, cites available evidence,
+and removes generic AI filler. If `research-clinical-writing` is discoverable,
+the team loads it through that standard.
 
 **Default:** Short narrative updates, plain language, Scrum terms defined on first
-use.
+use, with the research-clinical writing standard applied.
 
 **Lands in:** `team.md` > Communication.
 
@@ -79,8 +89,9 @@ questions arise, or batched?"
 
 **Why it matters:** Focus is a Scrum value: agents work the Sprint Goal and are
 not pulled off it needlessly. The Orchestrator batches interruptions so the team
-stays on the goal, and only breaks in for scope decisions, destructive actions, or
-an exhausted escalation ladder (`core/orchestrator.md`).
+stays on the goal, and only breaks in for scope or product-intent decisions,
+destructive authority, or an ambiguity only the stakeholder can resolve
+(`core/stall-recovery.md`, STALL-8).
 
 **How it changes team behavior:** Sets the interruption threshold. A low
 tolerance means the team batches non-blocking questions to the Review and
@@ -89,8 +100,8 @@ sooner. It also sets how aggressively the team self-resolves impediments before
 escalating (`core/anti-patterns.md`, check S4.10).
 
 **Default:** Batch non-blocking questions to the Sprint Review; interrupt only for
-scope decisions, destructive or irreversible actions, or an exhausted escalation
-ladder.
+scope or product-intent decisions, destructive or irreversible authority, or an
+ambiguity only the stakeholder can resolve.
 
 **Lands in:** `team.md` > Interruption tolerance.
 
@@ -252,9 +263,9 @@ its DoD-evidence field.
 
 ### 9. Staffing
 
-**Ask:** "Which model tiers can this runtime actually run: one model only, or a
-strong tier and a cheaper worker tier? And do you want a senior Developer on the
-strongest tier for the hardest task of each cycle?"
+**Ask:** "Which model tiers, specialist agents, tools, and permissions can this
+runtime actually provide? Do you want a senior Developer available for difficult
+diagnosis and high-impact work?"
 
 **Why it matters:** Judgment and cost sit in different places. Orchestration,
 diagnosis, and verification decide what happens and whether it is really done, so
@@ -265,17 +276,19 @@ spreading it evenly. **Adaptation:** a senior Developer is a skill distribution
 inside the single Developers accountability, not a new role or title; the Scrum
 Guide (2020) defines no sub-roles inside Developers.
 
-**How it changes team behavior:** Sets the tier each seat runs on when the
-adapter for this runtime dispatches work (`adapters/`). A senior Developer takes
-the hardest or highest-blast-radius task, and any task a rung of the escalation
-ladder has already failed (`core/orchestrator.md`). The
-verifier never runs below the implementer's tier, since a weaker checker cannot
-gate a stronger builder. In a single-tier runtime this answer is a no-op and the
-labeled-hat discipline substitutes (`adapters/single-model.md`).
+**How it changes team behavior:** Builds the capability registry used when the
+adapter dispatches work (`adapters/`). A senior Developer or specialist takes
+high-impact work and performs read-only diagnosis when a task stalls. Required
+authority and domain capability outrank nominal model tier; model strength then
+breaks ties (`core/stall-recovery.md`, STALL-5 and STALL-6). The verifier never
+runs below the implementer's tier. In a single-tier runtime, record the available
+capabilities and use fresh labeled diagnostic and verification passes
+(`adapters/single-model.md`).
 
 **Default:** The strongest available model on the Orchestrator, PO, SM, and
-verifier; mid-tier worker models on Developer briefs; the senior Developer on
-when a stronger tier exists, off in a single-tier runtime.
+verifier; mid-tier worker models on ordinary Developer briefs; the senior
+Developer on when a stronger tier exists; specialist routing by capability before
+model tier.
 
 **Lands in:** `team.md` > Staffing.
 
@@ -314,6 +327,13 @@ actually follow.
 - **Ask for help early.** An agent does not struggle indefinitely before raising
   an impediment; blockers reach `impediments.md` with a clear ask.
 - **Evidence over claims.** No "done" without gate evidence.
+- **Clear artifacts.** Apply `core/artifact-writing-standard.md` to stakeholder
+  messages, Scrum state, briefs, reports, and technical documentation. Detail must
+  support a decision or verification; filler does not count.
+- **Adaptive verification.** Select TDD or another test route from
+  `core/test-strategy.md` according to the claim and risk, then record why.
+- **Specialists by trigger.** Run threat modeling and the standalone UI/UX route
+  only when their triggers apply; carry their evidence into the PBI and gate.
 - **The floor holds.** The Definition of Done's universal and security tiers are
   never lowered to hit a deadline.
 - **Version control.** The delivery mode from area 10 governs how work lands. By
@@ -330,8 +350,9 @@ Record any stakeholder-specific norm here too, in the stakeholder's own words.
    per area plus the working agreement. Mark any answer taken as a default so the
    Retrospective knows it was not an explicit choice.
 2. Record the selected stack profiles (from the quality-bar and constraints
-   answers) and the detected commands and CI (from `setup/project-scan.md`) in the
-   same file, so planning and the DoD gate can read them.
+   answers), detected commands and CI, test topology, security signals, privacy
+   findings, and UI/UX route (from `setup/project-scan.md`) in the same file, so
+   planning and the DoD gate can read them.
 3. Feed the quality-bar, constraints, and review-evidence answers into the
    instantiated `.scrum/DEFINITION_OF_DONE.md` via
    `core/dod/definition-of-done.md`.

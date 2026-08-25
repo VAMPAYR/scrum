@@ -1,0 +1,24 @@
+# Private research and generated scratch material never ship with the skill.
+sources/
+.build/
+scratch/
+*.pdf
+*.epub
+*.mobi
+*.azw
+*.azw3
+*.txt
+
+# Local Python bytecode from validation scripts.
+__pycache__/
+*.py[cod]
+
+# Local secrets and machine-specific configuration.
+.env
+.env.*
+*.local
+
+# OS noise.
+.DS_Store
+Thumbs.db
+desktop.ini

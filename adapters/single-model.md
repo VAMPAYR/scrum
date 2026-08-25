@@ -19,6 +19,7 @@ blend two roles in one turn. The hats:
 | `[PO]` | Product Owner | Product Goal, backlog, ordering by value, acceptance criteria, validation |
 | `[SM]` | Scrum Master | event facilitation, impediments, process guard, health checks |
 | `[DEV]` | Developers | implements, tests, meets the DoD, self-manages the Sprint Backlog |
+| `[DIAG]` | read-only diagnostic pass | reviews a blocker packet and proposes one discriminating next step |
 | `[VERIFY]` | verification pass | walks the DoD against the increment and records evidence |
 
 Rules:
@@ -29,12 +30,19 @@ Rules:
    process is an `[SM]` decision; implementation is a `[DEV]` decision. Do not let
    one hat make another hat's call.
 3. **Brief before build.** `[ORCH]` writes the delegation brief (PBI id, Sprint
-   Goal, acceptance criteria, applicable DoD tiers, files in scope, constraints,
-   evidence to return) before any `[DEV]` turn starts. The brief is the contract
-   the `[VERIFY]` pass checks against.
+   Goal, acceptance criteria, applicable DoD tiers, risk and threat route,
+   adaptive test strategy, UI/UX route, files in scope, constraints, authority,
+   private-data and approval limits, writing standard, required capabilities,
+   attempt budget, progress evidence, stop conditions, baseline, diagnostic
+   route, and evidence to return)
+   before any `[DEV]` turn starts. The brief is the contract the `[VERIFY]` pass
+   checks against.
 4. **Read before speaking.** Read the role file in `core/roles/` before wearing
    that hat, the event file in `core/events/` before facilitating an event, and
    `core/dod/definition-of-done.md` before any gate.
+5. **Load cross-cutting standards.** Read `core/artifact-writing-standard.md` once
+   per invocation and `core/test-strategy.md` before a build. Read
+   `core/threat-modeling.md` or `core/ux-integration.md` when its trigger applies.
 
 ## The no-coding rule in single-model mode
 
@@ -73,7 +81,9 @@ it as independent as a single model can:
 3. **Adversarial reading.** In the `[VERIFY]` turn, actively try to fail each
    item: look for the untested branch, the unhandled error at the boundary, the
    secret left in a log, the acceptance criterion with no matching test. Report
-   what you find verbatim.
+   what you find verbatim. Inspect the actual diff, generated files, dependencies,
+   configuration, migrations, deletions, threat evidence, and changed artifacts;
+   do not rely on the `[DEV]` explanation.
 4. **Fresh statement of results.** Write the verdict per item as if reporting to
    someone who did not write the code. A false "done" is what this pass exists to
    catch.
@@ -111,21 +121,24 @@ stage transition, re-emit the changed block (`state.md`, `backlog.md`,
 read the stage and continue. The formats are fixed by `templates/` and by the PBI
 record in `SKILL.md`.
 
-## Escalation ladder in single-model mode
+## Stall recovery in single-model mode
 
-The rungs in `core/orchestrator.md` still apply, run as labeled turns:
+The boundaries in `core/stall-recovery.md` still apply. A model switch is useful
+when available, but a fresh context is required even when only one model exists:
 
-1. **Rebrief**: `[ORCH]` sharpens the brief and adds the failure trace; a new
-   `[DEV]` turn retries.
-2. **Fresh attempt**: restate the problem from scratch in a new `[DEV]` turn,
-   discarding the prior approach, with the failure output in view.
-3. **Split or contrast**: decompose into smaller `[DEV]` turns, or run two
-   `[DEV]` turns with different approaches and keep the better result after a
-   `[VERIFY]` pass on each.
-4. **Direct resolution**: already the norm here, since one model does the work;
-   log the difficulty in the sprint file.
-5. **Stakeholder escalation**: `[ORCH]` batches the open questions, presents
-   options with a recommendation, and waits for your decision.
+1. `[DEV]` pauses mutation, preserves the diff, and emits the blocker packet when
+   a stop trigger fires.
+2. `[DIAG]` receives only the original brief, relevant source, blocker packet,
+   actual diff, and exact evidence. It starts from the stated facts, challenges
+   the prior mental model, and proposes one discriminating next step. State that
+   this is not independent because the same model performs it.
+3. `[ORCH]` chooses resume, rebrief, a fresh `[DEV]` context, pair-by-alternating
+   passes, split, scout, impediment, or bounded direct resolution. It never resets
+   the attempt count merely because the label or context changed.
+4. `[VERIFY]` re-reads the criteria and gate after implementation. It does not
+   reuse `[DIAG]` conclusions as proof.
 
-Interrupt the stakeholder during EXECUTION only for scope decisions, destructive
-actions, or an exhausted ladder. Everything else waits for the Sprint Review.
+If code execution is available, use `scripts/stall_router.py` for the deterministic
+stop check. Ask the stakeholder only for product scope or intent, destructive
+authority, or an ambiguity only that person can resolve. Technical uncertainty
+remains inside the labeled team.
