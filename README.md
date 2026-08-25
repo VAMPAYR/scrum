@@ -6,7 +6,10 @@ customer. AI agents fill the three Scrum accountabilities, Product Owner, Scrum
 Master, and Developers, and build your product under a tiered, evidence-gated
 Definition of Done. All state is plain markdown in your repo under `.scrum/`, so
 any AI tool can resume any project. "Done" is a verification gate with recorded
-evidence, never a self-reported checkbox.
+evidence, never a self-reported checkbox. Engineering is risk-driven and
+AI-aware: the team selects TDD or another verification route to fit the claim,
+threat-models consequential boundaries, treats generated work as untrusted, and
+writes every artifact under a concise, evidence-calibrated prose standard.
 
 ## Works with any runtime
 
@@ -174,6 +177,9 @@ paste Prompt B, then paste each package file the protocol asks for:
 3. The role file for the active hat (`core/roles/*.md`).
 4. `core/dod/definition-of-done.md` before any Definition of Done gate.
 5. The event file before each event (`core/events/*.md`).
+6. `core/artifact-writing-standard.md` once before any artifact or stakeholder
+   message, `core/test-strategy.md` before planning a build, and conditionally
+   `core/threat-modeling.md` or `core/ux-integration.md` when their trigger fires.
 
 Keep the `.scrum/` state as fenced markdown blocks in the conversation, save each
 block the model emits, and paste the latest ones back on resume. The same
@@ -219,6 +225,22 @@ self-verification limits and mitigations apply here.
 
 The three accountabilities and their playbooks live in `core/roles/`. The
 Orchestrator protocol is in `core/orchestrator.md`.
+
+### Engineering and specialist routing
+
+The package does not equate engineering discipline with one testing ritual.
+`core/test-strategy.md` uses TDD for deterministic behavior and regressions, then
+routes legacy behavior, parsers, service boundaries, user journeys, visual work,
+and probabilistic model behavior to methods that can test those claims.
+`core/threat-modeling.md` activates when a PBI changes a material trust, data,
+identity, dependency, deployment, or agent boundary.
+
+Writing is integrated into Scrum. `core/artifact-writing-standard.md` loads the
+standalone `research-clinical-writing` skill when available and supplies a
+portable fallback otherwise. Product-specific design remains modular:
+`core/ux-integration.md` calls the standalone `ux-fit` skill only for PBIs that
+need UI or UX judgment. Backend and implementation-only work do not pay that
+design cost.
 
 ### The lifecycle
 
@@ -277,6 +299,14 @@ hours rather than weeks, inside the Scrum Guide's timebox of one month or less.
 - **Read DoD evidence at review.** Each accepted item carries recorded evidence
   (command output, test summary, file paths) in its "DoD evidence" field. Skim it.
   Evidence is the point; a "done" with no evidence is not done.
+- **Expect an adaptive test choice.** Every build brief names TDD or another
+  verification route and explains why it fits. A deterministic defect should show
+  a failing regression test before the fix; a legacy refactor may need
+  characterization evidence first; a parser may need fuzz or property evidence.
+- **Keep specialist skills modular.** Install `research-clinical-writing` and
+  `ux-fit` beside Scrum when the runtime supports skills. Scrum uses the writing
+  skill for all artifacts and calls the design skill only when a UI/UX trigger
+  applies. Its built-in fallbacks keep the package usable when either is absent.
 - **Run `status` to orient**, `health` when momentum feels off or output rises
   while value stalls, and `dod` to see or re-instantiate the current gate.
 - **Tune `.scrum/team.md` between sprints.** Retrospective items land there.
@@ -307,6 +337,7 @@ Arguments follow `/scrum`. A bare `/scrum <free text idea>` behaves as `start`.
 
 ```
 scrum/
+├── .gitignore                blocks private research and generated scratch files
 ├── AGENTS.md                 entry point for agents that read it automatically
 ├── SKILL.md                  entry point and full router for skill-folder runtimes
 ├── README.md                 this file
@@ -324,7 +355,11 @@ scrum/
 │   ├── events/               sprint-planning, daily-scrum, sprint-review, retrospective
 │   ├── roles/                product-owner, scrum-master, developers
 │   ├── dod/                  definition-of-done, profiles
-│   ├── engineering-standards.md
+│   ├── engineering-standards.md  risk, secure design, AI and supply-chain controls
+│   ├── test-strategy.md      adaptive TDD and complementary verification routes
+│   ├── threat-modeling.md    triggers, threat records, mitigation evidence
+│   ├── artifact-writing-standard.md  writing integration and portable fallback
+│   ├── ux-integration.md     conditional bridge to the standalone ux-fit skill
 │   └── anti-patterns.md      process-decay symptoms as automated checks
 ├── examples/
 │   └── first-sprint/         worked session: walkthrough.md + scrum-state/
@@ -349,6 +384,7 @@ except the source files a Developer edits under an explicit brief.
 │   └── backlog.md          ordered PBIs: id, value, size, acceptance, status
 ├── sprints/sprint-NNN/
 │   ├── sprint.md           goal, forecast, plan, task log
+│   ├── threat-model.md     optional, when the security trigger applies
 │   ├── review.md           evidence, stakeholder feedback
 │   └── retrospective.md    findings, improvement items
 ├── decisions.md            team shared memory: decisions, interfaces, gotchas
@@ -360,6 +396,8 @@ Commit `.scrum/` to your repo. It is safe and useful to keep under version
 control: it is plain markdown, it records why each decision was made, and it lets
 anyone (or any tool) resume the project at the exact stage it paused. Because the
 state is plain markdown with no vendor lock-in, you can switch runtimes mid-project.
+Keep private research files and extracts outside `.scrum/`; artifacts record only
+the public or project-local evidence needed to reproduce a decision.
 Start under one tool, continue under another, and the new tool reads `state.md`
 and picks up where the last left off.
 

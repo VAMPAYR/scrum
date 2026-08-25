@@ -10,6 +10,7 @@
 ## Communication
 - Update style: terse status
 - Vocabulary: plain language; Scrum terms defined on first use
+- Writing standard: core/artifact-writing-standard.md; research-clinical-writing when discoverable
 - Source: stakeholder choice
 
 ## Interruption tolerance
@@ -42,6 +43,16 @@
 - Hosting / deployment target: local command-line tool on macOS and Linux; installed with pip
 - Required or forbidden dependencies: no network dependencies; the tool makes no network calls
 - Data and compliance rules: photos are personal data; image data never leaves the machine
+
+## Engineering and specialist routes
+- Test topology: pytest unit and CLI integration tests; Ruff and mypy static gates; no fuzz suite or CI yet
+- Default test-strategy note: use regression-first TDD for defects and deterministic file behavior; add malformed-input and collision cases at the filesystem boundary
+- Threat-model artifacts and triggers: sprint-001 threat record covers EXIF input, path construction, collision, partial failure, and overwrite
+- AI-assisted development access: repo read/write and local test execution only; no network, deployment, or secret access; any destructive command requires stakeholder authority
+- Product AI/agent use: no
+- Private-source and scratch-data controls: fixtures contain synthetic EXIF only; scratch stays in ignored temporary storage; public artifacts name no private source paths
+- UI/UX route: n/a, CLI product with no graphical user interface
+- Design Brief and design-system evidence: none
 
 ## Review evidence
 - Required evidence per PBI: a runnable result the stakeholder drives, plus test output
@@ -81,6 +92,9 @@
 - Honest reporting: failed output is reported verbatim, never smoothed over.
 - Ask for help early: blockers reach impediments.md with a clear ask.
 - Evidence over claims: no "done" without gate evidence.
+- Artifact quality: outcome first, clear actors and actions, exact evidence, no filler or private paths.
+- Adaptive tests: record the selected route and reason; deterministic file behavior uses TDD.
+- AI boundaries: generated work is untrusted; briefs limit authority, private data, retries, and approval-gated actions.
 - The floor holds: universal and security tiers are never lowered for a deadline.
 - Version control: the Delivery mode section above governs how each increment lands. Start from a clean working tree.
 - Never move or overwrite a photo the tool cannot safely rename; a collision resolves to a new name.

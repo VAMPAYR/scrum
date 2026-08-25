@@ -38,13 +38,21 @@
 -->
 <The plan. Note the order of attack and any dependencies between PBIs.>
 
+- Material risks and assumptions: <risk ids, consequence, owner, or none with reason>
+- Threat-model route: <update/create path | existing model sufficient | n/a with reason>
+- Test routes by PBI: <TDD, regression-first, characterization, property, fuzz, contract, integration, end-to-end, static/formal, exploratory/visual, eval, or spike; reason>
+- UX routes by PBI: <ux-fit + evidence path | fallback | n/a with reason>
+- High-impact assurance cases: <PBI ids and path | none>
+
 ## Task log
 <!--
   One entry per delegated task. Each references its delegation brief so the work
   is traceable. A delegation brief (core/orchestrator.md) includes: Type
   (build | scout), PBI id, the Sprint Goal, acceptance criteria, the DoD tier
-  checklist, files in scope, constraints, and what evidence to return. Store the
-  brief inline or as a file under this sprint dir and reference it here.
+  checklist, risk and threat route, test strategy, UX route, exact authority,
+  private-data boundary, files in scope, constraints, writing standard, and what
+  evidence to return. Store the brief inline or as a file under this sprint dir
+  and reference it here.
 
   Status: assigned | in-progress | in-review | done | blocked | reworked
   Keep WIP low: few tasks in-progress at once (health check S2.10).
@@ -54,7 +62,7 @@
 - Brief: <path to delegation brief, e.g. briefs/PBI-NNN.md, or "inline below">
 - Agent: <worker agent id, or [DEV] hat in single-model mode>
 - Status: assigned | in-progress | in-review | done | blocked | reworked
-- Evidence returned: <command output, test summary, file paths; feeds the DoD gate>
+- Evidence returned: <commands, test and analysis results, red-then-green result when selected, risk/design evidence, diff, file paths; feeds the DoD gate>
 - Verification: <verifier agent id or [ORCH]; PASS | FAIL with reason>
 - Diagnosis (retries only): <root-cause hypothesis for the failed attempt and the
   recommended direction, per core/orchestrator.md section 3>

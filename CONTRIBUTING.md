@@ -26,9 +26,16 @@ the constraints every change must hold, and how to test one before you open it.
   is credited in `ATTRIBUTION.md`, and where a distinctive taxonomy is reproduced
   (a named set of levels, areas, or measures), credit its originator at the point
   of use as well. Reproduce no third-party text; state every rule in fresh wording.
+- Never commit private research files, source extracts, credentials, personal
+  data, or local absolute paths. Keep temporary research under an ignored
+  directory, verify the ignore rule and tracked-file list, then cite only public
+  sources in distributable package text.
 - Content states rules directly. Prefer the imperative rule over description of who
   said it.
 - No em dashes. Write concise, formal prose in active voice.
+- Apply `core/artifact-writing-standard.md` to package prose. Preserve
+  `research-clinical-writing` as an optional external integration with a portable
+  fallback, and preserve `ux-fit` as a conditional standalone specialist route.
 - Stay accurate to the Scrum Guide (2020) for accountabilities, events, artifacts,
   commitments, pillars, and values. Never contradict it silently. State its rules
   in this package's own wording rather than reproducing its text. Mark every
@@ -45,3 +52,8 @@ the constraints every change must hold, and how to test one before you open it.
   `retro`, and confirm the state files it writes match the templates.
 - Run the health check (`/scrum health`) and confirm it reports cleanly.
 - Confirm the paths named in `README.md` and `SKILL.md` resolve to real files.
+- Exercise one deterministic TDD route, one non-TDD route, one security trigger,
+  and both outcomes of the UI/UX trigger. Confirm each route leaves the evidence
+  required by the Definition of Done.
+- Search the package and tracked-file list for private filenames, absolute local
+  paths, source extracts, and secrets before publishing.

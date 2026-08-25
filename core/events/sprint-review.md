@@ -28,8 +28,10 @@ Goal. It runs as a working session, not a one-way presentation.
 - `product/product-goal.md` and `product/backlog.md`: to frame progress and to receive
   feedback.
 - `.scrum/DEFINITION_OF_DONE.md`: the standard that decided what counts as done.
-- Evidence gathered during execution: runnable results, test output, screenshots, changed
-  file paths recorded in each PBI's "DoD evidence" field.
+- Evidence gathered during execution: runnable results, test and analysis output,
+  changed paths, threat and assurance records, and design evidence recorded in
+  each PBI's "DoD evidence" field. Use screenshots only when they materially show
+  visual or interaction evidence.
 
 ## AI-adapted procedure
 
@@ -48,6 +50,9 @@ Run the Review in this order:
    the working behavior and the evidence behind it. Use the PBI's acceptance criteria as
    the demo script: show that each observable behavior holds. Prefer a runnable
    demonstration over a description.
+   For security-triggered work, show mitigation closure, assumptions, and the
+   residual-risk owner. For design-triggered work, compare the implemented
+   experience with the accepted Design Brief or fallback intent.
 3. **Show only Done work.** Items that did not meet the Definition of Done are not
    demonstrated as if complete. Name them, return them to the Product Backlog, and estimate
    the remaining work. Presenting undone work as done breaks transparency and trust.
@@ -60,6 +65,9 @@ Run the Review in this order:
 6. **Record value signals.** Note the value measures the PO tracks (current value,
    unrealized value, time-to-market, and ability-to-innovate) into `metrics.md`, so trends
    are visible across Sprints.
+7. **Audit the review artifact.** Apply `core/artifact-writing-standard.md` before
+   saving it. Lead with the outcome, keep claims next to evidence, distinguish
+   observed results from inference, and remove filler and private paths.
 
 Decision rules for the Review:
 

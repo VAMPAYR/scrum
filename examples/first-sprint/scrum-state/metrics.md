@@ -7,6 +7,8 @@
 - DoD pass rate: 2/2  |  Rework count: 1
 - Cycle time: one session, about 3 hours from idea to a released JPEG tool
 - Escaped defects: 0
+- Security and assurance note: TM-001 and TM-002 mitigated; TM-003 remains open for batch-mode recovery and is reviewed with PBI-002.
+- Verification health: no flaky or skipped tests; one missing destructive-path test caused gate rework and became a regression test.
 - Value note: the stakeholder ran it on a real card dump and stopped renaming by hand; asked for HEIC to cover their own iPhone photos.
 
 ## sprint-001 retro

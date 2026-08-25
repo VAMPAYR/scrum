@@ -51,6 +51,12 @@ how the answer changes team behavior, a default to offer, and the field it lands
 in inside `team.md`. Record the stakeholder's own words where they are specific;
 paraphrase to the field where they are not.
 
+Do not add a methods questionnaire. The project scan detects test, security, AI,
+privacy, and UI/UX signals. Developers then select TDD or another verification
+route per PBI under `core/test-strategy.md`. Ask the stakeholder only when a
+missing product constraint, risk owner, or design choice would materially change
+the result.
+
 ### 1. Communication style
 
 **Ask:** "How do you want the team to talk to you during the work: terse status
@@ -64,10 +70,14 @@ the register keeps communication effective.
 **How it changes team behavior:** Sets the default length and tone of checkpoint
 notes, Review summaries, and escalation messages. A terse preference tightens the
 Review to evidence and decisions; a detailed preference expands rationale in
-briefs and reviews.
+briefs and reviews. Length preference does not weaken
+`core/artifact-writing-standard.md`: every artifact still leads with the outcome,
+uses clear actors and actions, calibrates uncertainty, cites available evidence,
+and removes generic AI filler. If `research-clinical-writing` is discoverable,
+the team loads it through that standard.
 
 **Default:** Short narrative updates, plain language, Scrum terms defined on first
-use.
+use, with the research-clinical writing standard applied.
 
 **Lands in:** `team.md` > Communication.
 
@@ -314,6 +324,13 @@ actually follow.
 - **Ask for help early.** An agent does not struggle indefinitely before raising
   an impediment; blockers reach `impediments.md` with a clear ask.
 - **Evidence over claims.** No "done" without gate evidence.
+- **Clear artifacts.** Apply `core/artifact-writing-standard.md` to stakeholder
+  messages, Scrum state, briefs, reports, and technical documentation. Detail must
+  support a decision or verification; filler does not count.
+- **Adaptive verification.** Select TDD or another test route from
+  `core/test-strategy.md` according to the claim and risk, then record why.
+- **Specialists by trigger.** Run threat modeling and the standalone UI/UX route
+  only when their triggers apply; carry their evidence into the PBI and gate.
 - **The floor holds.** The Definition of Done's universal and security tiers are
   never lowered to hit a deadline.
 - **Version control.** The delivery mode from area 10 governs how work lands. By
@@ -330,8 +347,9 @@ Record any stakeholder-specific norm here too, in the stakeholder's own words.
    per area plus the working agreement. Mark any answer taken as a default so the
    Retrospective knows it was not an explicit choice.
 2. Record the selected stack profiles (from the quality-bar and constraints
-   answers) and the detected commands and CI (from `setup/project-scan.md`) in the
-   same file, so planning and the DoD gate can read them.
+   answers), detected commands and CI, test topology, security signals, privacy
+   findings, and UI/UX route (from `setup/project-scan.md`) in the same file, so
+   planning and the DoD gate can read them.
 3. Feed the quality-bar, constraints, and review-evidence answers into the
    instantiated `.scrum/DEFINITION_OF_DONE.md` via
    `core/dod/definition-of-done.md`.

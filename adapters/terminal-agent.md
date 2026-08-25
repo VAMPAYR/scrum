@@ -47,7 +47,9 @@ runs are available.
 Where the environment can start a distinct run (a separate invocation, a separate
 process, a background agent, or a run in its own worktree), treat each as a
 Developer with a full delegation brief: PBI id, Sprint Goal, acceptance criteria,
-applicable DoD tiers, files in scope, constraints, and the evidence to return.
+applicable DoD tiers, risk and threat route, adaptive test strategy, UI/UX route,
+files in scope, constraints, minimum authority, private-data boundary, approval
+and stop limits, writing standard, and the evidence to return.
 Reconcile results in the main session and run the full test suite before the gate.
 
 Where no worker run is available, switch roles sequentially in one session. The
@@ -82,7 +84,10 @@ into that system prompt.
    prompt or the thread when that role acts.
 3. Load `core/dod/definition-of-done.md` before any DoD gate and
    `core/events/*.md` before each event.
-4. Use function or tool calling for any real actions (running tests, reading
+4. Load `core/artifact-writing-standard.md` once per invocation,
+   `core/test-strategy.md` before a build, and `core/threat-modeling.md` or
+   `core/ux-integration.md` when its trigger applies.
+5. Use function or tool calling for any real actions (running tests, reading
    files). A tool result is the evidence the DoD gate records; never accept a
    "done" claim without it.
 

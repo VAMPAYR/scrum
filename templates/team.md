@@ -20,6 +20,7 @@
 <!-- Founding interview area 1. Update length/tone; note if this is a default. -->
 - Update style: <terse status | short narrative | full detail with reasoning>
 - Vocabulary: <plain language | Scrum terms, defined on first use>
+- Writing standard: core/artifact-writing-standard.md; load research-clinical-writing when discoverable
 - Source: <stakeholder choice | default>
 
 ## Interruption tolerance
@@ -58,6 +59,20 @@
 - Hosting / deployment target: <...>
 - Required or forbidden dependencies: <...>
 - Data and compliance rules: <...>
+
+## Engineering and specialist routes
+<!--
+  From the project scan. These are routing facts, not a universal choice for every
+  PBI. Refinement evaluates the trigger again for each item.
+-->
+- Test topology: <unit | component | contract | integration | end-to-end | property | fuzz | static | visual/a11y | eval; commands and gaps>
+- Default test-strategy note: choose per PBI under core/test-strategy.md; TDD is preferred for deterministic behavior and reproducible defects
+- Threat-model artifacts and triggers: <paths and signals | none detected>
+- AI-assisted development access: <available read/write/execute/network/deploy/secret capabilities and limits>
+- Product AI/agent use: <yes, select AI/LLM profile | no>
+- Private-source and scratch-data controls: <safe ignored location; tracked-file findings; never record private filenames or paths here>
+- UI/UX route: <ux-fit when triggered | fallback when triggered | n/a>
+- Design Brief and design-system evidence: <project paths | none detected>
 
 ## Review evidence
 <!-- Area 8. Sets what each done PBI must return and what the Review records. -->
@@ -117,6 +132,9 @@
 - Honest reporting: failed output is reported verbatim, never smoothed over.
 - Ask for help early: blockers reach impediments.md with a clear ask.
 - Evidence over claims: no "done" without gate evidence.
+- Artifact quality: outcome first, clear actors and actions, evidence-calibrated detail, available citations, no AI filler.
+- Adaptive tests: record the selected verification route and why it fits; do not force TDD where another method answers the claim better.
+- AI boundaries: generated work is untrusted; minimum authority, private-data limits, approval gates, and stop conditions belong in every brief.
 - The floor holds: universal and security tiers are never lowered for a deadline.
 - Version control: the Delivery mode section above governs how each increment lands. A project written before that section used `Auto-commit: <on | off>`; `on` maps to `commit` and `off` maps to `stage-only`.
 - <stakeholder-specific norm, in their words>

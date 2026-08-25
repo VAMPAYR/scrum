@@ -278,6 +278,12 @@ Aim for criteria that are specific, measurable, attainable, relevant, and bounde
 that cover success, the advance case, failure, and error paths. Vague criteria produce
 vague verification.
 
+When `core/threat-modeling.md` triggers, include the stakeholder-visible security,
+privacy, misuse, recovery, or residual-risk outcome without dictating the
+implementation. When `core/ux-integration.md` triggers, include the target user
+task, information and action priority, required interaction states, and observable
+design-review outcome. The Developers choose the engineering and test methods.
+
 Illustrate the criteria that carry risk with concrete examples. Take one criterion and
 write the exact starting state, the exact input, and the exact expected result. An
 example settles the arguments that abstract wording hides, and it converts directly into
@@ -327,8 +333,9 @@ is split into right-sized deliverables, not shelved.
 
 "Ready" is a guideline, not a gate. An item is workable when it is small enough for one
 Sprint, sized, detailed enough to confirm intended behavior, and understood by the
-Developers. Do not turn readiness into a contract that blocks a good late idea; the team
-may still take on an item that is not fully ready.
+Developers. Material risk, threat-model need, and UI/UX judgment are visible enough
+for planning to route them. Do not turn readiness into a contract that blocks a
+good late idea; the team may still take on an item that is not fully ready.
 
 ### Value measures recorded in metrics.md
 

@@ -1,6 +1,6 @@
 ---
 name: scrum
-description: Run a full Scrum software organization on any project with AI agents filling Product Owner, Scrum Master, and Developer accountabilities, a tiered evidence-gated Definition of Done, and plain-file state any AI tool can resume. Use when the user wants to start, plan, run, review, or retro a product or sprint, says "/scrum", "product backlog", "sprint planning", "definition of done", or asks to build something as a real software team would.
+description: Run a full Scrum software organization on any project with AI agents filling Product Owner, Scrum Master, and Developer accountabilities, risk-based engineering and testing, clear evidence-calibrated artifacts, a tiered evidence-gated Definition of Done, and plain-file state any AI tool can resume. Use when the user wants to start, plan, run, review, or retro a product or sprint, says "/scrum", "product backlog", "sprint planning", "definition of done", or asks to build something as a real software team would.
 ---
 
 # Scrum: an AI software organization
@@ -23,6 +23,14 @@ Read `core/framework.md` once per project for the values, the three pillars
 (transparency, inspection, adaptation), and the flow. Read `core/orchestrator.md`
 before delegating any work.
 
+Read `core/artifact-writing-standard.md` once at the start of every invocation,
+before writing a stakeholder message, `.scrum/` artifact, brief, report, or
+technical document. It integrates the standalone `research-clinical-writing`
+skill when that skill is discoverable and supplies a complete fallback when it
+is not. The standard requires concise, sufficiently detailed, evidence-calibrated
+prose with clear actors and actions, adjacent citations when sources are
+available, and no generic AI filler.
+
 ## The no-coding rule (read first)
 
 While worker agents are available, the Orchestrator does not write or edit
@@ -36,9 +44,10 @@ separate by switching labeled hats. See `adapters/single-model.md`. In that mode
 the no-coding rule relaxes because there is one model; role labels and
 self-verification hold the discipline instead.
 
-## First action every invocation: detect state
+## First actions every invocation: load writing rules and detect state
 
-State lives in the target project's repo at `.scrum/state.md`. Plain markdown,
+First load `core/artifact-writing-standard.md` as directed above. Then detect
+state. State lives in the target project's repo at `.scrum/state.md`. Plain markdown,
 committed to the repo, so any AI tool resumes any project.
 
 One `.scrum/` belongs to one product. In a monorepo, place a `.scrum/` in each
@@ -149,24 +158,30 @@ Routing rules:
 
 ## Progressive disclosure: what to read per stage
 
-SKILL.md loads nothing by default beyond itself. At each stage, read only the
-files that stage needs. Paths are relative to the `scrum/` package root.
+Beyond the writing standard, SKILL.md loads files by stage. At each stage, read
+only the files that stage needs. Paths are relative to the `scrum/` package root.
+During refinement and planning, evaluate the threat-model and UI/UX triggers.
+Read `core/threat-modeling.md` or `core/ux-integration.md` only when its trigger
+applies. The UI/UX route calls the standalone `ux-fit` skill when available; it
+does not merge that specialist method into Scrum.
 
 | Stage | Read these files | Writes into `.scrum/` |
 |---|---|---|
 | 0 FOUNDING | `setup/project-scan.md`, `setup/founding-interview.md`, `core/roles/scrum-master.md`, `core/dod/definition-of-done.md`, `core/dod/profiles.md`, templates `templates/team.md` `templates/definition-of-done.md` | `state.md`, `team.md`, `DEFINITION_OF_DONE.md` |
 | 1 VISION | `core/roles/product-owner.md`, `templates/product-goal.md`, `templates/product-backlog.md` | `product/product-goal.md`, `product/backlog.md`, `state.md` |
-| 2 REFINEMENT | `core/roles/product-owner.md`, `core/roles/developers.md` | `product/backlog.md`, `state.md` |
-| 3 PLANNING | `core/events/sprint-planning.md`, `core/roles/product-owner.md`, `core/roles/developers.md`, `templates/sprint.md` | `sprints/sprint-NNN/sprint.md`, `state.md` |
-| 4 EXECUTION | `core/orchestrator.md`, `core/roles/developers.md`, `core/events/daily-scrum.md`, `core/dod/definition-of-done.md`, `core/engineering-standards.md`, `templates/decisions.md`, `.scrum/decisions.md` (into every brief) | `sprint.md` task log, `decisions.md`, `impediments.md`, `state.md`, code in the repo |
-| 5 REVIEW | `core/events/sprint-review.md`, `core/roles/product-owner.md`, `templates/review.md` | `sprints/sprint-NNN/review.md`, `product/backlog.md`, `metrics.md`, `state.md` |
+| 2 REFINEMENT | `core/roles/product-owner.md`, `core/roles/developers.md`, `core/engineering-standards.md`, `core/test-strategy.md`; conditionally `core/threat-modeling.md`, `core/ux-integration.md` | `product/backlog.md`, `state.md` |
+| 3 PLANNING | `core/events/sprint-planning.md`, `core/roles/product-owner.md`, `core/roles/developers.md`, `core/engineering-standards.md`, `core/test-strategy.md`, `templates/sprint.md`; conditionally `core/threat-modeling.md`, `core/ux-integration.md` | `sprints/sprint-NNN/sprint.md`, `state.md` |
+| 4 EXECUTION | `core/orchestrator.md`, `core/roles/developers.md`, `core/events/daily-scrum.md`, `core/dod/definition-of-done.md`, `core/engineering-standards.md`, `core/test-strategy.md`, `templates/decisions.md`, `.scrum/decisions.md` (into every brief); conditionally `core/threat-modeling.md`, `core/ux-integration.md` | `sprint.md` task log, `decisions.md`, `impediments.md`, `state.md`, risk and design evidence, code in the repo |
+| 5 REVIEW | `core/events/sprint-review.md`, `core/roles/product-owner.md`, `templates/review.md`; conditionally `core/ux-integration.md` | `sprints/sprint-NNN/review.md`, `product/backlog.md`, `metrics.md`, `state.md` |
 | 6 RETRO | `core/events/retrospective.md`, `core/anti-patterns.md`, `core/roles/scrum-master.md`, `templates/retrospective.md` | `sprints/sprint-NNN/retrospective.md`, `team.md`, `decisions.md` (pruned), `metrics.md`, `state.md` |
 | `health` | `core/anti-patterns.md` | findings reported; `metrics.md` if run in a sprint |
 | `dod` | `core/dod/definition-of-done.md`, `core/dod/profiles.md` | `DEFINITION_OF_DONE.md` |
 
 Read the role file before speaking as that role. Read the event file before
 facilitating that event. Read `core/dod/definition-of-done.md` before any DoD
-gate.
+gate. Read `core/test-strategy.md` before choosing or accepting a build task's
+verification method. Read `core/threat-modeling.md` before work crosses its
+trigger, and `core/ux-integration.md` before work that requires UI or UX judgment.
 
 ## The loop
 
@@ -195,7 +210,8 @@ mode a labeled self-verification pass) walks the instantiated
 "DoD evidence" field. Unverifiable items are marked `n/a` with a reason, never
 silently skipped. The increment is the set of PBIs that passed the gate. Only
 those are demonstrated at Sprint Review. Full protocol in
-`core/dod/definition-of-done.md`.
+`core/dod/definition-of-done.md`. AI-produced code, tests, documentation, and
+configuration are untrusted proposals until this gate inspects and verifies them.
 
 ## PBI record format (fixed)
 
@@ -245,6 +261,7 @@ Installation for every environment is in `README.md`.
 │   └── backlog.md          ordered PBIs
 ├── sprints/sprint-NNN/
 │   ├── sprint.md           goal, forecast, plan, task log
+│   ├── threat-model.md     optional, when the security trigger applies
 │   ├── review.md           evidence, stakeholder feedback
 │   └── retrospective.md    findings, improvement items
 ├── decisions.md            team shared memory: decisions, interfaces, gotchas
@@ -257,7 +274,8 @@ Templates in `templates/` define most of these formats exactly; the
 protocol in `core/roles/scrum-master.md` and the metrics blocks in
 `templates/review.md` and `templates/retrospective.md`). Keep everything in plain
 markdown so any runtime, including a plain chat model, can resume the same
-project.
+project. Keep private research files, source extracts, and personal local paths
+outside `.scrum/` and outside distributable artifacts.
 
 ## Fidelity
 

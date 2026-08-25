@@ -22,6 +22,9 @@ Stakeholder: `/scrum start "a CLI tool that renames photos by EXIF date"`
 [ORCH] Reading `.scrum/state.md`. It does not exist, so this project is new.
 Bootstrapping `.scrum/` and routing to stage 0 FOUNDING regardless of the
 argument. The repo scan finds an empty project: no build, test, or CI config yet.
+I loaded `core/artifact-writing-standard.md`; this runtime also discovered
+`research-clinical-writing`, so every message and artifact uses its canonical
+style guide.
 The Scrum Master runs the founding interview once; it captures how you want the
 team to work, not what to build.
 
@@ -56,7 +59,9 @@ will run it on a card myself to believe it.
 questions to the Review, moderate risk with file writes kept conservative, the
 universal and security floor plus the CLI stack profile, a few-hour cycle, value
 measured as manual renaming removed, Python 3.12 with no network, and a
-stakeholder-driven demo plus test output as evidence. Instantiating
+stakeholder-driven demo plus test output as evidence. The writing standard is
+mandatory; AI-assisted work gets repo-local access only, no network or secrets;
+the UI/UX route is n/a for this CLI. Instantiating
 `.scrum/DEFINITION_OF_DONE.md` from that: Tier 0 and Tier 1 verbatim, the CLI
 profile, and three Tier 3 rules (no network calls, no overwrite of an existing
 file, local lint and type gates since there is no CI). Handing off to the Product
@@ -108,6 +113,12 @@ name-planning function, so PBI-001 gets built and verified first, then the
 report-only dry-run follows. PBI-002 (batch) waits; a folder run is just the
 single rename in a loop once the single case is safe.
 
+[DEV] The file and EXIF boundaries trigger `core/threat-modeling.md`. PBI-001
+uses TDD for deterministic naming and file behavior, with regression-first TDD
+for any reproduced defect. PBI-003 uses TDD plus a byte-for-byte filesystem
+comparison. The UI/UX route is n/a. PBI-001 carries a compact no-overwrite
+assurance claim because failure could destroy a personal photo.
+
 [SM] Sprint Goal, agreed by the team: "A photographer can rename single photos to
 their capture date from the terminal and preview the change first, safely, without
 ever losing a file." Writing `.scrum/sprints/sprint-001/sprint.md`. Stage moves to
@@ -124,6 +135,7 @@ DateTimeOriginal. Closed, no stakeholder action needed.
 
 ```
 ## Delegation brief: PBI-001 Rename one photo by its capture date
+- Type: build
 - Sprint Goal: A photographer renames single photos to their capture date from
   the terminal and previews the change first, safely, without losing a file.
 - Task: Ship `exif-rename <file>` that renames one JPEG to its EXIF capture date.
@@ -132,20 +144,33 @@ DateTimeOriginal. Closed, no stakeholder action needed.
   - [ ] A photo with no readable date is left untouched, reported on stderr,
     exit non-zero.
   - [ ] An existing target name gets a -1, -2 suffix; no file is overwritten.
-- Definition of Done tier checklist: Tier 0 all; Tier 1.1 input validation (EXIF
-  is untrusted external input), remaining Tier 1 items n/a with reason; Tier 2
-  CLI profile. See .scrum/DEFINITION_OF_DONE.md.
+- Definition of Done tier checklist: Tier 0 all; EXIF input and filesystem
+  writes trigger Tier 1, so apply relevant items and
+  mark each other item n/a with reason; Tier 2 CLI profile. See
+  .scrum/DEFINITION_OF_DONE.md.
+- Risk and threat route: TM-001 malformed EXIF, TM-002 collision overwrite,
+  TM-003 partial failure; see sprints/sprint-001/threat-model.md.
+- Test strategy: TDD for deterministic naming and file behavior, including
+  malformed and collision paths; regression-first TDD for any reproduced defect.
+- UX route: n/a, CLI product with no graphical interface.
 - Files in scope: src/exif_rename/rename.py, src/exif_rename/cli.py,
   tests/test_rename.py, pyproject.toml.
 - Out of scope: folder handling (PBI-002), the --dry-run flag (PBI-003), any
   network code.
 - Constraints: Python 3.12, Pillow for EXIF, argparse for the CLI, no network,
   image data never leaves the machine.
+- Authority and action limits: read and edit the named repo files; run local
+  build, test, lint, and type commands; no network, deployment, or deletion;
+  stop after two failed implementation cycles.
+- Private-data boundary: use only synthetic fixtures; do not place user photo
+  names, private paths, or image content in prompts, logs, artifacts, or commits.
 - Context the agent lacks: this is the first PBI; there is no code yet. Fixture
   images with known dates are in tests/fixtures/ (IMP-001).
+- Writing and artifact standard: core/artifact-writing-standard.md with
+  research-clinical-writing loaded.
 - Evidence to return: `uv run pytest` summary; `uv run ruff check .` and
-  `uv run mypy src` status; the acceptance-criteria-to-test mapping; changed
-  file paths.
+  `uv run mypy src` status; observed red-then-green result for each acceptance
+  criterion; threat-to-test mapping; full diff and changed file paths.
 - On blocking: stop and report the blocker verbatim; do not guess past it.
 ```
 
@@ -157,11 +182,13 @@ uv run pytest  ->  9 passed  (test_renames_by_exif_date criterion 1;
 uv run ruff check .  ->  clean      uv run mypy src  ->  clean
 Files: src/exif_rename/rename.py, cli.py, tests/test_rename.py, pyproject.toml
 Criterion 3 (collision) implemented: checks os.path.exists before writing.
+TDD evidence: red-then-green recorded for criteria 1 and 2; no failing test was
+recorded for criterion 3.
 ```
 
-[VERIFY] (verify-1, distinct from dev-1) Walking `.scrum/DEFINITION_OF_DONE.md`.
-0.1 read: pass. 0.2 build `uv build`: exit 0. 0.3 full suite: 9 passed. 0.4 tests
-proportional to risk: criterion 3 is the destructive path and it maps to zero
+[VERIFY] (verify-1, distinct from dev-1) Walking `.scrum/DEFINITION_OF_DONE.md`
+from source and inspecting the actual diff. Scope and build pass. DoD 0.2 and 0.4
+fail: criterion 3 is the destructive path, TM-002 names it, and it maps to zero
 tests. Driving it by hand, two frames shot in the same second both plan
 `2026-06-02_180233.jpg` and the second write overwrote the first; the existence
 check ran before the first rename, not the second.
@@ -172,17 +199,20 @@ renamed a.jpg -> 2026-06-02_180233.jpg
 renamed b.jpg -> 2026-06-02_180233.jpg   # overwrote the first; a.jpg is gone
 ```
 
-FAIL: DoD 0.4, acceptance criterion 3, and the Tier 3 no-overwrite rule. Reported
+FAIL: DoD 0.2, 0.4, 0.6, Tier 1.9, acceptance criterion 3, and the Tier 3
+no-overwrite rule. Reported
 verbatim. PBI-001 is not done. Escalation ladder rung (a), rebrief: the collision
 path was one checkbox and went untested. Rebriefing dev-1 to resolve a collision
-to a new name and add a failure-path test.
+to a new name and first add a regression test that reproduces the overwrite.
 
 [DEV] (dev-1) Reworked. Evidence:
 
 ```
+red: test_collision_appends_suffix failed; second source was overwritten
+green: test_collision_appends_suffix passed after atomic suffix planning
 uv run pytest  ->  14 passed
   test_collision_appends_suffix    (criterion 3, new)
-  test_corrupt_exif_rejected       (Tier 1.1, new)
+  test_corrupt_exif_rejected       (Tier 1.2 and 1.5, new)
   + 12 prior tests
 uv run ruff check .  ->  clean
 uv run mypy src      ->  clean
@@ -193,8 +223,9 @@ renamed b.jpg -> 2026-06-02_180233-1.jpg  # both originals intact
 
 [VERIFY] Re-walking the gate. All Tier 0 pass; 0.4 now maps criterion 3 to
 test_collision_appends_suffix and the manual drive shows the `-1` suffix with no
-overwrite. Tier 1.1 pass (guarded EXIF reader rejects malformed tags); 1.2 to 1.7
-n/a, local network-free CLI. CLI profile: `--help` lists usage, exit codes
+overwrite. Tier 1.1, 1.2, 1.4, 1.5, 1.6, 1.8, and 1.9 pass with the threat,
+input, privacy, failure, dependency, scan, and mitigation evidence; identity and
+network abuse items are n/a with individual reasons. CLI profile: `--help` lists usage, exit codes
 documented, output and errors split across stdout and stderr. PASS. Recording
 evidence into PBI-001's DoD-evidence field and marking it done.
 
@@ -222,8 +253,8 @@ Stakeholder: (runs `exif-rename IMG_4471.JPG`) It became `2026-06-02_180233.jpg`
 (runs `exif-rename --dry-run ./from-card/`) The dry-run is the part I trust. I ran
 it first every time.
 
-[PO] The test evidence is in each PBI's DoD-evidence field; 14 tests pass. Any
-gaps?
+[PO] The test evidence is in each PBI's DoD-evidence field; 14 tests pass.
+TM-003 remains open for batch-mode recovery and belongs to PBI-002. Any gaps?
 
 Stakeholder: It skipped every photo from my phone. Those are all HEIC, and that is
 most of what I shoot.
@@ -265,3 +296,5 @@ The full state after this session is in `scrum-state/`: `team.md` (with the retr
 amendment), `state.md`, `DEFINITION_OF_DONE.md`, `product/` (goal and backlog with
 PBI-001 and PBI-003 done, PBI-002 ready, PBI-004 new), `sprints/sprint-001/`
 (sprint, review, retrospective), `impediments.md`, and `metrics.md`.
+Sprint 001 also contains `threat-model.md`, which connects file-loss risks to
+mitigations, tests, residual risk, and an owner.

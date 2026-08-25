@@ -29,12 +29,17 @@ Rules:
    process is an `[SM]` decision; implementation is a `[DEV]` decision. Do not let
    one hat make another hat's call.
 3. **Brief before build.** `[ORCH]` writes the delegation brief (PBI id, Sprint
-   Goal, acceptance criteria, applicable DoD tiers, files in scope, constraints,
-   evidence to return) before any `[DEV]` turn starts. The brief is the contract
-   the `[VERIFY]` pass checks against.
+   Goal, acceptance criteria, applicable DoD tiers, risk and threat route,
+   adaptive test strategy, UI/UX route, files in scope, constraints, authority,
+   private-data and approval limits, writing standard, and evidence to return)
+   before any `[DEV]` turn starts. The brief is the contract the `[VERIFY]` pass
+   checks against.
 4. **Read before speaking.** Read the role file in `core/roles/` before wearing
    that hat, the event file in `core/events/` before facilitating an event, and
    `core/dod/definition-of-done.md` before any gate.
+5. **Load cross-cutting standards.** Read `core/artifact-writing-standard.md` once
+   per invocation and `core/test-strategy.md` before a build. Read
+   `core/threat-modeling.md` or `core/ux-integration.md` when its trigger applies.
 
 ## The no-coding rule in single-model mode
 
@@ -73,7 +78,9 @@ it as independent as a single model can:
 3. **Adversarial reading.** In the `[VERIFY]` turn, actively try to fail each
    item: look for the untested branch, the unhandled error at the boundary, the
    secret left in a log, the acceptance criterion with no matching test. Report
-   what you find verbatim.
+   what you find verbatim. Inspect the actual diff, generated files, dependencies,
+   configuration, migrations, deletions, threat evidence, and changed artifacts;
+   do not rely on the `[DEV]` explanation.
 4. **Fresh statement of results.** Write the verdict per item as if reporting to
    someone who did not write the code. A false "done" is what this pass exists to
    catch.

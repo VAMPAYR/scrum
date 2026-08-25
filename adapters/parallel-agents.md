@@ -55,11 +55,17 @@ delegation brief carries the fields required by `core/orchestrator.md`:
 - Sprint Goal
 - acceptance criteria (verbatim from the PBI)
 - the DoD tier checklist that applies (from `.scrum/DEFINITION_OF_DONE.md`)
+- material risks, threat-model route, and adaptive test strategy with its reason
+- UI/UX route and design evidence when applicable
 - files in scope and files off-limits
-- constraints (patterns to follow, libraries allowed)
-- what evidence to return (command output, test summary, file paths, diffs)
+- constraints, minimum authority, approval and stop limits, and private-data boundary
+- the writing contract from `core/artifact-writing-standard.md`
+- what evidence to return (commands, test and analysis results, risk or design
+  evidence, file paths, and the full diff)
 
-The worker implements, runs the tests and checks itself, and returns evidence.
+The worker implements under `core/engineering-standards.md`, follows the selected
+route in `core/test-strategy.md`, runs the checks, inspects generated output, and
+returns evidence.
 Honest reporting is mandatory: failed test output is returned verbatim, never
 smoothed over (see `core/roles/developers.md`).
 

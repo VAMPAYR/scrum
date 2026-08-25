@@ -4,6 +4,40 @@ Notable changes to this package are recorded here, newest first. Versions follow
 semantic versioning (MAJOR.MINOR.PATCH). Each release names what changed; a change
 to the `.scrum/` state layout bumps the `Format` field and ships a migration note.
 
+## 1.5.0 - 2026-08-25
+
+Risk-based engineering, AI-assisted development controls, and specialist routing.
+
+- Rebuilt `core/engineering-standards.md` around a risk-driven lifecycle, secure
+  design principles, least-privilege AI operation, instruction and data
+  boundaries, private-source protection, supply-chain controls, compact assurance
+  cases, and decision-linked metrics.
+- Added `core/test-strategy.md`. TDD is the preferred route for deterministic new
+  behavior and reproducible defects; characterization, property, fuzz, contract,
+  integration, end-to-end, static or formal, exploratory or visual, model-eval,
+  and spike routes apply where they answer the claim better.
+- Added `core/threat-modeling.md` with explicit triggers, a four-question method,
+  stable threat records, mitigation-to-test mapping, and residual-risk ownership.
+- Integrated `research-clinical-writing` through
+  `core/artifact-writing-standard.md`. Scrum loads the separate skill when it is
+  discoverable and uses a portable fallback otherwise. All artifacts require
+  outcome-first, evidence-calibrated, concise prose with clear actors and actions.
+- Kept `ux-fit` standalone and added `core/ux-integration.md` as a conditional
+  bridge for PBIs that need product-specific UI or UX judgment.
+- Updated planning, delegation briefs, Developer work, the project scan,
+  templates, and the Definition of Done to record risk, test, AI-authority,
+  privacy, assurance, and specialist-route evidence.
+- Corrected the Web UI target-size criterion to distinguish WCAG 2.2 Level AA
+  success criterion 2.5.8 from the larger Level AAA criterion 2.5.5.
+- Added public-source attribution for NIST SSDF, secure AI development guidance,
+  OWASP agentic security, SLSA, and WCAG. No private research file, source
+  extract, filename, or local path is packaged.
+- Added a repository-local `.gitignore` for research directories, scratch data,
+  ebook and PDF formats, local secrets, and machine-specific files.
+
+`Format` stays 1. New template fields are additive; an existing `.scrum/`
+directory remains readable. Re-running `/scrum dod` refreshes the stronger gate.
+
 ## 1.4.0 - 2026-07-28
 
 Vendor-neutral packaging. The core was already free of runtime assumptions; this

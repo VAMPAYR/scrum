@@ -3,48 +3,57 @@
 *Illustrative output from the fictional project in `examples/first-sprint/walkthrough.md`, not a real project's state.*
 
 - Project: exif-rename
-- Instantiated: 2026-07-14  |  Last refreshed: 2026-07-14
+- Instantiated: 2026-07-14 | Last refreshed: 2026-08-25
 - Selected stack profiles: CLI
-- How to verify (project commands, from the scan): build `uv build` | test `uv run pytest` | lint `uv run ruff check .` | typecheck `uv run mypy src` | format `uv run ruff format --check .`
+- Project commands: build `uv build` | test `uv run pytest` | lint `uv run ruff check .` | typecheck `uv run mypy src` | format `uv run ruff format --check .`
 
-## Tier 0: Universal (every increment, every project)
-- [ ] Read before edit: the implementer read the files it changed
-- [ ] Builds cleanly with the project build command
-- [ ] The full test suite passes, not only the new tests
-- [ ] New behavior has tests proportional to its risk and blast radius
-- [ ] Lint and typecheck pass clean
-- [ ] No debug output, commented-out code, or stray print statements left in
-- [ ] No hardcoded secrets or credentials
-- [ ] Errors are handled at trust boundaries, not swallowed
-- [ ] Docs updated where behavior changed
-- [ ] Commits are scoped with conventional messages; no unrelated changes
+## Tier 0: Universal
 
-## Tier 1: Security (any code touching external input or authentication)
-<!-- EXIF metadata read from arbitrary files is untrusted external input, so 1.1 applies. The remaining items are marked n/a with a reason at the gate for a local, network-free CLI. -->
-- [ ] Input validated at every trust boundary
-- [ ] Authorization checked on every protected path
-- [ ] No sensitive data written to logs
-- [ ] No stack traces or internal errors returned to clients
-- [ ] Dependency audit clean
-- [ ] Rate limiting on public endpoints
-- [ ] Secret scanning passed
+- [ ] Scope and context were read before edit; the diff stays inside authorized scope
+- [ ] Acceptance criteria map to evidence; risk, test, security, and UX routes are recorded
+- [ ] The project builds reproducibly from `uv.lock`
+- [ ] Fit-for-purpose checks and the full `pytest` suite pass
+- [ ] Ruff lint and format, mypy, and project policy gates pass
+- [ ] A verifier inspects the actual diff, tests, generated fixtures, dependency changes, and deletions
+- [ ] No credentials, unnecessary photo data, private source material, or local private paths ship
+- [ ] EXIF and filesystem boundaries validate their contracts and fail safely
+- [ ] Help text, README, and Scrum artifacts match the result and pass the writing audit
+- [ ] File-write rollback and recovery behavior are exercised where applicable
+- [ ] The increment is scoped, attributable, and recoverable
 
-## Tier 2: Stack profiles (selected at setup)
+## Tier 1: Security and assurance
+
+<!-- EXIF metadata and filenames are untrusted input, and rename is a potentially destructive file action. Apply relevant items and mark each other item n/a with its own reason. -->
+
+- [ ] A current threat record covers malformed EXIF, path handling, collisions, partial failure, and overwrite risk
+- [ ] EXIF values, filenames, paths, and output names are constrained and tested
+- [ ] Identity and authorization are n/a unless a later version adds shared or remote use
+- [ ] Photo data stays local and is absent from logs except for the minimum path the user requested
+- [ ] Corrupt input, collision, timeout, and partial rename preserve every original file
+- [ ] Pillow and transitive dependencies have an intentional source, locked graph, and triaged audit
+- [ ] File count, file size, path length, and batch resource limits apply when folder mode ships
+- [ ] Secret, dependency, and relevant static checks run
+- [ ] Each threat mitigation maps to a test; residual file-loss risk has an owner and review point
+
+## Tier 2: Stack profiles
 
 ### Profile: CLI
-- [ ] Help text: every command and subcommand responds to `--help` with usage, options, and a description
-- [ ] Exit codes: exits 0 on success and a documented non-zero code on failure; distinct failure classes use distinct codes where defined
-- [ ] stdin/stdout/stderr contract: primary output to stdout in the documented format; diagnostics and errors to stderr; reads stdin where a pipe interface is advertised
-- [ ] Machine-readable output where advertised: any structured output mode is valid and stable
-- [ ] Non-interactive safe: does not block on a prompt without a TTY, or fails with a clear message
 
-## Tier 3: Project-specific (merged from interview + scan)
+- [ ] Every command and subcommand responds to `--help` with usage, options, and a description
+- [ ] Exit codes are documented; success exits 0 and failure exits non-zero
+- [ ] Primary output goes to stdout and diagnostics go to stderr
+- [ ] Any advertised structured output is valid and stable
+- [ ] The command does not block on a prompt without a TTY
+
+## Tier 3: Project-specific floor
+
 - [ ] The tool makes no network calls; image data never leaves the machine (source: founding interview, data rules)
-- [ ] No existing file is overwritten, moved, or deleted destructively; a name collision resolves to a new, non-colliding name (source: founding interview, conservative area: irreversible file writes)
-- [ ] `ruff` lint and format and `mypy` type checks pass; no CI is configured yet, so the gate runs them locally (source: founding interview, quality bar; project scan found no CI)
+- [ ] No existing file is overwritten, moved, or deleted destructively; a name collision resolves to a new name (source: founding interview, irreversible file-write constraint)
+- [ ] Ruff lint and format and mypy type checks pass locally while CI is absent (source: founding interview and project scan)
 
-## Gate protocol (summary)
-- The verifier is an agent distinct from the implementer, or the Orchestrator, or in single-model mode a labeled self-verification pass.
-- The verifier walks every applicable item, runs the real command, and records evidence (command output, test summary, file paths) into the PBI's DoD-evidence field in product/backlog.md.
-- Unverifiable items are marked n/a with a reason.
-- The Increment is the set of PBIs that passed the gate. Only those are demonstrated at the Sprint Review.
+## Gate protocol
+
+- The implementer self-checks and returns exact evidence.
+- A distinct verifier reads the PBI, brief, threat record, checklist, and diff from source and tries to falsify the result.
+- The verifier records evidence or an individual `n/a` reason per item. Failed or unavailable checks do not pass.
+- Only a PBI with a clean gate joins the Increment and appears at the Sprint Review.

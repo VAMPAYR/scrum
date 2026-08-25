@@ -34,7 +34,7 @@
   - [x] A JPEG with an EXIF DateTimeOriginal is renamed to `YYYY-MM-DD_HHMMSS.jpg`.
   - [x] A photo with no readable EXIF date is left untouched, reported on stderr, and the command exits non-zero.
   - [x] When the target name already exists, the tool appends `-1`, `-2`, and so on, and never overwrites the existing file.
-- DoD evidence: Gate PASS after one rework (see sprints/sprint-001/sprint.md, task "single-file rename"). Build `uv build` exit 0. Tests `uv run pytest` 14 passed, including test_renames_by_exif_date, test_no_date_left_untouched, and the rework test test_collision_appends_suffix. Lint and type `uv run ruff check .` and `uv run mypy src` clean. Tier 1.1: EXIF parsed through a guarded Pillow reader that rejects missing or malformed tags (test_corrupt_exif_rejected). Files: src/exif_rename/rename.py, src/exif_rename/cli.py, tests/test_rename.py, pyproject.toml.
+- DoD evidence: Gate PASS after one rework (see sprints/sprint-001/sprint.md, task "single-file rename"). Build `uv build` exit 0. Tests `uv run pytest` 14 passed, including test_renames_by_exif_date, test_no_date_left_untouched, and test_collision_appends_suffix. The collision test reproduced the overwrite before the fix and passed after it. Ruff and mypy clean. Threat evidence: TM-001 and TM-002 mitigated in sprints/sprint-001/threat-model.md; malformed EXIF rejected by test_corrupt_exif_rejected; TM-003 remains open for batch recovery. Verifier inspected the diff and synthetic fixtures. Files: src/exif_rename/rename.py, src/exif_rename/cli.py, tests/test_rename.py, pyproject.toml.
 
 ### PBI-003: Preview renames without changing files (--dry-run)
 - Status: done

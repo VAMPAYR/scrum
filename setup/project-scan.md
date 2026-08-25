@@ -23,6 +23,15 @@ team strengthen it.
   below what CI already enforces.
 - The set of existing standards files, quoted by path, so their rules become Tier
   3 DoD items.
+- The existing test topology and the best initial route for deterministic,
+  legacy, boundary, integration, UI, and model-driven work. The scan records
+  capability; it does not force one method onto every PBI.
+- A risk and specialist map: trust boundaries, sensitive data, privileged or
+  autonomous actions, model use, threat-model artifacts, design briefs, design
+  systems, and user-facing surfaces.
+- A privacy check for local source material and generated scratch data: where it
+  lives, whether the relevant ignore rules cover it, and whether any private path
+  or extract is already tracked.
 - A merge report written into `.scrum/team.md` and into Tier 3 of
   `.scrum/DEFINITION_OF_DONE.md` via `core/dod/definition-of-done.md`.
 
@@ -118,7 +127,39 @@ items (a required review, a coverage threshold, a naming or structure rule, a
 security policy). Record the source path with each rule so its provenance is
 traceable.
 
-### Step 5: merge into Tier 3, as a floor
+### Step 5: map test, security, AI, privacy, and UI/UX signals
+
+Read configuration and existing artifacts to route later work correctly.
+
+- **Test topology.** Identify unit, component, contract, integration, end-to-end,
+  property, fuzz, static-analysis, visual, accessibility, performance, and model
+  evaluation suites. Record commands, environments, fixtures, skipped or flaky
+  tests, and any coverage rule. Do not treat a coverage percentage as proof.
+- **Security model.** Locate threat models, data-flow diagrams, architecture
+  records, data classifications, abuse cases, security tests, incident notes, and
+  deployment boundaries. Record obvious entry points, stores, external services,
+  privileged actions, and trust boundaries. Do not claim the scan itself is a
+  complete threat model.
+- **AI use.** Distinguish AI-assisted development from a product that calls a
+  model or agent. For development agents, record available read, write, execute,
+  network, deployment, and secret access so briefs can apply least privilege. For
+  product AI, select the AI/LLM profile and trigger threat modeling where the
+  architecture warrants it.
+- **Private material.** Check ignore files and tracked-file lists for source PDFs,
+  books, exports, credentials, personal data, local absolute paths, and temporary
+  extracts. Record only the category and safe location in public artifacts, not a
+  private filename or path. An ignored file that was previously tracked remains a
+  finding.
+- **UI and UX.** Detect browser or app surfaces, component libraries, design
+  tokens, design-system rules, screenshots, prototypes, usability evidence, and a
+  Design Brief. Record whether `core/ux-integration.md` should route relevant
+  PBIs to the standalone `ux-fit` skill or its fallback.
+
+Write these findings into `.scrum/team.md` under Engineering and specialist
+routes. Re-evaluate the route per PBI during refinement; a repository-level
+signal does not make every item security-sensitive or design-sensitive.
+
+### Step 6: merge into Tier 3, as a floor
 
 Combine the findings into Tier 3 of the Definition of Done under the floor rule.
 
@@ -136,7 +177,8 @@ Combine the findings into Tier 3 of the Definition of Done under the floor rule.
    stakeholder before writing the DoD; a stated preference does not weaken a
    detected standard.
 5. Write the merge report into `.scrum/team.md` (detected stack, commands, CI
-   gates, standards files) and the Tier 3 items into `.scrum/DEFINITION_OF_DONE.md`.
+   gates, standards files, test topology, risk signals, privacy findings, and
+   specialist routes) and the Tier 3 items into `.scrum/DEFINITION_OF_DONE.md`.
 
 Record what was detected and what was absent. An absent category is a finding, not
 a silent gap: the DoD gate marks an unverifiable item `n/a` with a reason, never
@@ -161,7 +203,7 @@ This runs alongside the founding steps above.
   what the product already runs.
 - **Treat existing standards docs as the floor.** Standards, contribution rules,
   and architecture records already in the repo set the Tier 3 minimum under the
-  floor rule (Step 4). The team may strengthen them, never weaken them.
+  floor rule (Steps 4 and 6). The team may strengthen them, never weaken them.
 
 Record these findings in `.scrum/team.md` beside the merge report, so the Product
 Owner picks them up at vision and refinement.
@@ -177,7 +219,7 @@ greenfield. Record that plainly and do not invent a stack.
    answer, or defer the stack decision to the Product Owner and Developers at
    vision and planning.
 3. When the Developers establish build, test, and lint commands during the first
-   Sprint, record them and re-run step 5 to populate Tier 3. Re-running
+   Sprint, record them and re-run step 6 to populate Tier 3. Re-running
    `/scrum dod` refreshes the Definition of Done as the stack takes shape.
 
 A greenfield project has the universal and security tiers as its floor from the

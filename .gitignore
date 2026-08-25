@@ -1,0 +1,19 @@
+# Private research and generated scratch material never ship with the skill.
+sources/
+.build/
+scratch/
+*.pdf
+*.epub
+*.mobi
+*.azw
+*.azw3
+
+# Local secrets and machine-specific configuration.
+.env
+.env.*
+*.local
+
+# OS noise.
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -21,6 +21,10 @@
 - Metrics (from metrics.md): throughput, DoD pass rate, rework count, cycle time, escaped defects
 - Delegation-brief quality: <briefs that were clear vs those that caused rework>
 - Gate failures: <false "done" caught by the verifier; what caused them>
+- Verification routes: <where TDD or another selected method exposed or missed a defect; flaky or skipped checks>
+- Security and assurance: <threats closed, residual-risk drift, incidents, or none>
+- Artifact quality: <unsupported claims, vague language, missing evidence, or private-path leaks caught>
+- Specialist routes: <whether threat modeling or ux-fit was triggered at the right time and what it changed>
 - Impediments: <from impediments.md: what blocked, how it resolved>
 - Health check (if run): <area scores and flags from core/anti-patterns.md>
 

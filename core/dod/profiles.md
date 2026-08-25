@@ -5,8 +5,8 @@ PBI ships. A web page has accessibility duties a library does not; a library has
 versioning duties a CLI does not; a feature built on a foundation model has
 evaluation and guardrail duties none of the others have. This file defines one
 profile per stack type. Tier 0 and Tier 1 (universal and security) live in
-`core/dod/definition-of-done.md` and always apply on top of whatever profiles are
-selected.
+`core/dod/definition-of-done.md`. Tier 0 always applies; every PBI evaluates the
+Tier 1 trigger and applies relevant security items on top of selected profiles.
 
 ## Selecting profiles at setup
 
@@ -27,8 +27,15 @@ Library, and CLI profiles is `core/engineering-standards.md`.
 
 ## Profile: Web UI
 
-For any PBI that renders or changes a browser-facing interface. Reference:
-`core/engineering-standards.md`, accessibility baseline and production readiness.
+For any PBI that renders or changes a browser-facing interface. References:
+`core/engineering-standards.md`, `core/test-strategy.md`, and
+`core/ux-integration.md`.
+
+- [ ] **Design intent and specialist route are explicit.** A change that requires
+  UI or UX judgment links the accepted Design Brief or fallback design intent and
+  records `UX route: ux-fit | fallback`. A pure implementation repair records
+  `n/a` with a reason. Verify: compare the implemented hierarchy, interaction,
+  content, and states with that evidence.
 
 - [ ] **Visible keyboard focus.** Every interactive element shows a focus
   indicator on keyboard navigation. Verify: keyboard-only pass over the changed
@@ -39,9 +46,11 @@ For any PBI that renders or changes a browser-facing interface. Reference:
   assistive tech). Verify: automated a11y scan (`axe`, `pa11y`, Lighthouse a11y,
   `eslint-plugin-jsx-a11y`) plus a screen-reader spot check. Do not use a dialog
   role for a navigation panel.
-- [ ] **Tap-target size.** Interactive targets meet the minimum touch size
-  (44x44 px, WCAG 2.5.5), set via size or padding. Verify: measure changed
-  controls; assert minimum dimensions.
+- [ ] **Pointer targets.** Interactive targets meet WCAG 2.2 success criterion
+  2.5.8 at Level AA: at least 24 by 24 CSS pixels or a documented exception with
+  the required spacing or equivalent control. Prefer the larger 44 by 44 target
+  from criterion 2.5.5 for important controls and touch-heavy contexts. Verify:
+  measure changed controls and inspect spacing and exceptions.
 - [ ] **Heading hierarchy.** One `h1` per page; heading levels descend without
   skipping. Verify: automated scan or a manual outline check of the changed page.
 - [ ] **Reduced motion honored.** Animation respects the reduced-motion
@@ -51,6 +60,9 @@ For any PBI that renders or changes a browser-facing interface. Reference:
 - [ ] **Responsive layout.** The UI works across the supported viewport range
   with no horizontal overflow or clipped content. Verify: check the change at
   mobile, tablet, and desktop widths.
+- [ ] **Complete interaction states.** The changed flow handles loading, empty,
+  error, success, disabled, permission, and offline or retry states that can occur.
+  Verify: exercise each applicable state and confirm recovery preserves user work.
 - [ ] **Page metadata.** Each route sets at least a title, and any per-page
   metadata the project requires. Verify: load the route and confirm the title and
   metadata render.
@@ -385,7 +397,8 @@ Add these only when the feature uses the pattern named.
 
 ## Note on numeric thresholds
 
-The specific numbers in this file (44x44 px tap targets, the p50/p90/p95/p99
-percentile set) are illustrative defaults. A project sets its own service-level
-objective targets in Tier 3 and records them in `.scrum/team.md`. The rule is
-that the target exists and is measured, not that it equals a particular number.
+The WCAG target sizes above are conformance criteria, not illustrative service
+objectives. Other numbers in this file, including the p50/p90/p95/p99 percentile
+set, are illustrative defaults. A project sets its service-level targets in Tier
+3 and records them in `.scrum/team.md`. The rule is that each target has a reason
+and is measured, not that it equals an arbitrary default.

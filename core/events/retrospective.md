@@ -40,24 +40,34 @@ delegation briefs, the gate failures, the rework, and the escalations, and it im
 that machinery. The intent is preserved: a blame-free inspection of the whole Sprint that
 ends in a committed improvement.
 
-Work through five inspection areas, grounded in the recorded evidence, not in
+Work through seven inspection areas, grounded in the recorded evidence, not in
 impressions:
 
 1. **Brief quality.** Read the escalations in the task log. How many failures traced to a
    thin or wrong delegation brief (missing files, unclear acceptance criteria, absent
    context)? Brief-caused rework is the most fixable failure. Name the specific brief
    defects.
-2. **Gate failures.** How many PBIs failed the Definition of Done gate, and why? A high
+2. **Engineering and test-route fit.** Did the selected TDD, characterization,
+   property, fuzz, contract, integration, visual, evaluation, or other method
+   expose the important defect efficiently? Name test theater, flaky checks,
+   missed threat paths, and useful evidence. Change the route, not only the test
+   count, when it did not answer the claim.
+3. **Gate failures.** How many PBIs failed the Definition of Done gate, and why? A high
    failure rate points to weak acceptance criteria, an unclear DoD, or forecasting work
    the team could not make Done. Distinguish honest gate catches (the gate working) from
    repeated failures on the same cause (a process defect).
-3. **Rework count.** How many items were built, failed verification, and rebuilt? Track
+4. **Rework count.** How many items were built, failed verification, and rebuilt? Track
    the count in `metrics.md` across Sprints. Rising rework is a signal to change the brief
    template, the DoD, or the forecasting.
-4. **Interactions and role integrity.** Did the roles stay separate? Did the Orchestrator
-   hold the no-coding rule, or intervene early? Were decisions labeled by role? Blurred
-   accountability is a process defect to fix.
-5. **Definition of Done and process decay.** Did the DoD hold, or was it quietly weakened
+5. **Interactions, authority, and privacy.** Did the roles stay separate? Did the
+   Orchestrator hold the no-coding rule? Did agents stay within file, tool, data,
+   approval, retry, and stop limits? Treat any leaked secret, personal data,
+   private source, or local path as a process defect, even if the code passed.
+6. **Artifacts and specialist routes.** Did writing stay concise, traceable, and
+   free of generic filler? Did threat modeling and `ux-fit` run when their triggers
+   applied, and did their evidence change the plan or gate? A route that produces
+   no downstream decision is theater.
+7. **Definition of Done and process decay.** Did the DoD hold, or was it quietly weakened
    under time pressure? Run the team against `core/anti-patterns.md`: check for
    process-decay symptoms such as feedback that changes nothing, a DoD that is a checkbox,
    or work presented as done without evidence.
@@ -139,6 +149,6 @@ a one-month Sprint, and proportionally shorter for a shorter Sprint. It conclude
 Sprint.
 
 **Adaptation.** For a Sprint of hours the Retrospective is a short session proportional to
-the Sprint, long enough to inspect the five areas and commit at least one improvement. The
+the Sprint, long enough to inspect the seven areas and commit at least one improvement. The
 purpose and the team-only, blame-free character are unchanged; only the duration scales
 down. A new Sprint starts immediately after, with no gap.
