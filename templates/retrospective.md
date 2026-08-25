@@ -1,8 +1,8 @@
 <!--
   TEMPLATE: retrospective.md
   Instantiate to .scrum/sprints/sprint-NNN/retrospective.md at stage 6 RETRO.
-  The Retrospective inspects the AI team itself: brief quality, gate failures,
-  rework, and interactions (core/events/retrospective.md). It must produce at
+  The Retrospective inspects the AI team itself: brief quality, stall recovery,
+  gate failures, rework, and interactions (core/events/retrospective.md). It must produce at
   least one concrete improvement that enters the next Sprint or amends team.md.
   Read core/anti-patterns.md if a health check ran. Keep it plain markdown,
   committed to the repo.
@@ -20,6 +20,9 @@
 -->
 - Metrics (from metrics.md): throughput, DoD pass rate, rework count, cycle time, escaped defects
 - Delegation-brief quality: <briefs that were clear vs those that caused rework>
+- Stall recovery: <no-progress batches, attempt-budget stops, repeated failure
+  signatures, selected support and capability match, recovery route, outcome,
+  verifier independence>
 - Gate failures: <false "done" caught by the verifier; what caused them>
 - Verification routes: <where TDD or another selected method exposed or missed a defect; flaky or skipped checks>
 - Security and assurance: <threats closed, residual-risk drift, incidents, or none>
@@ -80,6 +83,8 @@
 ## sprint-NNN retro
 - Improvement committed: <one line>
 - Prior improvement landed: <yes | no>
+- No-progress batches: <n> | Attempt-budget stops: <n> | Expert consultations: <n>
+- Recovery outcomes: <route and result summaries>
 - Double-loop note (if any belief/rule was challenged): <...>
 ```
 

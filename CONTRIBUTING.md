@@ -45,9 +45,22 @@ the constraints every change must hold, and how to test one before you open it.
 - Templates and core files stay consistent. If you change a record shape in
   `core/`, update the matching file in `templates/`, and the reverse, in the same
   change.
+- Keep full knowledge in canonical modules. Change stage, adapter, and trigger
+  selection in `core/context-routes.json`; do not duplicate that routing table in
+  another entry file or replace selected source text with a generated summary.
+- Keep `core/stall-recovery.md` as the sole definition site for `STALL-1` through
+  `STALL-8`. Other files cite those identifiers and specialize runtime mapping
+  without redefining the invariants.
 
 ## Testing a change
 
+- Run `python -m unittest discover -s tests -v` and
+  `python scripts/audit_skill.py`. The first checks observable routing and stop
+  behavior; the second checks route headings, context budgets, references,
+  canonical rule ownership, privacy patterns, and excluded source formats.
+- Run `python scripts/context_router.py --stage 4 --manifest` and inspect the
+  selected execution sources and estimated size. Exercise at least one trigger
+  and one adapter when either map changed.
 - Run the lifecycle on a toy project in at least one runtime, from `start` through
   `retro`, and confirm the state files it writes match the templates.
 - Run the health check (`/scrum health`) and confirm it reports cleanly.

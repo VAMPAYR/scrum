@@ -73,5 +73,6 @@
 - Escaped defects: <found after "done">
 - Security and assurance note: <open threat age, residual risk, recovery result, or n/a>
 - Verification health: <flaky or skipped tests, change failures, or none>
+- Stall recovery: <no-progress batches, attempt-budget stops, support route, and outcome, or none>
 - Value note: <outcome/satisfaction signal, not just output>
 ```

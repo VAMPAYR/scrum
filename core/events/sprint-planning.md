@@ -83,14 +83,19 @@ For each forecast PBI, record the material risk and assumptions, threat-model
 route, selected test methods and why they fit, UI/UX route, and whether a compact
 assurance case is required. TDD is preferred for deterministic behavior and
 reproducible defects, but another method is required when it can test the claim
-better. Include verification, specialist review, and likely rework in the plan.
+better. Also record required capabilities, the default or risk-adjusted mutating
+attempt budget, evidence that would count as progress, stop conditions, a
+recoverable baseline, and the capability-matched diagnostic route from
+`core/stall-recovery.md`. Include verification, specialist review, diagnosis, and
+likely rework in capacity rather than budgeting implementation alone.
 
 The Sprint Goal, the forecast, and the plan together form the Sprint Backlog.
 
 ## Outputs (`.scrum/` file changes)
 
 - `sprints/sprint-NNN/sprint.md`: created with the Sprint Goal, the forecast (the
-  selected PBIs by id), and the initial plan and task log skeleton.
+  selected PBIs by id), and the initial plan and task-log skeleton including
+  attempt and recovery fields.
 - `product/backlog.md`: selected items marked `forecast`; any items split during planning
   are rewritten.
 - `state.md`: `Stage` set to `4 EXECUTION`, `Sprint` incremented, `Active PBIs` listed,

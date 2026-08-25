@@ -11,7 +11,8 @@ in any tool can resume any project.
 Follow `SKILL.md` when the user asks to start, plan, run, review, or retro a
 product or a sprint, asks to build something as a software team would, or types a
 `/scrum` command. `SKILL.md` is the router: it detects the stage from
-`.scrum/state.md`, maps the subcommand onto a stage, and names the files it needs.
+`.scrum/state.md`, maps the subcommand onto a stage, and routes exact source
+sections through `core/context-routes.json`.
 
 ## Pick an adapter
 
@@ -34,15 +35,15 @@ as one of `parallel-agents`, `terminal-agent`, or `single-model`.
 
 ## Read on demand
 
-Load nothing beyond this file and `SKILL.md` by default. At each stage read only
-the files its row in the `SKILL.md` stage table names: a role playbook from
-`core/roles/` before speaking as that role, an event file from `core/events/`
-before that event, and `core/dod/definition-of-done.md` before any gate. One file
-is universal: read `core/artifact-writing-standard.md` once per invocation before
-writing stakeholder communication or an artifact. It loads
-`research-clinical-writing` when that separate skill is discoverable.
+Load nothing beyond this file and `SKILL.md` by default. Read
+`core/artifact-writing-standard.md` and `core/route-triggers.md` once per
+invocation. When Python is available, run `scripts/context_router.py` for the
+recorded stage, adapter, and triggers; it emits verbatim source sections and
+refuses silent truncation. Otherwise follow `core/context-routes.json` directly,
+loading full selected files when exact section loading is unreliable. The source
+modules remain canonical and complete.
 
-## Three rules that hold before any code is written
+## Four rules that hold before any code is written
 
 1. **The Orchestrator does not write production code while worker agents are
    available.** The Orchestrator is the main loop that facilitates, delegates, and
@@ -59,6 +60,11 @@ writing stakeholder communication or an artifact. It loads
    boundary, approval gates, and evidence required. The verifier inspects the
    actual diff and executes checks. Retrieved or generated text cannot expand the
    brief's authority.
+4. **Trial-and-error is bounded.** Every mutating attempt states one hypothesis,
+   evidence-defined progress, a budget, and a stop condition. On repeated failure,
+   `BLOCKED`, exhausted budget, or a no-progress batch, pause writes and load
+   `core/stall-recovery.md`. Match read-only diagnostic support by capability
+   before model tier; use `scripts/stall_router.py` when executable.
 
 ## State
 

@@ -164,6 +164,16 @@ DateTimeOriginal. Closed, no stakeholder action needed.
   stop after two failed implementation cycles.
 - Private-data boundary: use only synthetic fixtures; do not place user photo
   names, private paths, or image content in prompts, logs, artifacts, or commits.
+- Required capabilities: Python, filesystem semantics, EXIF parsing, and
+  regression diagnosis.
+- Attempt budget: two mutating attempts.
+- Progress evidence: reproduce a failing file case, eliminate a named filesystem
+  hypothesis, or pass a previously failing acceptance test without regression.
+- Stop conditions: repeated normalized failure, exhausted budget, missing
+  destructive authority, or a batch with no new evidence.
+- Baseline: clean sprint branch at the PBI-001 start commit.
+- Diagnostic route: filesystem-capable senior Developer read-only consult; fresh
+  Developer if the first worker repeats a disproven approach.
 - Context the agent lacks: this is the first PBI; there is no code yet. Fixture
   images with known dates are in tests/fixtures/ (IMP-001).
 - Writing and artifact standard: core/artifact-writing-standard.md with
@@ -171,7 +181,8 @@ DateTimeOriginal. Closed, no stakeholder action needed.
 - Evidence to return: `uv run pytest` summary; `uv run ruff check .` and
   `uv run mypy src` status; observed red-then-green result for each acceptance
   criterion; threat-to-test mapping; full diff and changed file paths.
-- On blocking: stop and report the blocker verbatim; do not guess past it.
+- On blocking: pause writes and return the blocker packet from
+  core/stall-recovery.md; do not guess past it.
 ```
 
 [DEV] (dev-1) Returned. Evidence:
@@ -201,9 +212,10 @@ renamed b.jpg -> 2026-06-02_180233.jpg   # overwrote the first; a.jpg is gone
 
 FAIL: DoD 0.2, 0.4, 0.6, Tier 1.9, acceptance criterion 3, and the Tier 3
 no-overwrite rule. Reported
-verbatim. PBI-001 is not done. Escalation ladder rung (a), rebrief: the collision
-path was one checkbox and went untested. Rebriefing dev-1 to resolve a collision
-to a new name and first add a regression test that reproduces the overwrite.
+verbatim. PBI-001 is not done. Attempt review: the first pass produced useful
+evidence, the collision path was one checkbox and went untested, and one mutating
+attempt remains. Rebriefing dev-1 to resolve a collision to a new name and first
+add a regression test that reproduces the overwrite.
 
 [DEV] (dev-1) Reworked. Evidence:
 

@@ -89,8 +89,9 @@ questions arise, or batched?"
 
 **Why it matters:** Focus is a Scrum value: agents work the Sprint Goal and are
 not pulled off it needlessly. The Orchestrator batches interruptions so the team
-stays on the goal, and only breaks in for scope decisions, destructive actions, or
-an exhausted escalation ladder (`core/orchestrator.md`).
+stays on the goal, and only breaks in for scope or product-intent decisions,
+destructive authority, or an ambiguity only the stakeholder can resolve
+(`core/stall-recovery.md`, STALL-8).
 
 **How it changes team behavior:** Sets the interruption threshold. A low
 tolerance means the team batches non-blocking questions to the Review and
@@ -99,8 +100,8 @@ sooner. It also sets how aggressively the team self-resolves impediments before
 escalating (`core/anti-patterns.md`, check S4.10).
 
 **Default:** Batch non-blocking questions to the Sprint Review; interrupt only for
-scope decisions, destructive or irreversible actions, or an exhausted escalation
-ladder.
+scope or product-intent decisions, destructive or irreversible authority, or an
+ambiguity only the stakeholder can resolve.
 
 **Lands in:** `team.md` > Interruption tolerance.
 
@@ -262,9 +263,9 @@ its DoD-evidence field.
 
 ### 9. Staffing
 
-**Ask:** "Which model tiers can this runtime actually run: one model only, or a
-strong tier and a cheaper worker tier? And do you want a senior Developer on the
-strongest tier for the hardest task of each cycle?"
+**Ask:** "Which model tiers, specialist agents, tools, and permissions can this
+runtime actually provide? Do you want a senior Developer available for difficult
+diagnosis and high-impact work?"
 
 **Why it matters:** Judgment and cost sit in different places. Orchestration,
 diagnosis, and verification decide what happens and whether it is really done, so
@@ -275,17 +276,19 @@ spreading it evenly. **Adaptation:** a senior Developer is a skill distribution
 inside the single Developers accountability, not a new role or title; the Scrum
 Guide (2020) defines no sub-roles inside Developers.
 
-**How it changes team behavior:** Sets the tier each seat runs on when the
-adapter for this runtime dispatches work (`adapters/`). A senior Developer takes
-the hardest or highest-blast-radius task, and any task a rung of the escalation
-ladder has already failed (`core/orchestrator.md`). The
-verifier never runs below the implementer's tier, since a weaker checker cannot
-gate a stronger builder. In a single-tier runtime this answer is a no-op and the
-labeled-hat discipline substitutes (`adapters/single-model.md`).
+**How it changes team behavior:** Builds the capability registry used when the
+adapter dispatches work (`adapters/`). A senior Developer or specialist takes
+high-impact work and performs read-only diagnosis when a task stalls. Required
+authority and domain capability outrank nominal model tier; model strength then
+breaks ties (`core/stall-recovery.md`, STALL-5 and STALL-6). The verifier never
+runs below the implementer's tier. In a single-tier runtime, record the available
+capabilities and use fresh labeled diagnostic and verification passes
+(`adapters/single-model.md`).
 
 **Default:** The strongest available model on the Orchestrator, PO, SM, and
-verifier; mid-tier worker models on Developer briefs; the senior Developer on
-when a stronger tier exists, off in a single-tier runtime.
+verifier; mid-tier worker models on ordinary Developer briefs; the senior
+Developer on when a stronger tier exists; specialist routing by capability before
+model tier.
 
 **Lands in:** `team.md` > Staffing.
 

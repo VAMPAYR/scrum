@@ -16,8 +16,8 @@
 
 ## Tier 0: Universal
 
-- [ ] Scope and context were read before edit; the diff stays inside authorized scope
-- [ ] Acceptance criteria map to evidence; risk, test, security, and UX routes are recorded
+- [ ] Changed files and exact routed instruction modules were read before edit; the diff stays inside authorized scope
+- [ ] Acceptance maps to evidence; risk, test, security, UX, capability, attempt, baseline, stop, and diagnostic routes are recorded
 - [ ] The project builds reproducibly from its declared dependency graph
 - [ ] Fit-for-purpose checks and the full relevant test suite pass
 - [ ] Applicable lint, type, format, static-analysis, policy, and CI gates pass

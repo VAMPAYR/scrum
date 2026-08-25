@@ -1,0 +1,241 @@
+{
+  "schema": 1,
+  "always": [
+    {
+      "path": "core/artifact-writing-standard.md",
+      "sections": ["*"]
+    },
+    {
+      "path": "core/route-triggers.md",
+      "sections": ["*"]
+    }
+  ],
+  "stages": {
+    "0": {
+      "name": "FOUNDING",
+      "sources": [
+        {"path": "setup/project-scan.md", "sections": ["*"]},
+        {"path": "setup/founding-interview.md", "sections": ["*"]},
+        {
+          "path": "core/roles/scrum-master.md",
+          "sections": [
+            "Identity",
+            "## Accountabilities",
+            "Team start-up",
+            "Restraint before intervention",
+            "Interaction contracts"
+          ]
+        },
+        {"path": "core/dod/definition-of-done.md", "sections": ["*"]},
+        {"path": "core/dod/profiles.md", "sections": ["*"]},
+        {"path": "templates/team.md", "sections": ["*"]},
+        {"path": "templates/definition-of-done.md", "sections": ["*"]}
+      ]
+    },
+    "1": {
+      "name": "VISION",
+      "sources": [
+        {
+          "path": "core/roles/product-owner.md",
+          "sections": [
+            "Identity",
+            "Accountabilities",
+            "The vision, value, validation loop",
+            "Crafting the Product Goal",
+            "The stakeholder interview",
+            "Mapping the goal before writing the backlog",
+            "Authoring Product Backlog items",
+            "Authoring acceptance criteria",
+            "Ordering the backlog",
+            "Value measures recorded in metrics.md",
+            "Decision rules",
+            "Interaction contracts"
+          ]
+        },
+        {"path": "templates/product-goal.md", "sections": ["*"]},
+        {"path": "templates/product-backlog.md", "sections": ["*"]}
+      ]
+    },
+    "2": {
+      "name": "REFINEMENT",
+      "sources": [
+        {
+          "path": "core/roles/product-owner.md",
+          "sections": [
+            "Mapping the goal before writing the backlog",
+            "Authoring Product Backlog items",
+            "Authoring acceptance criteria",
+            "Ordering the backlog",
+            "Decision rules",
+            "Interaction contracts"
+          ]
+        },
+        {
+          "path": "core/roles/developers.md",
+          "sections": [
+            "Identity",
+            "Accountabilities",
+            "Task breakdown discipline",
+            "Cross-functionality and collaboration modes",
+            "Engineering practices",
+            "Definition of Done ownership",
+            "Forecasts, flow, and undone work",
+            "Decision rules",
+            "Interaction contracts"
+          ]
+        },
+        {"path": "core/engineering-standards.md", "sections": ["*"]},
+        {"path": "core/test-strategy.md", "sections": ["*"]}
+      ]
+    },
+    "3": {
+      "name": "PLANNING",
+      "sources": [
+        {"path": "core/events/sprint-planning.md", "sections": ["*"]},
+        {
+          "path": "core/roles/product-owner.md",
+          "sections": [
+            "Ordering the backlog",
+            "Forecasting and spend",
+            "Decision rules",
+            "Interaction contracts"
+          ]
+        },
+        {
+          "path": "core/roles/developers.md",
+          "sections": [
+            "Accountabilities",
+            "Self-managing the Sprint Backlog",
+            "Task breakdown discipline",
+            "Cross-functionality and collaboration modes",
+            "Engineering practices",
+            "Forecasts, flow, and undone work",
+            "Decision rules",
+            "Interaction contracts"
+          ]
+        },
+        {"path": "core/engineering-standards.md", "sections": ["*"]},
+        {"path": "core/test-strategy.md", "sections": ["*"]},
+        {"path": "templates/sprint.md", "sections": ["*"]}
+      ]
+    },
+    "4": {
+      "name": "EXECUTION",
+      "sources": [
+        {"path": "core/orchestrator.md", "sections": ["*"]},
+        {
+          "path": "core/roles/developers.md",
+          "sections": [
+            "Accountabilities",
+            "Engineering practices",
+            "Definition of Done ownership",
+            "The worker-agent loop",
+            "Honest reporting",
+            "The senior Developer pattern (optional)",
+            "Decision rules",
+            "Interaction contracts"
+          ]
+        },
+        {"path": "core/events/daily-scrum.md", "sections": ["*"]},
+        {"path": "core/dod/definition-of-done.md", "sections": ["*"]},
+        {"path": "core/engineering-standards.md", "sections": ["*"]},
+        {"path": "core/test-strategy.md", "sections": ["*"]},
+        {"path": "templates/decisions.md", "sections": ["*"]}
+      ]
+    },
+    "5": {
+      "name": "REVIEW",
+      "sources": [
+        {"path": "core/events/sprint-review.md", "sections": ["*"]},
+        {
+          "path": "core/roles/product-owner.md",
+          "sections": [
+            "Value measures recorded in metrics.md",
+            "Release and increment strategy",
+            "Decision rules",
+            "Interaction contracts"
+          ]
+        },
+        {"path": "templates/review.md", "sections": ["*"]}
+      ]
+    },
+    "6": {
+      "name": "RETRO",
+      "sources": [
+        {"path": "core/events/retrospective.md", "sections": ["*"]},
+        {"path": "core/anti-patterns.md", "sections": ["*"]},
+        {
+          "path": "core/roles/scrum-master.md",
+          "sections": [
+            "Restraint before intervention",
+            "The impediment protocol",
+            "Process-decay vigilance",
+            "Event facilitation duties",
+            "Interaction contracts"
+          ]
+        },
+        {"path": "templates/retrospective.md", "sections": ["*"]}
+      ]
+    },
+    "health": {
+      "name": "HEALTH",
+      "sources": [
+        {"path": "core/anti-patterns.md", "sections": ["*"]}
+      ]
+    },
+    "dod": {
+      "name": "DOD",
+      "sources": [
+        {"path": "core/dod/definition-of-done.md", "sections": ["*"]},
+        {"path": "core/dod/profiles.md", "sections": ["*"]}
+      ]
+    }
+  },
+  "triggers": {
+    "framework": [
+      {"path": "core/framework.md", "sections": ["*"]}
+    ],
+    "state": [
+      {"path": "core/state-protocol.md", "sections": ["*"]}
+    ],
+    "stall": [
+      {"path": "core/stall-recovery.md", "sections": ["*"]}
+    ],
+    "threat": [
+      {"path": "core/threat-modeling.md", "sections": ["*"]}
+    ],
+    "ux": [
+      {"path": "core/ux-integration.md", "sections": ["*"]}
+    ],
+    "writing-full": [
+      {"path": "core/artifact-writing-full.md", "sections": ["*"]}
+    ],
+    "cancel": [
+      {
+        "path": "core/roles/product-owner.md",
+        "sections": [
+          "Canceling a Sprint",
+          "Decision rules",
+          "Interaction contracts"
+        ]
+      }
+    ]
+  },
+  "adapters": {
+    "parallel-agents": [
+      {"path": "adapters/parallel-agents.md", "sections": ["*"]}
+    ],
+    "terminal-agent": [
+      {"path": "adapters/terminal-agent.md", "sections": ["*"]}
+    ],
+    "single-model": [
+      {"path": "adapters/single-model.md", "sections": ["*"]}
+    ]
+  },
+  "final": [
+    {
+      "path": "core/execution-checklist.md",
+      "sections": ["*"]
+    }
+  ]
+}

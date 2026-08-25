@@ -282,7 +282,9 @@ self-check against the Definition of Done, and return evidence. The brief comes 
 Orchestrator (`core/orchestrator.md`, section 2) and names the PBI, the Sprint Goal, the
 acceptance criteria, the DoD tiers that apply, the files in scope and out of scope, the
 constraints, authority and private-data boundaries, risk and threat route, test strategy,
-UX route, writing standard, context the agent lacks, and the evidence to return.
+UX route, writing standard, required capabilities, attempt budget, progress evidence,
+stop conditions, baseline, diagnostic route, context the agent lacks, and the evidence
+to return.
 
 The brief's `Type` field decides which work the loop does. A `build` brief runs the full
 loop below against the Definition of Done. A `scout` brief runs a read-only
@@ -301,29 +303,35 @@ and writes no production code.
    route fits the claim. Read `core/threat-modeling.md` or `core/ux-integration.md` when
    the brief triggers either route. If a route or required context is missing, stop and
    rebrief before implementation.
-4. **Implement in small batches, in scope.** Build the outcome the brief names and
+4. **State one hypothesis before each mutating attempt.** Name the suspected
+   cause, the planned change or probe, the result that would distinguish the
+   explanations, and the stop condition. Preserve the baseline and update the
+   attempt ledger. `core/stall-recovery.md` defines progress and the default
+   two-attempt boundary.
+5. **Implement in small batches, in scope.** Build the outcome the brief names and
    nothing else. Stay inside the files in scope. Do not make opportunistic refactors,
    formatting sweeps, or unrelated fixes; those are separate items. Follow the selected
    test route and preserve its evidence.
-5. **Inspect generated changes.** Read the resulting diff, tests, generated files,
+6. **Inspect generated changes.** Read the resulting diff, tests, generated files,
    dependency graph, configuration, migrations, and deletions. Remove invented APIs,
    placeholder behavior, weakened checks, leaked private material, and unexplained
    suppressions before self-check.
-6. **Self-check against the Definition of Done.** Before claiming anything, walk the
+7. **Self-check against the Definition of Done.** Before claiming anything, walk the
    applicable DoD tiers against the actual change: the build is clean, the full test
    suite passes (not only the new tests), lint and type checks are clean, no debug
    output or hardcoded secrets remain, errors are handled at boundaries, docs are updated
    where behavior changed, and the diff is scoped to the item. Mark any item that does
    not apply as `n/a` with a reason.
-7. **Return evidence, not a summary.** Report the exact commands run and their output,
+8. **Return evidence, not a summary.** Report the exact commands run and their output,
    the test-summary line, the names of the tests that map to each acceptance criterion,
    the observed failing result when TDD was selected, risk and design evidence when
    triggered, and the file paths changed. The evidence must be specific enough that a
    verifier can confirm the check ran without redoing it. Write the report under
    `core/artifact-writing-standard.md`.
-8. **On a blocker, stop and report it verbatim.** Do not invent a workaround that breaks
-   scope or guesses past the problem. Report the exact error and what you tried, and let
-   the impediment reach `.scrum/impediments.md` with a clear ask.
+9. **On a blocker, pause writes and return the blocker packet.** Do not invent a
+   workaround that breaks scope or guesses past the problem. Preserve the diff,
+   exact failure, attempt evidence, eliminated hypotheses, remaining unknown, and
+   requested capability in the shape from `core/stall-recovery.md`.
 
 A returned "done" is a hypothesis, not a fact. It triggers the Definition of Done gate,
 walked by a verifier that did not write the code (`core/dod/definition-of-done.md`). The
@@ -340,8 +348,8 @@ Openness is the value that carries the most weight here.
   does not, to look finished or to save time, destroys the trust the whole process runs
   on. It is the one unethical act available to a Developer agent.
 - **Raise impediments early.** Do not struggle indefinitely before asking for help. A
-  blocker reaches the impediment log with a named cause, an owner, and a clear ask,
-  while there is still time to act on it.
+  blocker reaches the recovery protocol and, where appropriate, the impediment log
+  with a named cause, an owner, and a clear ask while there is still time to act.
 - **Show the real state at the Review.** Undone work is named and returned to the
   backlog, not demonstrated as if complete.
 
@@ -364,9 +372,10 @@ team). Where it is enabled, the senior Developer:
 - **Pre-reviews diffs from other Developers before the Definition of Done gate.** A
   cheap pre-gate that catches rework early, while the context is still in mind. It
   supplements the gate and never replaces it.
-- **Answers first when another Developer is stuck**, before the Orchestrator climbs the
-  escalation ladder. Most blocks are a missing piece of context another agent already
-  holds.
+- **Diagnoses first when its capabilities match a stalled task.** It receives the
+  blocker packet and starts read-only, returning one discriminating next step. The
+  Orchestrator then decides whether the original worker resumes, pairs, splits, or
+  hands off. The senior Developer does not silently take over.
 - **May serve as the gate verifier for items it did not implement.** Never for its own
   work: the implementer does not walk its own final gate
   (`core/dod/definition-of-done.md`).
@@ -455,9 +464,9 @@ Situation on the left, the Developers' correct action on the right.
   those to the SM (`core/roles/scrum-master.md`).
 - **With the Orchestrator and the verifier.** The Developers work from written briefs and
   return evidence, not claims. A "done" claim triggers the Definition of Done gate walked
-  by a separate verifier; the Developers do not pass their own final gate. On a blocker
-  they stop and report verbatim, and the Orchestrator climbs the escalation ladder
-  (`core/orchestrator.md`).
+  by a separate verifier; the Developers do not pass their own final gate. On a
+  blocker they pause writes, return the canonical packet, and follow the bounded
+  route in `core/stall-recovery.md`.
 - **With each other.** No sub-teams, no ranks, no single-agent silos; the optional
   senior Developer pattern distributes skill inside the one accountability and grants no
   authority. Any agent may take up any part of the work the team is equipped for, pair

@@ -21,7 +21,8 @@ the right place for them.
 ## Inputs
 
 - `sprints/sprint-NNN/sprint.md`: the Sprint Goal, the forecast versus what passed the
-  gate, and the task log including every escalation-ladder rung climbed.
+  gate, and the task log including attempts, blocker packets, diagnostic support,
+  and recovery outcomes.
 - `sprints/sprint-NNN/review.md`: what the Review surfaced, including any stakeholder
   surprise.
 - `.scrum/metrics.md`: DoD pass rate, rework count, escaped defects, throughput.
@@ -36,11 +37,11 @@ the right place for them.
 **Adaptation: the Retrospective inspects the AI team itself.** The subjects the Scrum
 Guide names, individuals, interactions, processes, tools, and the Definition of Done, map
 onto the machinery of an AI Scrum organization. The team inspects the quality of its
-delegation briefs, the gate failures, the rework, and the escalations, and it improves
+delegation briefs, the gate failures, the rework, and stalled-task recovery, and it improves
 that machinery. The intent is preserved: a blame-free inspection of the whole Sprint that
 ends in a committed improvement.
 
-Work through seven inspection areas, grounded in the recorded evidence, not in
+Work through eight inspection areas, grounded in the recorded evidence, not in
 impressions:
 
 1. **Brief quality.** Read the escalations in the task log. How many failures traced to a
@@ -52,22 +53,28 @@ impressions:
    expose the important defect efficiently? Name test theater, flaky checks,
    missed threat paths, and useful evidence. Change the route, not only the test
    count, when it did not answer the claim.
-3. **Gate failures.** How many PBIs failed the Definition of Done gate, and why? A high
+3. **Stall recovery.** Which tasks repeated a failure, used their full attempt
+   budget, or completed a batch without evidence-defined progress? Inspect whether
+   the team paused writes, preserved the diff, selected support by capability,
+   used a read-only consultation, and kept final verification independent. Name
+   late routing, unnecessary takeover, and environment blockers treated as code
+   defects.
+4. **Gate failures.** How many PBIs failed the Definition of Done gate, and why? A high
    failure rate points to weak acceptance criteria, an unclear DoD, or forecasting work
    the team could not make Done. Distinguish honest gate catches (the gate working) from
    repeated failures on the same cause (a process defect).
-4. **Rework count.** How many items were built, failed verification, and rebuilt? Track
+5. **Rework count.** How many items were built, failed verification, and rebuilt? Track
    the count in `metrics.md` across Sprints. Rising rework is a signal to change the brief
    template, the DoD, or the forecasting.
-5. **Interactions, authority, and privacy.** Did the roles stay separate? Did the
+6. **Interactions, authority, and privacy.** Did the roles stay separate? Did the
    Orchestrator hold the no-coding rule? Did agents stay within file, tool, data,
    approval, retry, and stop limits? Treat any leaked secret, personal data,
    private source, or local path as a process defect, even if the code passed.
-6. **Artifacts and specialist routes.** Did writing stay concise, traceable, and
+7. **Artifacts and specialist routes.** Did writing stay concise, traceable, and
    free of generic filler? Did threat modeling and `ux-fit` run when their triggers
    applied, and did their evidence change the plan or gate? A route that produces
    no downstream decision is theater.
-7. **Definition of Done and process decay.** Did the DoD hold, or was it quietly weakened
+8. **Definition of Done and process decay.** Did the DoD hold, or was it quietly weakened
    under time pressure? Run the team against `core/anti-patterns.md`: check for
    process-decay symptoms such as feedback that changes nothing, a DoD that is a checkbox,
    or work presented as done without evidence.
@@ -121,7 +128,8 @@ Decision rules for the Retrospective:
   or PBI (required if an improvement targets the next Sprint).
 - `decisions.md`: stale entries pruned, contradictions resolved, promoted entries marked
   or removed.
-- `metrics.md`: rework count, gate pass rate, and brief-caused failures recorded for trend
+- `metrics.md`: rework count, gate pass rate, brief-caused failures, no-progress
+  batches, attempt-budget stops, recovery routes, and outcomes recorded for trend
   tracking.
 - `state.md`: `Stage` set to `2 REFINEMENT` or `3 PLANNING` for the next Sprint, `Updated`
   set. A new Sprint starts immediately, with no gap.
@@ -131,9 +139,9 @@ Decision rules for the Retrospective:
 - **Guarantee the improvement item lands.** The event's one non-negotiable output is at
   least one improvement that enters the next Sprint or amends `team.md`. Do not close the
   Retrospective until it is written to its destination.
-- **Anchor findings in the evidence.** Bring the numbers: gate pass rate, rework count,
-  escalation rungs climbed. Coach the team away from vague impressions toward specific,
-  recorded causes.
+- **Anchor findings in the evidence.** Bring the numbers: gate pass rate, rework
+  count, no-progress batches, mutating attempts, consultations, and recovery
+  outcomes. Coach the team away from vague impressions toward specific causes.
 - **Encourage every role to contribute**, and take part as a member yourself. Surface what
   went well to keep, not only what failed.
 - **Run the health check every Retrospective.** A standing pass against
@@ -149,6 +157,6 @@ a one-month Sprint, and proportionally shorter for a shorter Sprint. It conclude
 Sprint.
 
 **Adaptation.** For a Sprint of hours the Retrospective is a short session proportional to
-the Sprint, long enough to inspect the seven areas and commit at least one improvement. The
+the Sprint, long enough to inspect the eight areas and commit at least one improvement. The
 purpose and the team-only, blame-free character are unchanged; only the duration scales
 down. A new Sprint starts immediately after, with no gap.

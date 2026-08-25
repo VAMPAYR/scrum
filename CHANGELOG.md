@@ -4,6 +4,50 @@ Notable changes to this package are recorded here, newest first. Versions follow
 semantic versioning (MAJOR.MINOR.PATCH). Each release names what changed; a change
 to the `.scrum/` state layout bumps the `Format` field and ships a migration note.
 
+## 1.6.0 - 2026-08-25
+
+Lossless context routing and bounded, capability-aware stalled-task recovery.
+
+- Added `core/stall-recovery.md` as the canonical owner of eight `STALL-*`
+  invariants. Mutating attempts now require one hypothesis, evidence-defined
+  progress, a recoverable baseline, a budget, and a stop condition. Repeated
+  failures pause writes and produce a structured blocker packet.
+- Added `scripts/stall_router.py`. The deterministic guard validates attempt
+  records, enforces default and high-impact stop boundaries, refuses unsupported
+  budget extensions, limits stakeholder routing, filters support by authority,
+  and ranks relevant capability before model tier and cost.
+- Added a founding capability registry and read-only expert-consult route. A
+  senior or specialist diagnoses and recommends one discriminating next step;
+  the Orchestrator then resumes, rebriefs, assigns a fresh worker, pairs, splits,
+  or records an impediment. Co-implementers remain ineligible for final
+  verification.
+- Added `core/context-routes.json` and `scripts/context_router.py`. The router
+  emits verbatim source sections by Scrum stage, runtime adapter, and conditional
+  trigger. It retains all source knowledge, reports an estimated context size,
+  and refuses silent truncation when a bundle exceeds its budget.
+- Added `core/route-triggers.md` at the front and
+  `core/execution-checklist.md` at the end of every routed bundle. This keeps
+  conditional activation visible early and critical action and evidence checks
+  close to execution.
+- Moved conditional bootstrap and crash-recovery detail to
+  `core/state-protocol.md`, and split the writing integration into a compact
+  always-on router plus `core/artifact-writing-full.md`. The complete portable
+  writing knowledge remains available, while short mechanical records avoid
+  loading it unnecessarily.
+- Added unit tests for context selection, exact-section preservation, no-silent-
+  truncation, attempt stops, high-impact review, capability-first selection,
+  authority filtering, and stakeholder boundaries. `scripts/audit_skill.py`
+  validates routes, headings, canonical rule ownership, package references,
+  source-format exclusions, and generic private-path protections.
+- Updated role, event, adapter, template, health-check, README, and worked-example
+  artifacts to record attempt evidence and use the same canonical routes. The
+  browser-only fallback reads the JSON route and full selected files when it
+  cannot execute the scripts.
+
+`Format` stays 1. New team and Sprint fields are additive. Existing projects keep
+their state, and crash recovery preserves recorded attempt counts instead of
+granting a new budget.
+
 ## 1.5.0 - 2026-08-25
 
 Risk-based engineering, AI-assisted development controls, and specialist routing.

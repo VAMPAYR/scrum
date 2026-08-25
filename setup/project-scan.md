@@ -142,9 +142,10 @@ Read configuration and existing artifacts to route later work correctly.
   complete threat model.
 - **AI use.** Distinguish AI-assisted development from a product that calls a
   model or agent. For development agents, record available read, write, execute,
-  network, deployment, and secret access so briefs can apply least privilege. For
-  product AI, select the AI/LLM profile and trigger threat modeling where the
-  architecture warrants it.
+  network, deployment, and secret access so briefs can apply least privilege.
+  Combine these facts with the founding interview's capability registry; never
+  infer domain expertise from model tier alone. For product AI, select the AI/LLM
+  profile and trigger threat modeling where the architecture warrants it.
 - **Private material.** Check ignore files and tracked-file lists for source PDFs,
   books, exports, credentials, personal data, local absolute paths, and temporary
   extracts. Record only the category and safe location in public artifacts, not a

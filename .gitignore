@@ -7,6 +7,11 @@ scratch/
 *.mobi
 *.azw
 *.azw3
+*.txt
+
+# Local Python bytecode from validation scripts.
+__pycache__/
+*.py[cod]
 
 # Local secrets and machine-specific configuration.
 .env

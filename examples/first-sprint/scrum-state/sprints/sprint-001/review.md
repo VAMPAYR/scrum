@@ -51,5 +51,6 @@
 - Escaped defects: 0
 - Security and assurance note: TM-003 remains open for batch-mode failure and rollback; review at PBI-002.
 - Verification health: no flaky or skipped tests; one missing destructive-path test caused gate rework and was added as a regression.
+- Stall recovery: no no-progress batch or budget stop; PBI-001 rebriefed after evidence-producing gate failure and passed its second attempt.
 - Value note: the stakeholder ran it on a real card dump and stopped renaming by hand; asked for HEIC to cover their own iPhone photos.
 ```

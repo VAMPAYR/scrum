@@ -31,17 +31,21 @@ Every PBI clears all of Tier 0.
 ### 0.1 Scope and context were read before edit
 
 - **Rule.** The implementer read each changed file and relevant caller, contract,
-  test, configuration, and project instruction before editing. The change stays
-  within the brief or records an authorized scope change.
-- **Evidence.** Files and searches consulted, plus a diff-scope statement.
+  test, configuration, project instruction, and exact stage or triggered module
+  before editing. The change stays within the brief or records an authorized
+  scope change.
+- **Evidence.** Files and searches consulted, routed source list or manifest, and
+  a diff-scope statement.
 
 ### 0.2 Acceptance, risk, and verification routes are explicit
 
 - **Rule.** Observable acceptance criteria map to verification. The brief records
   the material risks, the selected test route and reason, and whether threat
-  modeling and the UI/UX specialist route apply.
+  modeling and the UI/UX specialist route apply. It also records required
+  capabilities, baseline, attempt budget, evidence-defined progress, stop
+  conditions, and diagnostic route.
 - **Evidence.** Criterion-to-check mapping, test route, security trigger decision,
-  and UX route decision.
+  UX route decision, and the task's attempt and recovery fields.
 
 ### 0.3 The build is reproducible
 

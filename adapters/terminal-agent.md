@@ -23,9 +23,9 @@ either case:
 ## Scrum organization
 When asked to build, plan, run, review, or retro a product as a software team,
 follow scrum/SKILL.md. Read scrum/adapters/terminal-agent.md for the role mapping.
-Load scrum/core files by progressive disclosure per the stage table in
-scrum/SKILL.md. Keep all project state in .scrum/ as plain markdown and commit
-it with each increment.
+Assemble exact stage and trigger context with scrum/scripts/context_router.py, or
+follow scrum/core/context-routes.json when Python is unavailable. Keep all project
+state in .scrum/ as plain markdown and commit it with each increment.
 ```
 
 The agent then discovers the skill from that file on any relevant request. The
@@ -49,7 +49,8 @@ process, a background agent, or a run in its own worktree), treat each as a
 Developer with a full delegation brief: PBI id, Sprint Goal, acceptance criteria,
 applicable DoD tiers, risk and threat route, adaptive test strategy, UI/UX route,
 files in scope, constraints, minimum authority, private-data boundary, approval
-and stop limits, writing standard, and the evidence to return.
+and stop limits, writing standard, required capabilities, attempt budget,
+progress evidence, baseline, diagnostic route, and the evidence to return.
 Reconcile results in the main session and run the full test suite before the gate.
 
 Where no worker run is available, switch roles sequentially in one session. The
@@ -78,7 +79,7 @@ and are driven through an API that sets a system prompt per run. Compose the rol
 into that system prompt.
 
 1. Put the Orchestrator protocol in the system prompt: the no-coding rule (or its
-   relaxation in single-model mode), the escalation ladder, and role-label
+   relaxation in single-model mode), bounded stall recovery, and role-label
    discipline from `core/orchestrator.md`.
 2. Load the role playbook for the active hat from `core/roles/` into the system
    prompt or the thread when that role acts.
@@ -90,6 +91,12 @@ into that system prompt.
 5. Use function or tool calling for any real actions (running tests, reading
    files). A tool result is the evidence the DoD gate records; never accept a
    "done" claim without it.
+
+Where the host can execute Python, assemble the exact active system-prompt
+sections with `scripts/context_router.py` and enforce attempt boundaries with
+`scripts/stall_router.py`. Where it cannot, follow `core/context-routes.json` and
+`core/stall-recovery.md` directly. Neither fallback permits summaries in place of
+canonical rules.
 
 ### Threads and state
 
@@ -105,10 +112,12 @@ If the setup runs multiple agent threads or parallel tool calls, assign each a
 Developer brief and fan out independent PBIs, then reconcile in the Orchestrator
 thread. If not, sequence the briefs. The protocol is identical either way.
 
-## Escalation ladder
+## Stall recovery
 
-Follow `core/orchestrator.md` rungs: rebrief the same worker, spawn a fresh
-worker with the failure trace, split or pair two approaches, let the Orchestrator
-intervene directly as the sole exception to the no-coding rule (logged in the
-sprint file), then escalate to the stakeholder with batched options and a
-recommendation.
+Follow `core/stall-recovery.md`. Pause mutation on its trigger, preserve the diff
+and attempt count, and start a read-only diagnostic run selected by required
+authority and capability before model tier. Supply the full blocker packet and
+exact failure evidence. The main session then decides whether to resume, rebrief,
+use a fresh run, pair, split, open an impediment, or use the bounded mechanical
+intervention. Ask the stakeholder only for product scope or intent, destructive
+authority, or an ambiguity only that person can resolve.

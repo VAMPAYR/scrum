@@ -26,7 +26,7 @@
 ## Interruption tolerance
 <!-- Area 2. Sets when the team stops to ask vs reports at Review. -->
 - Batch non-blocking questions to the Review: <yes | no>
-- Interrupt immediately for: scope decisions, destructive or irreversible actions, exhausted escalation ladder
+- Interrupt immediately for: product scope or intent, destructive or irreversible authority, or an ambiguity only the stakeholder can resolve
 - Additional interrupt triggers: <stakeholder-specific, if any>
 
 ## Risk appetite
@@ -93,6 +93,9 @@
 - Senior Developer: <on | off> (default: on when a stronger tier exists, off in a single-tier runtime)
 - Senior Developer tier: <the strongest available model when on; n/a when off>
 - Verifier tier: at least the implementer's tier, never weaker; the strongest available for security-sensitive or irreversible work
+- Capability registry:
+  - <agent or labeled pass>: <domain/subsystem capabilities>; <available authority and tools>; <diagnostic strength>
+- Recovery selection: required authority and capability, then diagnostic strength, model tier, and cost
 
 ## Delivery mode
 <!--
@@ -131,7 +134,11 @@
 <!-- Founding-interview norms. Keep to a handful of lines the team follows. -->
 - Honest reporting: failed output is reported verbatim, never smoothed over.
 - Ask for help early: blockers reach impediments.md with a clear ask.
+- Bounded attempts: one hypothesis per mutation; pause on repeated failure,
+  exhausted budget, or a no-progress batch and preserve the blocker packet.
 - Evidence over claims: no "done" without gate evidence.
+- Routed context: load exact stage and triggered modules; never replace canonical
+  rules with a generated summary or silent truncation.
 - Artifact quality: outcome first, clear actors and actions, evidence-calibrated detail, available citations, no AI filler.
 - Adaptive tests: record the selected verification route and why it fits; do not force TDD where another method answers the claim better.
 - AI boundaries: generated work is untrusted; minimum authority, private-data limits, approval gates, and stop conditions belong in every brief.
