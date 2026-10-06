@@ -13,6 +13,10 @@ scratch/
 __pycache__/
 *.py[cod]
 
+# Per-project runtime state; project-authored Scrum artifacts remain trackable.
+.scrum/runtime/
+.scrum/session-lock.json
+
 # Local secrets and machine-specific configuration.
 .env
 .env.*

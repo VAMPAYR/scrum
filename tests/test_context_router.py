@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 from typing import Any
@@ -37,6 +38,31 @@ class ContextRouterTests(unittest.TestCase):
     def test_execution_checkpoint_is_last(self) -> None:
         selected = context_router.resolve_route(self.config, "4", [], None)
         self.assertEqual(next(reversed(selected)), "core/execution-checklist.md")
+
+    def test_directives_are_always_routed_from_project_root(self) -> None:
+        selected = context_router.resolve_route(self.config, "2", [], None)
+        with tempfile.TemporaryDirectory() as directory:
+            project = Path(directory)
+            directives = project / ".scrum" / "directives.md"
+            directives.parent.mkdir()
+            directives.write_text(
+                "# Directives\n\n## Active entries\n\nDIR-001\n\n"
+                "## Stakeholder-owned decisions\n\nRelease approval\n\n"
+                "## Superseded entries\n\nDIR-OLD\n",
+                encoding="utf-8",
+            )
+            rendered = context_router.render_sources(selected, project_root=project)
+        item = next(entry for entry in rendered if entry["path"] == ".scrum/directives.md")
+        self.assertIn("DIR-001", item["content"])
+        self.assertNotIn("DIR-OLD", item["content"])
+
+    def test_execution_includes_continuity_module(self) -> None:
+        selected = context_router.resolve_route(self.config, "4", [], None)
+        self.assertIn("core/session-continuity.md", selected)
+
+    def test_continuity_trigger_adds_module(self) -> None:
+        selected = context_router.resolve_route(self.config, "3", ["continuity"], None)
+        self.assertIn("core/session-continuity.md", selected)
 
     def test_stall_trigger_adds_canonical_protocol(self) -> None:
         selected = context_router.resolve_route(self.config, "4", ["stall"], None)
