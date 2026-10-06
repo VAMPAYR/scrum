@@ -42,6 +42,14 @@ the `STALL-*` rules instead of restating them.
   scope, product intent, authority for a destructive or irreversible action, or
   an ambiguity only the stakeholder can resolve. Technical uncertainty remains
   with the team.
+- **STALL-9, escalate elapsed stalls.** Escalate a lane one capability tier after
+  two minutes of active agent work without a STALL-1 progress event, unless the
+  PBI records a different interval. Paused external waits do not count. The agent
+  reports `BLOCKED:` when its host cannot interrupt the run.
+- **STALL-10, bound review variation.** When a second review names previously
+  untested input variants, stop the open-ended review loop. Write a finite table
+  of in-scope variants and expected results, then rebrief and test that table.
+  Variants outside the accepted scope become backlog items.
 
 ## Attempt contract
 

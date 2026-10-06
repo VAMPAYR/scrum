@@ -1,20 +1,21 @@
 # Artifact and communication standard
 
 This standard governs stakeholder messages, `.scrum/` artifacts, delegation
-briefs, technical documentation, reviews, decisions, findings, and reports. It
-integrates the `research-clinical-writing` skill into Scrum while keeping this
-package usable in runtimes that do not have that separate skill installed.
+briefs, technical documentation, reviews, decisions, findings, and reports.
+Projects may add a local style guide while retaining the accuracy, evidence, and
+privacy requirements defined here.
 
 ## Load the writing standard
 
-1. If the runtime can discover a skill named `research-clinical-writing`, read
-   its `SKILL.md` and the canonical style guide that file names.
-2. If that skill is unavailable, apply this file as the complete fallback.
+1. Read the project's writing standard and any project style guide named in
+   `.scrum/team.md`.
+2. If no project guide exists, apply this file as the complete standard.
 3. An explicit stakeholder or organization style may add constraints. It may not
    weaken factual accuracy, source integrity, uncertainty calibration, privacy,
    or the Definition of Done.
 
-This is a behavioral integration, not a copy of a private style source.
+Keep project-specific style guidance local to that project. Do not copy private
+guides into this package.
 
 ## Core prose rules
 

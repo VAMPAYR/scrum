@@ -20,13 +20,14 @@
 - [ ] Acceptance maps to evidence; risk, test, security, UX, capability, attempt, baseline, stop, and diagnostic routes are recorded
 - [ ] The project builds reproducibly from its declared dependency graph
 - [ ] Fit-for-purpose checks and the full relevant test suite pass
-- [ ] Applicable lint, type, format, static-analysis, policy, and CI gates pass
+- [ ] Applicable lint, type, format, static-analysis, policy, and CI gates pass; run target-platform CI or a documented equivalent when platforms differ
 - [ ] A verifier inspected the actual diff, tests, generated files, configuration, dependencies, and deletions
 - [ ] No secrets, unnecessary personal data, proprietary source material, or private local paths ship
 - [ ] Changed boundaries validate their contracts and fail safely
 - [ ] Documentation and Scrum artifacts match the result and pass the artifact writing audit
 - [ ] Production consequences, rollback, recovery, and telemetry are handled where applicable
 - [ ] The increment is scoped, attributable, and recoverable
+- [ ] Changed product text follows the `.scrum/team.md` standard and receives reviewer disposition; mark `n/a` with a reason when no user-facing strings changed
 
 ## Tier 1: Security and assurance
 

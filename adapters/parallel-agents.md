@@ -7,6 +7,18 @@ frontmatter in `SKILL.md`. Read this alongside `SKILL.md` and
 `core/orchestrator.md`. Set `Adapter: parallel-agents` in `.scrum/state.md` when
 this runtime is detected.
 
+## Host capability record
+
+Record verified capabilities in `.scrum/team.md`; do not infer them from the
+adapter name.
+
+| Capability | Record | Fallback |
+|---|---|---|
+| Scheduler | available only when the host can create and list successor runs | Write a paste-ready prompt and report that scheduling is unavailable |
+| Cross-session messages | available only when messages persist across runs | Use `.scrum/inbox.md` and acknowledge messages at checkpoints |
+| Agent continuation | available only when a worker can receive later tasks under the same identity | End the seat with a handoff note; count replacements against the roster |
+| Context telemetry | available only when current use and window size are reported | Use the recorded active-time or message-count proxy |
+
 ## Role to primitive mapping
 
 | Scrum role | Runtime primitive |
@@ -14,7 +26,7 @@ this runtime is detected.
 | Orchestrator | the main conversation loop |
 | Product Owner | the main loop wearing a labeled `[PO]` turn |
 | Scrum Master | the main loop wearing a labeled `[SM]` turn |
-| Developers | worker agents, one per task, dispatched concurrently |
+| Developers | rostered worker seats that receive tasks through continuation when available |
 | Verifier (DoD gate) | a distinct worker agent, never the implementer |
 
 The Orchestrator, PO, and SM run in the main loop because they facilitate,
@@ -47,9 +59,11 @@ acceptance decisions (PO) separate from process decisions (SM).
 
 ## Developers = worker agents
 
-Spawn one worker agent per Developer task, using whatever the runtime calls its
-agent-spawn primitive (a task tool, a subagent call, a background agent). Every
-delegation brief carries the fields required by `core/orchestrator.md`:
+Start workers by rostered seat, using whatever the runtime calls its agent-spawn
+primitive. Reuse a seat through continuation when the host supports it. Otherwise
+count each replacement against the Sprint's total spawn limit and require an
+outgoing handoff note before refill. Every task brief carries the fields required
+by `core/orchestrator.md`:
 
 - PBI id and title
 - Sprint Goal

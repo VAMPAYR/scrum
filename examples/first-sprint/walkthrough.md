@@ -22,9 +22,8 @@ Stakeholder: `/scrum start "a CLI tool that renames photos by EXIF date"`
 [ORCH] Reading `.scrum/state.md`. It does not exist, so this project is new.
 Bootstrapping `.scrum/` and routing to stage 0 FOUNDING regardless of the
 argument. The repo scan finds an empty project: no build, test, or CI config yet.
-I loaded `core/artifact-writing-standard.md`; this runtime also discovered
-`research-clinical-writing`, so every message and artifact uses its canonical
-style guide.
+I loaded `core/artifact-writing-standard.md`; the project writing standard now
+governs messages and artifacts.
 The Scrum Master runs the founding interview once; it captures how you want the
 team to work, not what to build.
 
@@ -176,8 +175,7 @@ DateTimeOriginal. Closed, no stakeholder action needed.
   Developer if the first worker repeats a disproven approach.
 - Context the agent lacks: this is the first PBI; there is no code yet. Fixture
   images with known dates are in tests/fixtures/ (IMP-001).
-- Writing and artifact standard: core/artifact-writing-standard.md with
-  research-clinical-writing loaded.
+- Writing and artifact standard: core/artifact-writing-standard.md.
 - Evidence to return: `uv run pytest` summary; `uv run ruff check .` and
   `uv run mypy src` status; observed red-then-green result for each acceptance
   criterion; threat-to-test mapping; full diff and changed file paths.

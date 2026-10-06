@@ -16,9 +16,8 @@ For a Product Goal, substantial backlog prose, decision, Review, Retrospective,
 report, research output, substantial user-facing explanation, or substantial
 technical documentation, load the full route:
 
-1. Read the standalone `research-clinical-writing` skill and its canonical guide
-   when discoverable.
-2. Otherwise read `core/artifact-writing-full.md`.
+1. Read the project writing guide recorded in `.scrum/team.md`, when present.
+2. Read `core/artifact-writing-full.md` for the package's complete standard.
 
 For mechanical task logs, concise evidence records, and short delegation fields,
 the compact contract is sufficient. Templates define minimum fields, not filler

@@ -5,9 +5,8 @@ the constraints every change must hold, and how to test one before you open it.
 
 ## Proposing a change
 
-- Open an issue first for anything that changes behavior, state layout, or the
-  Definition of Done. Describe the problem and the outcome you want, not only the
-  patch.
+- Open an issue first for changes to behavior, state layout, or the Definition of
+  Done. Describe the problem, desired outcome, and proposed change.
 - Send a pull request for the change. Keep it scoped to one concern, and update
   every file the change touches in the same PR so the package stays consistent.
 - Small fixes (wording, a broken path, a typo) can go straight to a pull request.
@@ -33,9 +32,9 @@ the constraints every change must hold, and how to test one before you open it.
 - Content states rules directly. Prefer the imperative rule over description of who
   said it.
 - No em dashes. Write concise, formal prose in active voice.
-- Apply `core/artifact-writing-standard.md` to package prose. Preserve
-  `research-clinical-writing` as an optional external integration with a portable
-  fallback, and preserve `ux-fit` as a conditional standalone specialist route.
+- Apply `core/artifact-writing-standard.md` to package prose. Project-specific
+  writing guides remain optional inputs; preserve `ux-fit` as a conditional
+  standalone specialist route.
 - Stay accurate to the Scrum Guide (2020) for accountabilities, events, artifacts,
   commitments, pillars, and values. Never contradict it silently. State its rules
   in this package's own wording rather than reproducing its text. Mark every
@@ -49,7 +48,7 @@ the constraints every change must hold, and how to test one before you open it.
   selection in `core/context-routes.json`; do not duplicate that routing table in
   another entry file or replace selected source text with a generated summary.
 - Keep `core/stall-recovery.md` as the sole definition site for `STALL-1` through
-  `STALL-8`. Other files cite those identifiers and specialize runtime mapping
+  `STALL-10`. Other files cite those identifiers and specialize runtime mapping
   without redefining the invariants.
 
 ## Testing a change
@@ -64,6 +63,9 @@ the constraints every change must hold, and how to test one before you open it.
 - Run the lifecycle on a toy project in at least one runtime, from `start` through
   `retro`, and confirm the state files it writes match the templates.
 - Run the health check (`/scrum health`) and confirm it reports cleanly.
+- Run `python scripts/audit_health.py --project-root <fixture>` against a fixture
+  containing continuity state, including clean, pending-message, stale-lock, and
+  open-outcome cases.
 - Confirm the paths named in `README.md` and `SKILL.md` resolve to real files.
 - Exercise one deterministic TDD route, one non-TDD route, one security trigger,
   and both outcomes of the UI/UX trigger. Confirm each route leaves the evidence

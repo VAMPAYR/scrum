@@ -36,7 +36,7 @@
 - <what worked, worth keeping>
 
 ## What to improve
-<!-- Name the real problems, including the big ones, not only easy tweaks. -->
+<!-- Name the real problems, including high-impact issues and small improvements. -->
 - <problem observed, with the data that shows it>
 
 ## decisions.md sweep

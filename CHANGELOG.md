@@ -4,6 +4,28 @@ Notable changes to this package are recorded here, newest first. Versions follow
 semantic versioning (MAJOR.MINOR.PATCH). Each release names what changed; a change
 to the `.scrum/` state layout bumps the `Format` field and ships a migration note.
 
+## 1.7.0 - 2026-10-06
+
+Persistent operating directives, session continuity, and bounded execution.
+
+- Added a directives template and routes active project directives into every
+  context bundle. Added interview questions for continuity, staffing, usage,
+  delivery, product text, and stakeholder-owned decisions.
+- Added session continuity guidance, host-capability matrices, session locks,
+  checkpoint inbox handling, and successor confirmation requirements.
+- Added `scripts/execution_guard.py` for session locks, roster and spawn limits,
+  usage pauses, active-time timers, idle-extension rejection, handoff receipts,
+  and completion checks.
+- Added `scripts/audit_health.py` for lock, inbox, successor, roster, timebox, and
+  uncommitted-path checks.
+- Added timed stall escalation and finite variation handling to
+  `scripts/stall_router.py`, with tests for both routes.
+- Added product-text review and target-platform CI requirements to the DoD.
+- Replaced external writing-source references with the package's own writing
+  contract and optional project guides. Revised slogan-like contrast and
+  promotional phrasing into direct statements.
+- Kept state Format 1 unchanged. Runtime lock and ledger files are ignored by Git.
+
 ## 1.6.0 - 2026-08-25
 
 Lossless context routing and bounded, capability-aware stalled-task recovery.
@@ -62,10 +84,8 @@ Risk-based engineering, AI-assisted development controls, and specialist routing
   and spike routes apply where they answer the claim better.
 - Added `core/threat-modeling.md` with explicit triggers, a four-question method,
   stable threat records, mitigation-to-test mapping, and residual-risk ownership.
-- Integrated `research-clinical-writing` through
-  `core/artifact-writing-standard.md`. Scrum loads the separate skill when it is
-  discoverable and uses a portable fallback otherwise. All artifacts require
-  outcome-first, evidence-calibrated, concise prose with clear actors and actions.
+- Added a portable writing contract for Scrum artifacts and product communication,
+  with outcome-first, evidence-calibrated prose and clear actors and actions.
 - Kept `ux-fit` standalone and added `core/ux-integration.md` as a conditional
   bridge for PBIs that need product-specific UI or UX judgment.
 - Updated planning, delegation briefs, Developer work, the project scan,

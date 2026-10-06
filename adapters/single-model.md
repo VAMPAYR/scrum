@@ -8,6 +8,15 @@ become labels on turns, and verification becomes a distinct labeled pass rather
 than a distinct agent. Set `Adapter: single-model` in `.scrum/state.md`. Read this
 alongside `SKILL.md` and `core/orchestrator.md`.
 
+## Host capability record
+
+| Capability | Default | Fallback |
+|---|---|---|
+| Scheduler | unavailable unless the host can create and list successor runs | Emit a paste-ready continuation prompt |
+| Cross-session messages | unavailable unless messages persist between conversations | Read and acknowledge `.scrum/inbox.md` at startup and checkpoints |
+| Agent continuation | unavailable | Keep labeled roles in the session; pass a bounded handoff to a new conversation |
+| Context telemetry | record whether current use and window size are reported | Use the proxy threshold in `.scrum/team.md` |
+
 ## The labeled-hat protocol
 
 The model wears one hat per turn and prefixes the turn with its label. Never

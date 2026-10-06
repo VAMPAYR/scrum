@@ -72,6 +72,7 @@ starts. Copy this template into the delegation.
 ## Delegation brief: PBI-<id> <title>
 - Type: build | scout
 - Sprint Goal: <the one objective this Sprint serves>
+- Standing directives: <active entries that apply to this brief's scope, copied verbatim from .scrum/directives.md>
 - Task: <the single outcome this agent must produce>
 - Acceptance criteria (from the PBI):
   - [ ] <observable behavior>
@@ -97,8 +98,7 @@ starts. Copy this template into the delegation.
 - Diagnostic route: <senior/specialist/fresh agent/single-model pass>
 - Context the agent lacks: <prior decisions, gotchas, related code; the relevant
   entries of .scrum/decisions.md, attached or referenced>
-- Writing and artifact standard: <core/artifact-writing-standard.md; load
-  research-clinical-writing when discoverable>
+- Writing and artifact standard: <core/artifact-writing-standard.md; project style guide from .scrum/team.md, if any>
 - Evidence to return: <commands to run and paste output for; test names;
   observed failing test for a TDD route; screenshots when material; full diff and
   file paths changed; threat, assurance, and design evidence when triggered>
@@ -219,7 +219,7 @@ the instantiated `.scrum/DEFINITION_OF_DONE.md`.
   assurance, or design evidence.
 - Unverifiable items are marked `n/a` with a reason, never silently skipped.
 - A "done" claim with no runnable evidence is not accepted. The verifier re-runs the
-  build and the full test suite, not only the new tests, and reads the failing output
+  build and the full test suite, including the existing tests, and reads the failing output
   verbatim.
 - The verifier reads and challenges the actual diff, including tests, generated
   files, dependency changes, configuration, migrations, and deletions. AI output

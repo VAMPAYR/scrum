@@ -51,7 +51,7 @@ impressions:
 2. **Engineering and test-route fit.** Did the selected TDD, characterization,
    property, fuzz, contract, integration, visual, evaluation, or other method
    expose the important defect efficiently? Name test theater, flaky checks,
-   missed threat paths, and useful evidence. Change the route, not only the test
+   missed threat paths, and useful evidence. Revise the route and test
    count, when it did not answer the claim.
 3. **Stall recovery.** Which tasks repeated a failure, used their full attempt
    budget, or completed a batch without evidence-defined progress? Inspect whether
@@ -84,7 +84,7 @@ number or a specific event from the inputs, so the Retrospective adapts from evi
 rather than opinion.
 
 **Sweep `decisions.md`.** The Retrospective is where the team's knowledge file is
-maintained, not only added to. Prune entries the work has made stale, and resolve
+maintained over time. Prune entries the work has made stale, and resolve
 entries that now contradict each other so the next Sprint's briefs carry one answer
 rather than two. Then read the gotchas that appeared more than once: a recurring gotcha
 is a candidate for promotion, into a `team.md` norm when it is about how the team works,
@@ -120,6 +120,11 @@ Decision rules for the Retrospective:
 
 ## Outputs (`.scrum/` file changes)
 
+When the stakeholder repeats an operating instruction, identify the existing
+directive or propose a concise operational entry for `.scrum/directives.md`.
+Record it only after the stakeholder accepts the wording. Link replaced entries
+to their successor ID so conflicting rules cannot remain active.
+
 - `sprints/sprint-NNN/retrospective.md`: the findings per inspection area, and the
   improvement items with their destinations.
 - `team.md`: amended with any durable norm, standard, or template change (required if an
@@ -143,7 +148,7 @@ Decision rules for the Retrospective:
   count, no-progress batches, mutating attempts, consultations, and recovery
   outcomes. Coach the team away from vague impressions toward specific causes.
 - **Encourage every role to contribute**, and take part as a member yourself. Surface what
-  went well to keep, not only what failed.
+  went well and what failed.
 - **Run the health check every Retrospective.** A standing pass against
   `core/anti-patterns.md` catches process decay before it sets in.
 - **Close the loop next Sprint.** At the next Retrospective, check whether the last

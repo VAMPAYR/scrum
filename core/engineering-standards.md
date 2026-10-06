@@ -131,7 +131,7 @@ Every boundary has an explicit contract.
   resource budgets where calls can block or amplify load. Make retries safe or
   make non-idempotence explicit.
 - Define health, readiness, rollback, backup, migration, and recovery behavior
-  where the component operates in production. Test the failure path, not only the
+  where the component operates in production. Test both failure paths and the
   happy path.
 
 ## 5. Control the software supply chain
