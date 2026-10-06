@@ -19,6 +19,9 @@ PRIVATE_PATH_PATTERNS = {
     "file URI": re.compile(r"(?i)\bfile://"),
 }
 SOURCE_SUFFIXES = {".pdf", ".epub", ".mobi", ".azw", ".azw3", ".txt"}
+PRIVATE_REFERENCE_PATTERN = re.compile(
+    r"(?i)" + r"research[- ]clinical[- ]" + r"writing"
+)
 PACKAGE_REF_RE = re.compile(
     r"`((?:core|adapters|templates|setup|scripts|tests|examples)/[^`\s]+|"
     r"(?:SKILL|README|AGENTS|CHANGELOG|CONTRIBUTING|ATTRIBUTION)\.md)`"
@@ -78,7 +81,7 @@ def check_routes(errors: list[str]) -> None:
 
 
 def check_stall_ownership(errors: list[str]) -> None:
-    definitions: dict[str, list[str]] = {f"STALL-{number}": [] for number in range(1, 9)}
+    definitions: dict[str, list[str]] = {f"STALL-{number}": [] for number in range(1, 11)}
     for path in distributable_paths():
         if path.suffix.lower() != ".md" or not path.is_file():
             continue
@@ -104,6 +107,8 @@ def check_public_package(errors: list[str]) -> None:
         for label, pattern in PRIVATE_PATH_PATTERNS.items():
             if pattern.search(text):
                 errors.append(f"{label} found in {relative}")
+        if PRIVATE_REFERENCE_PATTERN.search(text):
+            errors.append(f"private style-source reference found in {relative}")
 
     ignore_path = PACKAGE_ROOT / ".gitignore"
     ignored = (

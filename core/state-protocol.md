@@ -22,6 +22,11 @@ Create `.scrum/state.md` with this shape:
 - Updated: <YYYY-MM-DD>
 ```
 
+At founding, also copy `templates/directives.md` to `.scrum/directives.md`,
+instantiate `templates/team.md`, and create empty `.scrum/inbox.md`. Preserve the
+directive file's active-entry and stakeholder-decision headings; the context
+router loads those sections on every route.
+
 `Format` identifies the state layout. Stop when the value is higher than the
 supported format. Treat a missing value as an unknown older layout and migrate it
 before continuing. Do not infer fields under an unknown layout. Format stays `1`
@@ -81,6 +86,9 @@ changes in an increment.
 ```text
 .scrum/
 |-- team.md
+|-- directives.md
+|-- inbox.md
+|-- handoff-log.md
 |-- state.md
 |-- DEFINITION_OF_DONE.md
 |-- product/
@@ -93,7 +101,9 @@ changes in an increment.
 |   `-- retrospective.md
 |-- decisions.md
 |-- impediments.md
-`-- metrics.md
+|-- metrics.md
+|-- session-lock.json       runtime-owned; ignored by Git
+`-- runtime/                runtime-owned execution ledger; ignored by Git
 ```
 
 Keep state in plain Markdown so another runtime can resume it. Keep private

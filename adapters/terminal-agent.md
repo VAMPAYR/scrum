@@ -9,6 +9,15 @@ and implies no preference among them. Read this alongside `SKILL.md` and
 `core/orchestrator.md`. Set `Adapter: terminal-agent` in `.scrum/state.md` when
 this runtime is detected.
 
+## Host capability record
+
+| Capability | Record | Fallback |
+|---|---|---|
+| Scheduler | available only when a host command or API can create and list successors | Save a paste-ready continuation prompt in the handoff log |
+| Cross-session messages | available only when messages persist across runs | Use `.scrum/inbox.md` and checkpoint acknowledgments |
+| Agent continuation | record whether a worker process can receive later tasks | End the seat with a handoff note; count replacements against the roster |
+| Context telemetry | record current-use and window-size availability | Use the active-time or message-count proxy in `.scrum/team.md` |
+
 ## Discovery through a project instruction file
 
 A runtime in this class does not scan a skill directory. It reads one project

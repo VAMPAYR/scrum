@@ -108,7 +108,7 @@ A strong goal is:
 - **Practical and motivating.** It states the outcome for a real user, and it is worth
   building.
 - **Pervasive.** It shows up in the backlog order, the Sprint Goals, and the acceptance
-  criteria, not only in a header.
+  criteria in the body and the header.
 
 Four techniques sharpen a vague idea into a goal:
 

@@ -17,7 +17,7 @@
 
 ### PBI-004: Rename HEIC photos from iPhone
 - Status: draft
-- Value: An iPhone shooter renames native HEIC photos, not only JPEG and camera files.
+- Value: An iPhone shooter renames HEIC, JPEG, and camera image files.
 - Order rationale: New from the sprint-001 Review. Ordered below batch so the core whole-shoot outcome ships first; refine before forecast.
 - Size: S
 - Acceptance criteria:

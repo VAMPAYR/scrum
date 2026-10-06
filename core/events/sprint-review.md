@@ -72,7 +72,7 @@ Run the Review in this order:
 Decision rules for the Review:
 
 - **The Review is not a release gate.** Items that meet the Definition of Done may be
-  released at any time, not only at the Review. The Review inspects the product and adapts
+  released at any time during the Sprint. The Review inspects the product and adapts
   the backlog; it does not authorize release.
 - **Do not insert a gap after the Review.** If the stakeholder wants to react to feedback
   faster, shorten the Sprint timeboxes and fold the feedback into the backlog. A new

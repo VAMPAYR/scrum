@@ -71,14 +71,12 @@ minimum in success criterion 2.5.8 from the larger Level AAA target in criterion
 2.5.5. The package does not claim that this checklist alone establishes WCAG
 conformance.
 
-## Writing and UI/UX integrations
+## Writing and UI/UX guidance
 
-`core/artifact-writing-standard.md` defines a portable Scrum writing floor and,
-when available, delegates the fuller prose method to the separately installed
-`research-clinical-writing` skill. `core/ux-integration.md` keeps the separately
-installed `ux-fit` design method modular and routes only design-relevant work to
-it. Neither external skill's text or private supporting material is copied into
-this package.
+`core/artifact-writing-standard.md` defines the package's writing requirements.
+Projects may add their own style guide. `core/ux-integration.md` describes the
+conditional use of a project-selected interface-design method. External guide
+text and private supporting material are not included in this package.
 
 ## Licensing
 

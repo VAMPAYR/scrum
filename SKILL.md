@@ -51,7 +51,7 @@ python scripts/context_router.py --stage <0..6|health|dod> --adapter <parallel-a
 ```
 
 Available triggers are `framework`, `state`, `stall`, `threat`, `ux`,
-`writing-full`, and `cancel`. Use `--manifest` to inspect the selected sources
+`writing-full`, `continuity`, and `cancel`. Use `--manifest` to inspect the selected sources
 and estimated size. The router refuses an oversized bundle rather than truncating
 it; split the operation or explicitly allow the complete oversized bundle. Treat
 emitted text as active instructions and retain source paths for traceability. The router
@@ -85,6 +85,12 @@ monorepo. On every invocation:
    matching file under `adapters/`.
 4. Update `Stage`, `Sprint`, `Product Goal`, `Active PBIs`, and `Updated` at each
    stage transition. Apply the delivery mode in `.scrum/team.md`.
+5. Read active directives from `.scrum/directives.md` on every route. Initialize
+   the file from `templates/directives.md` during founding. Read `.scrum/inbox.md`
+   and the session lock at startup and each checkpoint when configured.
+6. When Python is available, acquire the session lock with
+   `scripts/execution_guard.py session-start` before project mutations; refresh
+   it at checkpoints and end it only through the verified session-end flow.
 
 ## Subcommand router
 
@@ -138,6 +144,9 @@ During execution:
    into `.scrum/decisions.md`, adapt the plan, and log impediments. Ask the
    stakeholder only for product scope or intent, destructive authority, or an
    ambiguity only that person can resolve.
+7. Use `scripts/execution_guard.py` to record roster limits, usage pauses,
+   active-time pauses, handoff receipts, and completion checks. Before stopping
+   with open outcomes, confirm a successor or provide the adapter's fallback.
 
 ## Artifact contracts
 

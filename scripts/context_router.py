@@ -127,6 +127,16 @@ def safe_source_path(package_root: Path, relative_path: str) -> Path:
     return candidate
 
 
+def safe_project_source_path(project_root: Path, relative_path: str) -> Path:
+    root = project_root.resolve()
+    candidate = (root / relative_path).resolve()
+    try:
+        candidate.relative_to(root)
+    except ValueError as error:
+        raise RouteError(f"Project source escapes the project: {relative_path}") from error
+    return candidate
+
+
 def _append_sources(
     collected: "OrderedDict[str, list[str]]", sources: Iterable[dict[str, Any]]
 ) -> None:
@@ -173,12 +183,28 @@ def resolve_route(
 
 
 def render_sources(
-    selections: "OrderedDict[str, list[str]]", package_root: Path = PACKAGE_ROOT
+    selections: "OrderedDict[str, list[str]]",
+    package_root: Path = PACKAGE_ROOT,
+    project_root: Path = Path.cwd(),
 ) -> list[dict[str, Any]]:
     rendered: list[dict[str, Any]] = []
     for relative_path, sections in selections.items():
-        path = safe_source_path(package_root, relative_path)
+        project_source = relative_path.startswith(".scrum/")
+        path = (
+            safe_project_source_path(project_root, relative_path)
+            if project_source
+            else safe_source_path(package_root, relative_path)
+        )
         if not path.is_file():
+            if project_source and relative_path == ".scrum/directives.md":
+                content = (
+                    "<!-- Project directives are not initialized. Copy "
+                    "templates/directives.md to .scrum/directives.md during founding. -->\n"
+                )
+                rendered.append({"path": relative_path, "sections": sections,
+                                 "content": content, "characters": len(content),
+                                 "estimated_tokens": math.ceil(len(content) / 4)})
+                continue
             raise RouteError(f"Missing routed source: {relative_path}")
         text = path.read_text(encoding="utf-8")
         content = extract_sections(text, sections, relative_path)
@@ -264,6 +290,8 @@ def validate_config(config: dict[str, Any], package_root: Path = PACKAGE_ROOT) -
     for sources in groups:
         for source in sources:
             relative_path = source["path"]
+            if relative_path.startswith(".scrum/"):
+                continue
             path = safe_source_path(package_root, relative_path)
             if not path.is_file():
                 raise RouteError(f"Missing routed source: {relative_path}")
@@ -315,6 +343,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default=DEFAULT_CONFIG,
         help=argparse.SUPPRESS,
     )
+    parser.add_argument(
+        "--project-root",
+        type=Path,
+        default=Path.cwd(),
+        help="Project root containing .scrum/ state (defaults to the current directory)",
+    )
     return parser.parse_args(argv)
 
 
@@ -324,7 +358,7 @@ def main(argv: list[str] | None = None) -> int:
         config = load_config(args.config)
         validate_config(config)
         selections = resolve_route(config, args.stage, args.trigger, args.adapter)
-        rendered = render_sources(selections)
+        rendered = render_sources(selections, project_root=args.project_root)
         manifest = build_manifest(args.stage, args.trigger, args.adapter, rendered)
         if args.manifest:
             print(json.dumps(manifest, indent=2))

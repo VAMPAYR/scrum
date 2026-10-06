@@ -45,7 +45,7 @@ during the scan; that happens later, inside the Definition of Done gate.
 ### Step 1: detect the stack
 
 Identify the language and framework from manifest and lock files at the repo root
-and in obvious subdirectories. Read the manifest, not only its name, so the
+and in obvious subdirectories. Read each manifest to understand its contents; the
 detection is grounded in file contents.
 
 | Signal file | Indicates | Read for |
@@ -58,7 +58,7 @@ detection is grounded in file contents.
 | `Gemfile`, `composer.json`, `*.csproj`, `*.sln`, `mix.exs` | Ruby, PHP, .NET, Elixir | dependencies and scripts |
 | `Dockerfile`, `docker-compose.yml`, `*.tf`, `k8s/`, `helm/` | Containerized or infrastructure targets | base images, services, provisioned resources |
 
-Record the framework, not only the language: a `package.json` with `next` implies
+Record the framework as well as the language: a `package.json` with `next` implies
 a Web UI profile; one exposing a `bin` field implies a CLI profile; a service with
 an HTTP server implies an API profile. Map the detected type to the stack profiles
 in `core/dod/profiles.md`. If the product uses models or LLM calls, select the

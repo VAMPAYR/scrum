@@ -152,7 +152,7 @@ review gives deterministic code.
 - [ ] **Evals defined before build and passing before ship.** Evaluation criteria
   and methods were written before the feature was built, each mapped to a concrete
   method, a dataset, and the product or business metric it protects. Results are
-  sliced by input subgroup, not only averaged, and the sample size is justified.
+  sliced by input subgroup alongside aggregate results, and the sample size is justified.
   Verify: the eval set exists, ran, and passes its thresholds; confirm subgroup
   slices and a stated sample-size basis.
 - [ ] **Evaluation method matched to the task, with its limit stated.** Each
@@ -282,7 +282,7 @@ review gives deterministic code.
   human approval. Verify: confirm the sandbox and the approval gate on write
   actions.
 - [ ] **Out-of-scope and ambiguous input handled explicitly.** The feature states
-  what it does not answer and returns a defined response for those inputs instead
+  what it does not answer and returns a defined response for out-of-scope inputs
   of spending a model call on them, and it asks for clarification on ambiguous
   input rather than guessing an interpretation. Verify: send an out-of-scope input
   and an ambiguous input; confirm the decline and the clarification path.
@@ -362,7 +362,7 @@ Add these only when the feature uses the pattern named.
   goal failure, reflection error, budget overrun); tool outputs are validated
   before use; each tool is tested independently; a step, time, or token budget
   bounds the loop; efficiency (steps, tokens, wall-clock per task) is measured
-  against a baseline, not only success rate. Verify: the budget enforces, tool
+  against a baseline alongside success rate. Verify: the budget enforces, tool
   errors are caught, and efficiency is reported.
 - [ ] Where the agent keeps memory across turns or sessions, the store has defined
   add and remove operations, a policy for what happens when it overflows

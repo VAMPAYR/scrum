@@ -13,11 +13,14 @@ before the related decision or mutation; triggers are additive.
 - **UI/UX:** load `core/ux-integration.md` when work changes a user journey,
   interaction, information architecture, accessibility behavior, visual system,
   or interface whose quality needs design judgment.
-- **Full writing:** use the standalone `research-clinical-writing` skill for a
-  substantial stakeholder-facing or analytical artifact. When it is unavailable,
-  load `core/artifact-writing-full.md`.
+- **Full writing:** load `core/artifact-writing-full.md` for a substantial
+  stakeholder-facing or analytical artifact. Add the project's named style guide
+  from `.scrum/team.md` when one exists.
 - **Cancel:** load the `cancel` route before a `[PO]` decision to cancel an
   obsolete Sprint Goal and return unfinished PBIs to the backlog.
+- **Continuity:** load `core/session-continuity.md` before a handoff, successor
+  start, lock recovery, or inbox processing. The execution stage loads it by
+  default.
 
 If Python is available, add the corresponding `--trigger` option to
 `scripts/context_router.py`. If it is unavailable, read the named module directly.

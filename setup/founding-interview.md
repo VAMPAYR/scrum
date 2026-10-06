@@ -73,11 +73,11 @@ Review to evidence and decisions; a detailed preference expands rationale in
 briefs and reviews. Length preference does not weaken
 `core/artifact-writing-standard.md`: every artifact still leads with the outcome,
 uses clear actors and actions, calibrates uncertainty, cites available evidence,
-and removes generic AI filler. If `research-clinical-writing` is discoverable,
-the team loads it through that standard.
+and removes generic filler. The team also applies any project writing guide named
+in `.scrum/team.md`.
 
 **Default:** Short narrative updates, plain language, Scrum terms defined on first
-use, with the research-clinical writing standard applied.
+use, with the package writing standard applied.
 
 **Lands in:** `team.md` > Communication.
 
@@ -315,6 +315,55 @@ increment.
 from a clean working tree.
 
 **Lands in:** `team.md` > Delivery mode.
+
+## Operating profile (questions 11–17)
+
+Ask these once during founding. Revisit an answer only when the stakeholder changes
+the operating rule. Record the answer in the named file; do not ask each new session.
+
+### 11. Session handoff
+**Ask:** "At what context use should a session hand off, and how should the next
+session start?"
+**Default:** The lower of 350,000 tokens and 40% of the context window; schedule a
+successor when the host supports confirmed scheduling, otherwise provide a
+paste-ready prompt. Record in `team.md` > Session continuity.
+
+### 12. Tiers and roster
+**Ask:** "Which capability tiers are available, and how many agents may fill each
+seat in one Sprint?"
+**Default:** One Tier 1 lead, up to three Tier 2 specialists, and four to eight
+Tier 3 implementers, subject to host limits. Record seat, capability, and count in
+`team.md` > Staffing.
+
+### 13. Unattended work and authority
+**Ask:** "How long may work continue unattended, and which actions must wait for
+you?"
+**Default:** Eight hours. Destructive actions, legal and financial decisions, and
+release authorization require stakeholder approval. Record exceptions in
+`.scrum/directives.md`.
+
+### 14. Usage limits
+**Ask:** "Which usage windows apply, and at what reported level should new work
+pause?"
+**Default:** Stop starting work at 95% of any reported limit. Record windows and
+reset behavior in `team.md` > Execution control.
+
+### 15. Delivery authority
+**Ask:** "Who may commit, push, open pull requests, and merge, and what evidence
+is required?"
+**Default:** Branch and pull request; stakeholder approval before merge. Record
+in `team.md` > Delivery mode.
+
+### 16. Product writing and specialist routes
+**Ask:** "Which writing guide governs product text, and which specialist guides
+should the team use for writing, interface design, and security?"
+**Default:** The package writing contract applies; additional guides are optional
+and recorded by path in `team.md` or `.scrum/directives.md`.
+
+### 17. Stakeholder-owned decisions
+**Ask:** "Which decisions belong only to you?"
+**Default:** Pricing, legal wording, data deletion, releases, and brand choices.
+Record the list in `.scrum/directives.md`.
 
 ## Team norms and working agreement
 

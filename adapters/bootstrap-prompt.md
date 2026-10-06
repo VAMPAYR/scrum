@@ -35,7 +35,7 @@ Boot in this order:
    <path>/core/route-triggers.md before you act. They define the router and
    always-on contract. Read <path>/core/framework.md once for a new project and
    <path>/core/orchestrator.md before the first delegation. If
-   research-clinical-writing is discoverable, load it through the writing route.
+   Read the project style guide named in `.scrum/team.md`, when present.
 2. Detect .scrum/ in the project root. If it exists, read .scrum/state.md, take
    the Stage field, and resume at that stage. If .scrum/ is absent, the project is
    new: read <path>/core/state-protocol.md, bootstrap its exact state shape, and

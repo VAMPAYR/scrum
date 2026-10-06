@@ -1,24 +1,25 @@
-# scrum: an AI-agnostic Scrum software organization
+# Scrum skill for AI-assisted software delivery
 
-`scrum` is a reusable, project-agnostic skill that turns any capable AI coding
-assistant into a full Scrum software organization. You are the stakeholder and
+`scrum` is a project-agnostic skill that maps AI coding agents to Scrum
+accountabilities and supporting execution roles. You are the stakeholder and
 customer. AI agents fill the three Scrum accountabilities, Product Owner, Scrum
 Master, and Developers, and build your product under a tiered, evidence-gated
-Definition of Done. All state is plain markdown in your repo under `.scrum/`, so
-any AI tool can resume any project. "Done" is a verification gate with recorded
-evidence, never a self-reported checkbox. Engineering is risk-driven and
+Definition of Done. Project records are stored in `.scrum/`; runtime locks and
+execution ledgers are ignored JSON. A runtime can resume a project by following
+its recorded state and adapter. A PBI is done only when a verifier records
+evidence against the Definition of Done. Engineering is risk-driven and
 AI-aware: the team selects TDD or another verification route to fit the claim,
 threat-models consequential boundaries, treats generated work as untrusted, and
 writes every artifact under a concise, evidence-calibrated prose standard.
 The package keeps its full knowledge modules while a deterministic context router
 activates only the verbatim sections needed for the current stage and triggers.
 
-## Works with any runtime
+## Runtime adapters
 
 The core is plain markdown with no vendor assumptions. Thin adapters map it onto
 each runtime. Adapters are named for runtime capability, never for a vendor, so
-find the row that describes what your runtime can do, follow the linked files, and
-you are set. No runtime is preferred and none is a reference implementation.
+choose the row that describes your runtime and follow its linked files. No runtime
+is preferred or treated as a reference implementation.
 
 | Runtime capability | Example runtimes | How the skill runs there | Follow |
 |---|---|---|---|
@@ -239,14 +240,15 @@ and probabilistic model behavior to methods that can test those claims.
 `core/threat-modeling.md` activates when a PBI changes a material trust, data,
 identity, dependency, deployment, or agent boundary.
 
-Writing is integrated into Scrum. `core/artifact-writing-standard.md` loads the
-standalone `research-clinical-writing` skill when available and supplies a
-portable fallback otherwise. Product-specific design remains modular:
+Writing follows a complete package standard, with an optional project-specific
+guide recorded in `.scrum/team.md`. Product-specific design remains modular:
 `core/ux-integration.md` calls the standalone `ux-fit` skill only for PBIs that
 need UI or UX judgment. Backend and implementation-only work do not pay that
 design cost.
 
-Instruction routing is also explicit. `scripts/context_router.py` reads
+Instruction routing is also explicit. Run `scripts/context_router.py` with the
+product repository as the current directory (or pass `--project-root`). The
+router reads
 `core/context-routes.json` and emits exact source sections for one stage, adapter,
 and set of triggers. It never summarizes or truncates content; it fails on an
 oversized bundle so the work can split at a safe boundary. Browser-only runtimes
@@ -323,10 +325,10 @@ hours rather than weeks, inside the Scrum Guide's timebox of one month or less.
   verification route and explains why it fits. A deterministic defect should show
   a failing regression test before the fix; a legacy refactor may need
   characterization evidence first; a parser may need fuzz or property evidence.
-- **Keep specialist skills modular.** Install `research-clinical-writing` and
-  `ux-fit` beside Scrum when the runtime supports skills. Scrum uses the writing
-  skill for all artifacts and calls the design skill only when a UI/UX trigger
-  applies. Its built-in fallbacks keep the package usable when either is absent.
+- **Keep specialist skills modular.** Record a project writing guide in
+  `.scrum/team.md` when needed. Use `ux-fit` only when a UI/UX trigger applies.
+  The package's writing standard and design fallback keep Scrum usable when
+  optional specialist tools are unavailable.
 - **Run `status` to orient**, `health` when momentum feels off or output rises
   while value stalls, and `dod` to see or re-instantiate the current gate.
 - **Tune `.scrum/team.md` between sprints.** Retrospective items land there.
@@ -385,16 +387,20 @@ scrum/
 │   ├── context-routes.json   canonical stage, trigger, and adapter selections
 │   ├── route-triggers.md     always-active conditional-route index
 │   ├── stall-recovery.md     attempt limits and capability-aware diagnosis
+│   ├── session-continuity.md  locks, checkpoints, inbox, and handoffs
 │   ├── state-protocol.md     conditional bootstrap and crash recovery
 │   ├── ux-integration.md     conditional bridge to the standalone ux-fit skill
 │   └── anti-patterns.md      process-decay symptoms as automated checks
 ├── scripts/
 │   ├── context_router.py     emits bounded verbatim instruction bundles
 │   ├── stall_router.py       enforces stop and support-selection boundaries
+│   ├── execution_guard.py    records limits, timers, handoffs, and locks
+│   ├── audit_health.py       checks project continuity and execution state
 │   └── audit_skill.py        checks routes, references, privacy, and rule ownership
-├── tests/                    behavior tests for both deterministic routers
+├── tests/                    router, execution-guard, and health-audit tests
 ├── examples/
-│   └── first-sprint/         worked session: walkthrough.md + scrum-state/
+│   ├── first-sprint/         walkthrough and sample Scrum state
+│   └── two-session-continuity/ directive handoff and successor example
 ├── setup/
 │   ├── founding-interview.md interview that writes .scrum/team.md
 │   └── project-scan.md       detect stack, CI, existing standards
@@ -403,8 +409,9 @@ scrum/
 
 ## What gets written to your project
 
-The skill writes only inside `.scrum/` in your repo. Nothing else is touched
-except the source files a Developer edits under an explicit brief.
+The skill writes project records under `.scrum/`. Runtime lock and execution
+ledger files stay local and are ignored by Git. Developers edit only source files
+named in an approved brief.
 
 ```
 .scrum/
@@ -424,10 +431,9 @@ except the source files a Developer edits under an explicit brief.
 └── metrics.md              per-sprint throughput, DoD pass rate, value notes
 ```
 
-Commit `.scrum/` to your repo. It is safe and useful to keep under version
-control: it is plain markdown, it records why each decision was made, and it lets
-anyone (or any tool) resume the project at the exact stage it paused. Because the
-state is plain markdown with no vendor lock-in, you can switch runtimes mid-project.
+Commit project records such as directives, inbox, team, state, backlog, decisions,
+and Sprint artifacts. They let another compatible runtime resume from the
+recorded stage. Git ignores the session lock and runtime ledger.
 Keep private research files and extracts outside `.scrum/`; artifacts record only
 the public or project-local evidence needed to reproduce a decision.
 Start under one tool, continue under another, and the new tool reads `state.md`
@@ -437,8 +443,10 @@ By default the team commits `.scrum/` and each code increment for you, so the
 history stays resumable. Start from a clean working tree so each commit captures
 only the increment, not pre-existing uncommitted changes. To keep commits in your
 own hands, set `Delivery mode: stage-only` in `.scrum/team.md` and the team stages
-its changes and reports them for you to commit, or set `branch-pr` to get the work
-on a branch as a pull request the team never merges without you.
+its changes and reports them for you to commit, or set `branch-pr` to deliver a
+pull request. Stakeholder approval is the default merge authority. The team may
+merge only when `.scrum/team.md` grants that authority and all CI checks and the
+Sprint gate pass.
 
 ## FAQ
 

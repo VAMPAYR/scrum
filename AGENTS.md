@@ -3,16 +3,16 @@
 This folder is the `scrum` package, a runtime-neutral Scrum software organization
 that AI agents run for a human stakeholder, filling the Product Owner, Scrum
 Master, and Developers accountabilities under a tiered, evidence-gated Definition
-of Done. Every rule here and every project's state is plain markdown, so any agent
-in any tool can resume any project.
+of Done. Project records live under `.scrum/`; runtime locks and execution ledgers
+use ignored JSON files.
 
 ## When to follow it
 
 Follow `SKILL.md` when the user asks to start, plan, run, review, or retro a
 product or a sprint, asks to build something as a software team would, or types a
 `/scrum` command. `SKILL.md` is the router: it detects the stage from
-`.scrum/state.md`, maps the subcommand onto a stage, and routes exact source
-sections through `core/context-routes.json`.
+`.scrum/state.md`, reads `.scrum/directives.md`, maps the subcommand onto a stage,
+and routes exact source sections through `core/context-routes.json`.
 
 ## Pick an adapter
 
@@ -68,7 +68,7 @@ modules remain canonical and complete.
 
 ## State
 
-Keep all project state in `.scrum/` in the target repository as plain markdown:
-`state.md`, `team.md`, `DEFINITION_OF_DONE.md`, `product/`, and `sprints/`. Commit
-it with the increment, so any runtime can read `state.md` and resume the project
-at the exact stage it paused.
+Keep project records in `.scrum/` as plain Markdown: directives, inbox, state,
+team, Definition of Done, product, and Sprint files. Runtime lock and execution
+ledger JSON are ignored by Git. Follow `core/session-continuity.md` and the
+configured delivery mode when checkpointing or resuming a project.

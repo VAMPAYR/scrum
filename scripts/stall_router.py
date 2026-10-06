@@ -129,6 +129,17 @@ def decide(record: dict[str, Any]) -> dict[str, Any]:
     action = "continue"
     route = "next-discriminating-attempt"
 
+    stall_minutes = _number(record.get("active_minutes_since_progress"), -1)
+    stall_threshold = _number(record.get("stall_interval_minutes"), 2)
+    if stall_threshold <= 0:
+        raise PolicyError("stall_interval_minutes must be positive")
+    review_rounds = record.get("review_rounds", 0)
+    if not isinstance(review_rounds, int) or isinstance(review_rounds, bool) or review_rounds < 0:
+        raise PolicyError("review_rounds must be a nonnegative integer")
+    new_variants = record.get("new_variants_on_last_review", False)
+    if not isinstance(new_variants, bool):
+        raise PolicyError("new_variants_on_last_review must be boolean")
+
     repeated = False
     if len(mutating) >= 2:
         last_two = mutating[-2:]
@@ -141,7 +152,25 @@ def decide(record: dict[str, Any]) -> dict[str, Any]:
         repeated = repeated and not any(item["progress"] for item in last_two)
 
     last_outcome = mutating[-1]["outcome"] if mutating else None
-    if cause in STAKEHOLDER_CAUSES:
+    timed_stall = stall_minutes >= stall_threshold
+    variation_loop = review_rounds >= 2 and new_variants
+    if variation_loop:
+        action = "pause-and-rebrief"
+        route = "finite-variation-table"
+        rules.extend(["STALL-4", "STALL-10"])
+        reasons.append(
+            "A second review introduced new variants; enumerate accepted "
+            "variants and expected results before another review."
+        )
+    elif timed_stall:
+        action = "pause-and-diagnose"
+        route = "read-only-expert-consult"
+        rules.extend(["STALL-4", "STALL-5", "STALL-9"])
+        reasons.append(
+            f"No progress event occurred for {stall_minutes:g} active minutes, "
+            f"reaching the {stall_threshold:g}-minute threshold."
+        )
+    elif cause in STAKEHOLDER_CAUSES:
         action = "pause-and-ask-stakeholder"
         route = "stakeholder-decision"
         rules.extend(["STALL-4", "STALL-8"])
@@ -203,6 +232,8 @@ def decide(record: dict[str, Any]) -> dict[str, Any]:
     }
     if action.startswith("pause"):
         result["required_output"] = "blocker-packet"
+    if action == "pause-and-rebrief":
+        result["required_output"] = "finite-variation-table"
     return result
 
 

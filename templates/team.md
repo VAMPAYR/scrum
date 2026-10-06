@@ -20,7 +20,7 @@
 <!-- Founding interview area 1. Update length/tone; note if this is a default. -->
 - Update style: <terse status | short narrative | full detail with reasoning>
 - Vocabulary: <plain language | Scrum terms, defined on first use>
-- Writing standard: core/artifact-writing-standard.md; load research-clinical-writing when discoverable
+- Writing standard: <project style guide; default core/artifact-writing-full.md>
 - Source: <stakeholder choice | default>
 
 ## Interruption tolerance
@@ -96,6 +96,26 @@
 - Capability registry:
   - <agent or labeled pass>: <domain/subsystem capabilities>; <available authority and tools>; <diagnostic strength>
 - Recovery selection: required authority and capability, then diagnostic strength, model tier, and cost
+- Tier mapping: <tier | available model or agent class | tested capabilities | constraints>
+- Sprint roster: <seat and role, tier, count, agent ID or continuation ID; totals set spawn and concurrency limits>
+- Roster changes: <record who changed a limit, from/to counts, date, and reason>
+- Refill rule: <refill only after the seated agent ends; record its handoff and replacement>
+- Product text standard: <style guide path; reviewer confirms every changed user-facing string>
+
+## Session continuity
+- Context handoff threshold: <lower of 350,000 tokens and 40% of the context window>
+- Context window and telemetry: <size | unavailable>
+- Fallback checkpoint limit: <active time or message count and threshold>
+- Lock stale interval: <45 minutes by default>
+- Checkpoint interval: <30 minutes maximum>
+- Scheduler and confirmation capability: <available | unavailable; adapter fallback>
+- Stakeholder inbox: <.scrum/inbox.md | host channel and persistence rule>
+
+## Execution control
+- Usage windows: <host-reported windows and reset times | unavailable>
+- Pause threshold for starting work: <95% of any reported window by default>
+- Resume after reset: <schedule continuation a few minutes after confirmed reset>
+- Task timebox: <active work time; paused waits are reported separately>
 
 ## Delivery mode
 <!--
@@ -107,6 +127,8 @@
   - branch-pr: the team works on a branch and delivers a pull request; it never merges without the stakeholder.
   - stage-only: the team stages its changes and reports them; the stakeholder commits.
 - Branch and pull-request convention (branch-pr only): <naming, target branch>
+- Merge authority: <stakeholder approval (default) | team after all CI checks and Sprint gate pass>
+- In commit and branch-pr modes, commit and push at each Sprint end and before each handoff.
 - Start from a clean working tree in every mode, so a commit or a delivered diff carries only the increment.
 
 ## Stack profiles selected
@@ -140,6 +162,7 @@
 - Routed context: load exact stage and triggered modules; never replace canonical
   rules with a generated summary or silent truncation.
 - Artifact quality: outcome first, clear actors and actions, evidence-calibrated detail, available citations, no AI filler.
+- Standing directives: propose an operational entry after an instruction is repeated; add it only after stakeholder acceptance.
 - Adaptive tests: record the selected verification route and why it fits; do not force TDD where another method answers the claim better.
 - AI boundaries: generated work is untrusted; minimum authority, private-data limits, approval gates, and stop conditions belong in every brief.
 - The floor holds: universal and security tiers are never lowered for a deadline.

@@ -10,7 +10,7 @@
 ## Communication
 - Update style: terse status
 - Vocabulary: plain language; Scrum terms defined on first use
-- Writing standard: core/artifact-writing-standard.md; research-clinical-writing when discoverable
+- Writing standard: core/artifact-writing-full.md
 - Source: stakeholder choice
 
 ## Interruption tolerance

@@ -27,6 +27,17 @@ def attempt(
 
 
 class StallRouterTests(unittest.TestCase):
+    def test_active_time_without_progress_escalates(self) -> None:
+        result = stall_router.decide({"attempts": [], "active_minutes_since_progress": 2})
+        self.assertEqual(result["action"], "pause-and-diagnose")
+        self.assertIn("STALL-9", result["rules"])
+
+    def test_second_review_with_new_variants_requires_finite_table(self) -> None:
+        result = stall_router.decide({"attempts": [], "review_rounds": 2,
+                                      "new_variants_on_last_review": True})
+        self.assertEqual(result["route"], "finite-variation-table")
+        self.assertIn("STALL-10", result["rules"])
+
     def test_one_normal_failure_can_continue(self) -> None:
         result = stall_router.decide({"attempts": [attempt("E1")], "risk": "normal"})
         self.assertEqual(result["action"], "continue")

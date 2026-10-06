@@ -66,7 +66,10 @@ Every PBI clears all of Tier 0.
 ### 0.5 Static and policy gates pass
 
 - **Rule.** Applicable lint, type, format, static-analysis, policy, and CI checks
-  pass without a new unexplained suppression or weaker threshold.
+  pass without a new unexplained suppression or weaker threshold. Run the
+  project's CI on the delivered branch. When CI targets a different operating
+  system, run that job or a documented equivalent on the target platform.
+  Tests skip optional dependencies cleanly when they are absent.
 - **Evidence.** Commands, exit status, and a disposition for each new finding or
   suppression.
 
@@ -120,6 +123,15 @@ Every PBI clears all of Tier 0.
   mode and message convention, and the increment can be reverted or isolated.
 - **Evidence.** Final diff summary, delivery reference, and rollback or isolation
   note for a consequential change.
+
+### 0.12 Product text follows its recorded standard
+
+- **Rule.** When a PBI changes user-facing text, the reviewer checks every changed
+  string against the product text standard recorded in `.scrum/team.md` for
+  clarity, factual accuracy, terminology, accessibility, and the project's tone.
+- **Evidence.** Paths or keys for changed strings, reviewer disposition, and
+  applicable string or accessibility tests. Mark `n/a` with a reason when no
+  user-facing text changed.
 
 ## Tier 1: Security and assurance
 

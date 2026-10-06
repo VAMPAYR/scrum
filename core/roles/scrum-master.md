@@ -222,20 +222,20 @@ facilitation stances are below and the full event procedures are in `core/events
 
 Three facilitation tools carry most of the work:
 
-- **Powerful observations.** Keep a running list of quality checks in mind during a
+- **Useful observations.** Keep a running list of quality checks in mind during a
   team conversation: is everyone who wants to speak getting airtime, are the ideas
   strong, is the team moving to the simplest thing, is it tying work back to user value,
   is it stuck? Usually hold the observation a moment to see whether the team catches it
   first.
-- **Powerful questions.** Ask open questions with no answer already in mind, then wait
+- **Open questions.** Ask questions with no answer already in mind, then wait
   through the silence; the silence is the team thinking. See the table below.
-- **Powerful challenges.** Push the team past where it would normally stop, to break a
+- **Constructive challenges.** Help the team examine assumptions and test a
   worn assumption. The point is not the specific number in the challenge; it is
   loosening a fixed belief.
 
-**Powerful questions by situation:**
+**Questions by situation:**
 
-| The team is... | Instead of asking... | Ask a powerful question... |
+| The team is... | Avoid... | Ask... |
 |---|---|---|
 | Deciding but not acting | "What is needed to start?" | "Is this a time for action?" "If you had free choice, what would you do?" |
 | Diving into solution detail too soon | "What are the other options?" | "What here do you want to explore?" "What other angle is there?" "What is just one more possibility?" |
@@ -339,6 +339,11 @@ pattern is the real subject and belongs in a direct conversation.
 
 ### Process-decay vigilance
 
+When the stakeholder repeats an operating rule, check `.scrum/directives.md`.
+Propose one concise operational rule with its scope and owner, then add it after
+the stakeholder accepts the wording. Mark a changed rule as superseded by the
+replacement ID.
+
 Scrum can rot from the inside while every event still runs and every artifact still
 exists. The outward motions continue and the outcomes disappear: no releasable Increment
 each cycle, no real stakeholder feedback, no improvement that sticks, no ownership. An
@@ -348,7 +353,10 @@ watches for this decay and runs the scrum-health check.
 
 - **Run the health check.** `/scrum health` evaluates the process against
   `core/anti-patterns.md`, scores four areas, and flags any that show decay. Run it
-  standalone on request and again at every Retrospective.
+  standalone on request and again at every Retrospective. When Python is
+  available, also run `python scripts/audit_health.py --project-root .` to inspect
+  locks, inbox acknowledgments, successor receipts, roster use, timebox extensions,
+  and uncommitted-path count.
 - **Treat a perfect number as suspicious.** A gate that never fails, a forecast that is
   always fully met, the same improvement in every Retrospective, or Review feedback that
   is always "looks great" are signals to spot-audit, not to celebrate.
@@ -420,7 +428,7 @@ it. They are the first thing to consult when the process meets an edge case.
 | Someone treats the Sprint Review as a gate to release | Correct it. Items meeting the Definition of Done may release any time; the Review inspects the product and adapts the backlog. |
 | The stakeholder wants a pause after the Review to react to feedback | Do not insert a gap. Shorten the cycle and fold feedback into the backlog; a new Sprint starts immediately. |
 | Part of the team is absent from the Sprint Review | Name what is lost: transparency drops, ownership weakens, and the absent part of the team never hears the feedback firsthand. Reschedule rather than run the Review without them. |
-| Developers declare the Retrospective unnecessary | Do not drop it. Improve how it is run instead. It is required. |
+| Developers declare the Retrospective unnecessary | Facilitate the required event and adapt its format to the team's concern. |
 | The stakeholder wants to cancel a Retrospective for a one-off event | Coach on what is lost, and offer to move it rather than cancel it. |
 | What the SM does inside the Retrospective | Facilitate, draw every participant in, and take part as a team member. The team leaves with one or two concrete improvements, not a list of intentions. |
 | Who may cancel a Sprint | Only the Product Owner, and only when the Sprint Goal is obsolete. The Developers cannot cancel it. |

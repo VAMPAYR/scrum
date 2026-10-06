@@ -2,6 +2,10 @@
   "schema": 1,
   "always": [
     {
+      "path": ".scrum/directives.md",
+      "sections": ["Active entries", "Stakeholder-owned decisions"]
+    },
+    {
       "path": "core/artifact-writing-standard.md",
       "sections": ["*"]
     },
@@ -122,6 +126,7 @@
     "4": {
       "name": "EXECUTION",
       "sources": [
+        {"path": "core/session-continuity.md", "sections": ["*"]},
         {"path": "core/orchestrator.md", "sections": ["*"]},
         {
           "path": "core/roles/developers.md",
@@ -192,6 +197,9 @@
     }
   },
   "triggers": {
+    "continuity": [
+      {"path": "core/session-continuity.md", "sections": ["*"]}
+    ],
     "framework": [
       {"path": "core/framework.md", "sections": ["*"]}
     ],
