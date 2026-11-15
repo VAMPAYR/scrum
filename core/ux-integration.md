@@ -30,6 +30,17 @@ refactors skip this route unless they change a user experience contract.
    Done gate. Record screenshots or hands-on evidence only when they materially
    support the review.
 
+For motion, frontend interaction craft, mobile behavior, or 3D, use the relevant
+`ux-fit` routes and its `references/implementation-craft.md` when available. It
+already incorporates selective guidance from the UI and animation skills in
+[VAMPAYR/skills](https://github.com/VAMPAYR/skills). Consult that repository as
+an optional pattern reference when it helps the task; do not install its skills
+or copy its contents by default. Apply its license when redistributing material.
+Consider Transitions.dev only as an optional motion reference or aid, and Three.js
+only when actual spatial interaction or 3D meaningfully serves the product. Neither
+is a default dependency. Verify motion purpose, reduced-motion support, usable
+fallbacks, accessibility, and rendered behavior through the specialist route.
+
 ## Fallback when `ux-fit` is unavailable
 
 The Product Owner and Developers write a compact design intent before build:
@@ -45,6 +56,11 @@ The Product Owner and Developers write a compact design intent before build:
 Apply the Web UI profile in `core/dod/profiles.md` and test the interaction under
 `core/test-strategy.md`. Do not invent a new visual language without an explicit
 product decision.
+
+For motion or 3D, preserve usable content and controls when effects cannot run;
+provide reduced-motion behavior and accessible alternatives, and verify rendered
+behavior where practical. Choose dependencies only when their benefit, license,
+compatibility, and maintenance fit the product and the authorized scope.
 
 ## Record the route
 

@@ -73,10 +73,12 @@ an independent verifier.
 ### Staffing tiers
 
 The Staffing section of `.scrum/team.md` maps onto separate runs wherever the
-harness lets a run pick its model: start Developer runs on a mid-tier worker
-model, and keep the main session, the senior Developer run, and the verifier run
-on the strongest available model, with the verifier never below the implementer's
-tier. **Adaptation:** the senior Developer is a skill distribution inside the
+harness lets a run pick its model: select the Developer's capability and reasoning
+effort according to risk, uncertainty, task requirements, and verification as in
+`core/orchestrator.md`; use lower-cost capable options for bounded work and stronger
+reasoning for hard or high-impact work. Keep the main session, the senior Developer
+run, and the verifier run on the strongest available model, with the verifier never
+below the implementer's tier. **Adaptation:** the senior Developer is a skill distribution inside the
 single Developers accountability, not a new role or title. Where the harness
 fixes one model for every run, staffing is a no-op and the labeled-hat discipline
 in `adapters/single-model.md` substitutes.

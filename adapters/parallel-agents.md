@@ -92,8 +92,10 @@ one, so the Staffing section of `.scrum/team.md` maps directly onto dispatch:
 
 - Orchestrator, PO, and SM: the strongest available model. They facilitate,
   arbitrate, and diagnose, which is where judgment pays.
-- Developer briefs: a mid-tier worker model. This is where most of the token
-  volume goes, and the brief already carries the thinking.
+- Developer briefs: choose the least costly available model or reasoning setting
+  that fits the task's risk, uncertainty, required capability, and verification.
+  Use stronger reasoning for difficult or high-impact work and escalate on
+  evidence of inadequate progress; follow `core/orchestrator.md`.
 - Senior Developer, when `Staffing > Senior Developer: on`: the strongest
   available model, briefed on the hardest or highest-blast-radius task and used
   for read-only diagnosis when its capabilities match a stalled task.
