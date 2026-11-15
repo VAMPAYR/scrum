@@ -148,6 +148,26 @@ During execution:
    active-time pauses, handoff receipts, and completion checks. Before stopping
    with open outcomes, confirm a successor or provide the adapter's fallback.
 
+## Capability and search routing
+
+- Match model capability or reasoning effort to the task's risk, ambiguity,
+  verification difficulty, and required domain knowledge. When the runtime
+  supports selection, use a lower-cost capable option for bounded, reversible,
+  easily checked work; use stronger reasoning for architecture, security,
+  difficult diagnosis, or consequential decisions. Escalate when evidence shows
+  the initial choice is inadequate. Never claim a model or effort was changed
+  when the runtime does not support it. The DoD and authority limits do not vary
+  with model tier; see `core/orchestrator.md` for staffing and verification.
+- Decompose work into the smallest useful, independently verifiable outcomes,
+  preserving dependencies, coherent behavior, and acceptance criteria. Do not
+  split so finely that coordination costs or fragmented context exceed the gain.
+- Prefer `jev-find`, when available and appropriate, for meaning-based searches
+  of explicitly scoped documents or source passages. Use exact local search for
+  filenames, symbols, identifiers, and known text. Respect source permissions,
+  provider and spending boundaries; do not send material to a provider merely
+  because the tool exists. If Jev is unavailable or unsuitable, use an appropriate
+  local or authorized alternative and state coverage limitations.
+
 ## Artifact contracts
 
 Templates under `templates/` define team, Product Goal, Product Backlog, Sprint,

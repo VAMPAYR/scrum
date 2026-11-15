@@ -38,9 +38,13 @@ before nominal model tier. Staff the team accordingly.
   available model.** Ordering the backlog, arbitrating a tradeoff, diagnosing a failed
   attempt, and writing a brief are judgment-dense and token-light. A weaker model in
   these seats costs the whole Sprint.
-- **Developer agents may run on a mid-tier worker model.** Implementation is volume
-  work, and the Definition of Done gate verifies it. The gate is what makes cheaper
-  implementation safe.
+- **Choose Developer capability per task.** When selectable, start bounded,
+  reversible work with clear acceptance tests on a lower-cost capable model or
+  reasoning setting. Use a stronger model or reasoning setting for ambiguous,
+  high-impact, security-sensitive, or hard-to-verify implementation. Escalate
+  after evidence of inadequate progress; follow `core/stall-recovery.md` rather
+  than retrying blindly. Verification is still required at every tier and cannot
+  guarantee correctness.
 - **A senior Developer, where the team has one, runs on the strongest available
   model.** It designs the How and pre-reviews other agents' diffs, which is judgment
   work. (**Adaptation:** the senior Developer is a skill distribution inside the one
@@ -112,6 +116,10 @@ Rules for a good brief:
 
 - **One outcome per brief.** If a task needs two independent outcomes, write two
   briefs or split the PBI. An agent chasing two goals divides its focus.
+- **Choose a useful task size.** Split complex work into the smallest coherent,
+  independently verifiable outcomes, with explicit interfaces and dependencies.
+  Keep tightly coupled changes together when further splitting would obscure
+  context, compromise integration, or add more coordination than value.
 - **Name the evidence up front.** The brief says exactly what output proves the work,
   so the agent returns proof, not a summary. This feeds the DoD gate directly.
 - **Choose the method, do not chant TDD.** Select the test route under
